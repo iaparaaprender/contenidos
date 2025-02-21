@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>IA para aprender - Proporcionalidad</title>
+
+    <link href="components/jquery/css/custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="components/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_quiz.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_mark.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_wordpuzzle.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_crossword.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_zoom.css" rel="stylesheet" type="text/css">
+    <link href="components/csscircle/circle.min.css" rel="stylesheet" type="text/css">
+
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="components/jquery-mobile/jquery.ui.touch-punch.min.js"></script>
+
+    <!--jQuery components -->
+    <script src="components/twentytwenty/js/jquery.event.move.js" type="text/javascript"></script>
+    <script src="components/twentytwenty/js/jquery.twentytwenty.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/twentytwenty/css/twentytwenty.css" type="text/css" media="screen" />
+
+    <script src="components/mediaelementjs/mediaelement-and-player.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/mediaelementjs/mediaelementplayer.css" type="text/css" />
+
+    <script src="components/learningstyles/lib.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/learningstyles/styles.css" type="text/css" />
+
+    <script src="components/maphilight/jquery.maphilight.min.js" type="text/javascript"></script>
+    <!--End jQuery components -->
+
+    <script src="components/interact/interact.min.js"></script>
+    <script src="components/pit/jpit_api.js"></script>
+    <script src="components/pit/utilities/jpit_utilities.js"></script>
+    <script src="components/pit/activity/jpit_activity.js"></script>
+    <script src="components/pit/resources/jpit_resource.js"></script>
+    <script src="components/pit/activity/quiz/jpit_activity_quiz.js"></script>
+    <script src="components/pit/activity/mark/jpit_activity_mark.js"></script>
+    <script src="components/pit/activity/wordpuzzle/jpit_activity_wordpuzzle.js"></script>
+    <script src="components/pit/activity/droppable/jpit_activity_droppable.js"></script>
+    <script src="components/pit/activity/crossword/jpit_activity_crossword.js"></script>
+    <script src="components/pit/activity/cloze/jpit_activity_cloze.js"></script>
+    <script src="components/pit/activity/form/jpit_activity_form.js"></script>
+    <script src="components/pit/activity/sortable/jpit_activity_sortable.js"></script>
+    <script src="components/pit/activity/check/jpit_activity_check.js"></script>
+    <script src="components/pit/resources/movi/jpit_resource_movi.js"></script>
+    <script src="components/pit/resources/zoom/jpit_resource_zoom.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/lang.es.js"></script>
+    <script src="js/jquery.tepuy.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/mobilelib.js"></script>
+    <script src="js/stories.js"></script>
+    <script src="components/scorm/SCORM_12_APIWrapper.js"> </script>
+    <script src="components/scorm/scorm_api.js"> </script>
+
+    <style type='text/css'>
+        body {
+            background-color: rgba(242, 242, 242, 0.7);
+        }
+
+        body.loading {
+            text-align: center;
+        }
+
+        body.loading:after {
+            content: "";
+            background: url(img/loading.gif) no-repeat bottom center;
+            width: 130px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            padding-bottom: 20px;
+        }
+
+        body.loading #body {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body class="loading" data-debug="true" data-model="scorm" data-display-mode="onlypages" data-approve-limit="70"
+    data-activities-percentaje="60" data-mobile-mode="512">
+    <div id="body" class="not_print">
+
+        <div id="not_scorm_msg" style="display: none;"></div>
+
+        <header>
+            <div class="sec-menu">
+                <img src="img/logo-ia-para-aprender.svg" alt="">
+                <div class="botones-sec-menu">
+                    <a href="#" data-global="results" data-position-at="top">
+                        <img src="img/ico-progreso.svg" alt="">
+                        Progreso
+                    </a>
+                    <a href="#" data-global="credits">
+                        <img src="img/ico-creditos.svg" alt="">
+                        Créditos
+                    </a>
+                    <a href="#" data-global="library">
+                        <img src="img/ico-bibliografia.svg" alt="">
+                        Bibliografía
+                    </a>
+                </div>
+                <nav label="Características globales" class="globals notmobile">
+                    <menu>
+                        <menuitem data-global-id="return">
+                        <i title="Maximizar" class="ion-arrow-expand maximize">
+                            <p class="onlymobile">
+                                Maximizar
+                            </p>
+                        </i>
+                        <i title="Minimizar" class="ion-arrow-shrink minimize">
+                            <p class="onlymobile">
+                                Minimizar
+                            </p>
+                        </i>
+                        </menuitem>
+                        <menuitem data-global-id="close_all">
+                        <i title="Salir del contenido educativo" class="ion-close-circled">
+                            <p class="onlymobile">
+                                Salir
+                            </p>
+                        </i>
+                        </menuitem>
+                    </menu>
+                </nav>
+            </div>
+            <nav label="Principal" class="horizontal main" data-offset="true">
+                <menu>
+                    <menuitem label="Introducción" data-page="pag-introduccion">
+                    </menuitem>
+                    <menuitem label="Definición" data-page="pag-definicion">
+                    </menuitem>
+                    <menuitem label="Aplicación" data-page="pag-aplicacion">
+                    </menuitem>
+                    <menuitem label="Ejemplos" data-page="pag-ejemplos">
+                    </menuitem>
+                    <menuitem label="Resumen" data-page="pag-resumen">
+                    </menuitem>
+                    <menuitem label="Prueba" data-page="pag-prueba">
+                    </menuitem>
+                </menu>
+            </nav>
+            <nav label="Características globales" class="globals onlymobile">
+                <menu>
+                    <menuitem data-global-id="return">
+                    <i title="Maximizar" class="ion-arrow-expand maximize">
+                        <p class="onlymobile">
+                            Maximizar
+                        </p>
+                    </i>
+                    <i title="Minimizar" class="ion-arrow-shrink minimize">
+                        <p class="onlymobile">
+                            Minimizar
+                        </p>
+                    </i>
+                    </menuitem>
+                    <menuitem data-global-id="close_all">
+                    <i title="Salir del contenido educativo" class="ion-close-circled">
+                        <p class="onlymobile">
+                            Salir
+                        </p>
+                    </i>
+                    </menuitem>
+                </menu>
+            </nav>
+        </header>
+
+        <main style="display: none;">
+
+            <section id="pag-introduccion" ptitle="Introducción a la razón">
+                <div data-title="Introducción" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5"
+                            data-src="content/introduccion-visual-verbal.jpg" title="Introducción a la razón"></div>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <h3 class="titulo-pagina">
+                            Introducción a la razón
+                        </h3>
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-5" type="info"
+                            style="display: flex; align-items: center; justify-content: center;">
+                            Haz clic sobre cada uno de los puntos
+                            <img src="content/plus-red.png" alt="" width="40px">
+                            que se ubican en la imagen para conocer cómo se
+                            expresan las razones, para qué se usa y qué puedes aprender de ellas.
+                        </div>
+
+                        <div class="escenario-ciclista">
+                            <img class="fondo" src="content/fondo1.png" alt="">
+
+                            <button class="boton boton1 w-content-controler" data-content="#modalCiclista1">
+                                <img src="content/plus-red.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalCiclista2">
+                                <img src="content/plus-yellow.png" alt="">
+                            </button>
+
+                            <button class="boton boton3 w-content-controler" data-content="#modalCiclista3">
+                                <img src="content/plus-green.png" alt="">
+                            </button>
+
+                            <button class="boton boton4 w-content-controler" data-content="#modalCiclista4">
+                                <img src="content/plus-blue.png" alt="">
+                            </button>
+
+                            <button class="boton boton5 w-content-controler" data-content="#modalCiclista5">
+                                <img src="content/plus-purple.png" alt="">
+                            </button>
+
+                            <!-- Ventanas modales -->
+                            <div class="ventanas-modales">
+                                <div data-cssclass="modalCiclista" id="modalCiclista1" class="w-content"
+                                    data-property-width="40%">
+                                    <p>
+                                        <span class="subtitulo">¿Cómo se expresa una razón?</span> En matemáticas, una
+                                        razón
+                                        es
+                                        una forma de comparar
+                                        dos cantidades mediante su división, mostrando cómo una cantidad se relaciona
+                                        con la
+                                        otra. Se expresa comúnmente como a:b o como la fracción \(\frac{a}{b}\), donde a
+                                        y b
+                                        son
+                                        los
+                                        números
+                                        o cantidades en cuestión.
+                                    </p>
+                                </div>
+
+                                <div data-cssclass="modalCiclista" id="modalCiclista2" class="w-content"
+                                    data-property-width="40%">
+                                    <p>
+                                        <span class="subtitulo">¿Para qué se usan las razones? </span>
+                                        En el contexto de la proporcionalidad, las razones se utilizan para describir
+                                        cómo
+                                        una
+                                        cantidad varía con respecto a otra.
+                                    </p>
+                                </div>
+
+                                <div data-cssclass="modalCiclista" id="modalCiclista3" class="w-content"
+                                    data-property-width="40%">
+                                    <p>
+                                        <span class="subtitulo">¿Razones y proporcionalidad directa? </span>
+                                        En la proporcionalidad directa, las razones entre cantidades correspondientes se
+                                        mantienen
+                                        constantes. Por ejemplo, si duplicamos la cantidad de un ingrediente en una
+                                        receta,
+                                        en
+                                        proporción directa, también duplicaremos los otros ingredientes para mantener la
+                                        receta.
+                                        Matemáticamente, esto se representa como <i>\(y=kx\)</i>, donde \(k\) es la
+                                        constante de
+                                        proporcionalidad.
+                                    </p>
+                                </div>
+
+                                <div data-cssclass="modalCiclista" id="modalCiclista4" class="w-content"
+                                    data-property-width="40%">
+                                    <p>
+                                        <span class="subtitulo">¿Razones y proporcionalidad inversa? </span>
+                                        En la proporcionalidad inversa, el producto de las dos cantidades involucradas
+                                        es
+                                        constante.
+                                        Esto significa que, si una cantidad aumenta, la otra disminuye de manera que su
+                                        producto
+                                        permanezca inalterado. Por ejemplo, si un automóvil aumenta su velocidad, el
+                                        tiempo
+                                        que
+                                        tarda en recorrer una distancia fija disminuye proporcionalmente, siguiendo la
+                                        relación
+                                        <i>\(xy=k\)</i>.
+                                    </p>
+                                </div>
+
+                                <div data-cssclass="modalCiclista" id="modalCiclista5" class="w-content"
+                                    data-property-width="40%">
+                                    <p>
+                                        <span class="subtitulo">¿Para qué aprendo sobre razones? </span>
+                                        La comprensión de las razones es fundamental para aplicar estos conceptos en
+                                        problemas
+                                        reales, permitiendo a los estudiantes y profesionales analizar situaciones que
+                                        implican
+                                        tasas de cambio, escalas y modelos. Ya sea en ciencias, ingeniería, economía o
+                                        la
+                                        vida
+                                        cotidiana, las razones y su aplicación en proporcionalidades directas e inversas
+                                        ofrecen una
+                                        herramienta esencial para interpretar y manejar relaciones cuantitativas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Introducción a la razón
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/introduccion.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 50px;"></p>
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues">
+                            <img src="content/introduccion-visual-verbal.jpg" />
+                            <img src="content/introduccion-visual-verbal2.jpg" />
+                        </div>
+
+                        <p style="height: 40px;"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-definicion" ptitle="Definición de proporcionalidad directa e inversa">
+                <div data-title="Definición" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Definición de proporcionalidad directa e inversa
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/metodos.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 50px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-definicion">
+                            <img class="titulo" src="content/titulo-definicion.png" alt="">
+                            <img class="fondo" src="content/fondo-definicion.jpg" alt="">
+
+                            <button class="boton boton1 w-content-controler" data-content="#modalDefinicion1">
+                                <img src="content/btn-proporcion-directa.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalDefinicion2">
+                                <img src="content/btn-proporcion-inversa.png" alt="">
+                            </button>
+
+                            <!-- Ventanas modales -->
+
+                            <div class="ventanas-modales">
+                                <div data-cssclass="modalDefinicion" id="modalDefinicion1" class="w-content"
+                                    data-property-width="60%">
+                                    <h3 class="text-center">
+                                        Proporción directa
+                                    </h3>
+                                    <p>
+                                        Una proporción directa ocurre cuando dos variables están relacionadas de tal
+                                        manera
+                                        que, si una aumenta, la otra también aumenta en la misma proporción, y si una
+                                        disminuye, la otra también disminuye en la misma proporción. Matemáticamente, se
+                                        expresa como:
+                                    </p>
+                                    <p class="text-center mt-0 mb-0 resaltado">
+                                        \(y=kx\)
+                                    </p>
+                                    <p>
+                                        Aquí, <span class="resaltado">\(y\)</span> y <span
+                                            class="resaltado">\(x\)</span>
+                                        son las dos
+                                        variables relacionadas, y <span class="resaltado">\(k\)</span> es la constante
+                                        de
+                                        proporcionalidad. Si <span class="resaltado">\(k\)</span> es positiva, un
+                                        incremento
+                                        en
+                                        <span class="resaltado">\(x\)</span> resultará en un
+                                        incremento
+                                        proporcional en <span class="resaltado">\(y\)</span>, y viceversa.
+                                    </p>
+
+                                    <div class="box-text example" label="Ejemplo">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-carro.png" alt="">
+                                            <p>
+                                                Un automóvil consume gasolina a una tasa constante. Si consume 5 litros
+                                                para
+                                                recorrer 100 kilómetros, ¿cuántos litros consumirá para recorrer 250
+                                                kilómetros?
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="resaltado">Solución</h5>
+                                    <ul>
+                                        <li>Aquí, el consumo de gasolina (litros) y la distancia recorrida (kilómetros)
+                                            están en proporción
+                                            directa. </li>
+                                        <li>La tasa de consumo es de 5 litros /100 km. Matemáticamente, esto se puede
+                                            expresar como <span class="resaltado">\(y=kx\)</span>,
+                                            donde y es la cantidad de gasolina y x es la distancia. </li>
+                                        <li>
+                                            La constante de proporcionalidad es <span class="resaltado">\(k=\frac{5\
+                                                litros}{100\ km}=\
+                                                0.05\frac{litros}{km}\).</span>
+                                        </li>
+                                        <li>
+                                            Para <span class="resaltado">\(250\ km,\ y=0.05\times250=12.5\
+                                                litros\).</span>
+                                        </li>
+                                    </ul>
+
+                                    <p>
+                                        <b><span class="resaltado">Respuesta:</span></b> el automóvil consumirá 12.5
+                                        litros
+                                        de gasolina para
+                                        recorrer 250 kilómetros.
+                                    </p>
+
+                                </div>
+
+                                <div data-cssclass="modalDefinicion" id="modalDefinicion2" class="w-content"
+                                    data-property-width="60%">
+                                    <h3 class="text-center mt-2">
+                                        Proporción inversa
+                                    </h3>
+                                    <p>
+                                        En una proporción inversa, dos variables están relacionadas de tal manera que
+                                        cuando
+                                        una variable aumenta, la otra disminuye, y viceversa, de forma que el producto
+                                        de
+                                        ambas variables permanece constante. Se expresa matemáticamente como:
+                                    </p>
+
+                                    <p class="resaltado text-center">\(xy=k\ o\ y=\frac{k}{x}\)</p>
+
+                                    <p>
+                                        Donde <span class="resaltado">\(x\)</span> y <span
+                                            class="resaltado">\(y\)</span> son las
+                                        variables
+                                        y k es la constante del producto. En este caso, si una de las
+                                        variables aumenta, la otra debe disminuir proporcionalmente para que su producto
+                                        se mantenga igual.
+                                    </p>
+
+                                    <div class="box-text example" label="Ejemplo">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-impresora.png" alt="">
+                                            <p>
+                                                Una impresora puede imprimir 200 páginas en 1 hora. Si se reduce la
+                                                velocidad de impresión
+                                                para que imprima 100 páginas por hora, ¿cuánto tiempo le tomará imprimir
+                                                200 páginas?
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="resaltado">Solución</h5>
+                                    <ul>
+                                        <li>Aquí, el número de páginas impresas (páginas) y el tiempo de impresión
+                                            (horas) están en
+                                            proporción inversa.</li>
+                                        <li>Originalmente, imprime 200 páginas en 1 hora, lo que significa <span
+                                                class="resaltado">\(xy=k\)</span>, donde <span
+                                                class="resaltado">\(x\)</span> es el
+                                            número
+                                            de páginas y <span class="resaltado">\(y\)</span> es el tiempo en horas.
+                                        </li>
+                                        <li>La constante del producto es <span class="resaltado">\(k\)</span>=200
+                                            páginas * 1 hora= 200
+                                            páginas-hora.</li>
+                                        <li>Resolviendo para <span class="resaltado">\(y\)</span>, obtenemos <span
+                                                class="resaltado">\(y=\frac{200}{100}=2\ horas.\)</span></li>
+                                    </ul>
+
+                                    <p>
+                                        <b><span class="resaltado">Respuesta:</span></b> a una velocidad de 100 páginas
+                                        por hora, la impresora tardará 2 horas en imprimir 200 páginas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+                        <div class="definicion-verbal-sensorial">
+
+                            <p>
+                                A continuación, te proporcionamos un audio y un documento en formato PDF. Te sugerimos
+                                que
+                                escuches el audio mientras lees el documento. Esto te permitirá identificar los ejemplos
+                                y
+                                elementos matemáticos mencionados. Si deseas detenerte en algún detalle del documento,
+                                siéntete libre de pausar el audio en cualquier momento.
+                            </p>
+
+                            <div class="instruction mb-3" type="info">
+                                Haz clic en el reproductor de audio para escuchar el contenido.
+                            </div>
+
+                            <!-- Archivo de audio -->
+                            <div class="caja-audio mb-5">
+                                <audio controls>
+                                    <source src="content/audio/definicion.mp3" type="audio/ogg">
+                                    Su navegador no soporta el componente de audio
+                                </audio>
+                            </div>
+
+                            <div class="titulo-definicion">
+                                <img src="content/borde-texto.png" alt="">
+                                <h2>Definición de proporción directa e inversa</h2>
+                            </div>
+
+                            <h3>
+                                Proporción directa
+                            </h3>
+                            <p>
+                                Una proporción directa ocurre cuando dos variables están relacionadas de tal
+                                manera
+                                que, si una aumenta, la otra también aumenta en la misma proporción, y si una
+                                disminuye, la otra también disminuye en la misma proporción. Matemáticamente, se
+                                expresa como:
+                            </p>
+                            <p class="text-center mt-0 mb-0 resaltado">
+                                \(y=kx\)
+                            </p>
+                            <p>
+                                Aquí, <span class="resaltado">\(y\)</span> y <span class="resaltado">\(x\)</span>
+                                son las dos
+                                variables relacionadas, y <span class="resaltado">\(k\)</span> es la constante
+                                de
+                                proporcionalidad. Si <span class="resaltado">\(k\)</span> es positiva, un
+                                incremento
+                                en
+                                <span class="resaltado">\(x\)</span> resultará en un
+                                incremento
+                                proporcional en <span class="resaltado">\(y\)</span>, y viceversa.
+                            </p>
+
+                            <div class="cuadro-azul-ejemplo">
+                                <h3>
+                                    Ejemplo
+                                </h3>
+                                <div class="ejemplo-auto mb-5">
+                                    <img src="content/ico-carro.png" alt="">
+                                    <p>
+                                        Un automóvil consume gasolina a una tasa constante. Si consume 5 litros
+                                        para
+                                        recorrer 100 kilómetros, ¿cuántos litros consumirá para recorrer 250
+                                        kilómetros?
+                                    </p>
+                                </div>
+                                <h3>Solución</h3>
+                                <ul>
+                                    <li>Aquí, el consumo de gasolina (litros) y la distancia recorrida (kilómetros)
+                                        están en proporción
+                                        directa. </li>
+                                    <li>La tasa de consumo es de 5 litros /100 km. Matemáticamente, esto se puede
+                                        expresar como <span class="resaltado">\(y=kx\)</span>,
+                                        donde y es la cantidad de gasolina y x es la distancia. </li>
+                                    <li>
+                                        La constante de proporcionalidad es <span class="resaltado">\(k=\frac{5\
+                                            litros}{100\ km}=\
+                                            0.05\frac{litros}{km}\).</span>
+                                    </li>
+                                    <li>
+                                        Para <span class="resaltado">\(250\ km,\ y=0.05\times250=12.5\
+                                            litros\).</span>
+                                    </li>
+                                </ul>
+
+                                <p>
+                                    <b style="color: var(--text-color);">Respuesta:</b> el automóvil consumirá 12.5
+                                    litros
+                                    de gasolina para recorrer 250
+                                    kilómetros.
+                                </p>
+                            </div>
+
+                            <!-- Proporción Inversa -->
+                            <h3 class="mt-5">
+                                Proporción inversa
+                            </h3>
+                            <p>
+                                En una proporción inversa, dos variables están relacionadas de tal manera que
+                                cuando
+                                una variable aumenta, la otra disminuye, y viceversa, de forma que el producto
+                                de
+                                ambas variables permanece constante. Se expresa matemáticamente como:
+                            </p>
+
+                            <p class="resaltado text-center">\(xy=k\ o\ y=\frac{k}{x}\)</p>
+
+                            <p>
+                                Donde <span class="resaltado">\(x\)</span> y <span class="resaltado">\(y\)</span> son
+                                las
+                                variables
+                                y k es la constante del producto. En este caso, si una de las
+                                variables aumenta, la otra debe disminuir proporcionalmente para que su producto
+                                se mantenga igual.
+                            </p>
+
+                            <div class="cuadro-azul-ejemplo mb-5">
+                                <h3>
+                                    Ejemplo
+                                </h3>
+                                <div class="ejemplo-auto mb-5">
+                                    <img src="content/ico-impresora2.png" alt="">
+                                    <p>
+                                        Una impresora puede imprimir 200 páginas en 1 hora. Si se reduce la
+                                        velocidad de impresión
+                                        para que imprima 100 páginas por hora, ¿cuánto tiempo le tomará imprimir
+                                        200 páginas?
+                                    </p>
+                                </div>
+                                <h3>Solución</h3>
+                                <ul>
+                                    <li>Aquí, el número de páginas impresas (páginas) y el tiempo de impresión
+                                        (horas) están en
+                                        proporción inversa.</li>
+                                    <li>Originalmente, imprime 200 páginas en 1 hora, lo que significa <span
+                                            class="resaltado">\(xy=k\)</span>, donde <span
+                                            class="resaltado">\(x\)</span> es el
+                                        número
+                                        de páginas y <span class="resaltado">\(y\)</span> es el tiempo en horas.
+                                    </li>
+                                    <li>La constante del producto es <span class="resaltado">\(k\)</span>=200
+                                        páginas * 1 hora= 200
+                                        páginas-hora.</li>
+                                    <li>Resolviendo para <span class="resaltado">\(y\)</span>, obtenemos <span
+                                            class="resaltado">\(y=\frac{200}{100}=2\ horas.\)</span></li>
+                                </ul>
+
+                                <p>
+                                    <b>Respuesta:</b> a una velocidad de 100 páginas por hora, la impresora tardará 2
+                                    horas en imprimir 200 páginas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <p>
+                            Te invitamos a realizar un emocionante recorrido que potenciará tu aprendizaje. Para
+                            ello, sigue estos pasos:
+                        </p>
+
+                        <div class="bloque-instruccion">
+                            <ol>
+                                <li>
+                                    <p>
+                                        <b>Explora la simulación:</b> te invitamos a navegar por la siguiente
+                                        simulación. Tómate
+                                        tu tiempo para observar, interactuar y comprender los diferentes elementos
+                                        presentados.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_all.html?locale=es
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="bloque-instruccion">
+                            <ol start="2">
+                                <li>
+                                    <p>
+                                        <b>Interactivo educativo:</b> luego de explorar la simulación, ingresa al
+                                        siguiente
+                                        interactivo y revisa todo el contenido. Aquí podrás profundizar en los conceptos
+                                        y
+                                        adquirir un entendimiento más completo.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Inicio interactivo Proporción directa e inversa -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-definicion">
+                            <img class="titulo" src="content/titulo-definicion.png" alt="">
+                            <img class="fondo" src="content/fondo-definicion.jpg" alt="">
+
+                            <button class="boton boton1 w-content-controler" data-content="#modalDefinicion1">
+                                <img src="content/btn-proporcion-directa.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalDefinicion2">
+                                <img src="content/btn-proporcion-inversa.png" alt="">
+                            </button>
+
+                            <!-- Ventanas modales -->
+                            <div class="ventanas-modales">
+                                <div data-cssclass="modalDefinicion" id="modalDefinicion1" class="w-content"
+                                    data-property-width="60%">
+                                    <h3 class="text-center">
+                                        Proporción directa
+                                    </h3>
+                                    <p>
+                                        Una proporción directa ocurre cuando dos variables están relacionadas de tal
+                                        manera
+                                        que, si una aumenta, la otra también aumenta en la misma proporción, y si una
+                                        disminuye, la otra también disminuye en la misma proporción. Matemáticamente, se
+                                        expresa como:
+                                    </p>
+                                    <p class="text-center mt-0 mb-0 resaltado">
+                                        \(y=kx\)
+                                    </p>
+                                    <p>
+                                        Aquí, <span class="resaltado">\(y\)</span> y <span
+                                            class="resaltado">\(x\)</span>
+                                        son las dos
+                                        variables relacionadas, y <span class="resaltado">\(k\)</span> es la constante
+                                        de
+                                        proporcionalidad. Si <span class="resaltado">\(k\)</span> es positiva, un
+                                        incremento
+                                        en
+                                        <span class="resaltado">\(x\)</span> resultará en un
+                                        incremento
+                                        proporcional en <span class="resaltado">\(y\)</span>, y viceversa.
+                                    </p>
+
+                                    <div class="box-text example" label="Ejemplo">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-carro.png" alt="">
+                                            <p>
+                                                Un automóvil consume gasolina a una tasa constante. Si consume 5 litros
+                                                para
+                                                recorrer 100 kilómetros, ¿cuántos litros consumirá para recorrer 250
+                                                kilómetros?
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="resaltado">Solución</h5>
+                                    <ul>
+                                        <li>Aquí, el consumo de gasolina (litros) y la distancia recorrida (kilómetros)
+                                            están en proporción
+                                            directa. </li>
+                                        <li>La tasa de consumo es de 5 litros /100 km. Matemáticamente, esto se puede
+                                            expresar como <span class="resaltado">\(y=kx\)</span>,
+                                            donde y es la cantidad de gasolina y x es la distancia. </li>
+                                        <li>
+                                            La constante de proporcionalidad es <span class="resaltado">\(k=\frac{5\
+                                                litros}{100\ km}=\
+                                                0.05\frac{litros}{km}\).</span>
+                                        </li>
+                                        <li>
+                                            Para <span class="resaltado">\(250\ km,\ y=0.05\times250=12.5\
+                                                litros\).</span>
+                                        </li>
+                                    </ul>
+
+                                    <p>
+                                        <b><span class="resaltado">Respuesta:</span></b> el automóvil consumirá 12.5
+                                        litros
+                                        de gasolina para
+                                        recorrer 250 kilómetros.
+                                    </p>
+
+                                </div>
+
+                                <div data-cssclass="modalDefinicion" id="modalDefinicion2" class="w-content"
+                                    data-property-width="60%">
+                                    <h3 class="text-center mt-2">
+                                        Proporción inversa
+                                    </h3>
+                                    <p>
+                                        En una proporción inversa, dos variables están relacionadas de tal manera que
+                                        cuando
+                                        una variable aumenta, la otra disminuye, y viceversa, de forma que el producto
+                                        de
+                                        ambas variables permanece constante. Se expresa matemáticamente como:
+                                    </p>
+
+                                    <p class="resaltado text-center">\(xy=k\ o\ y=\frac{k}{x}\)</p>
+
+                                    <p>
+                                        Donde <span class="resaltado">\(x\)</span> e <span
+                                            class="resaltado">\(y\)</span> son las
+                                        variables
+                                        y k es la constante del producto. En este caso, si una de las
+                                        variables aumenta, la otra debe disminuir proporcionalmente para que su producto
+                                        se mantenga igual.
+                                    </p>
+
+                                    <div class="box-text example" label="Ejemplo">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-impresora.png" alt="">
+                                            <p>
+                                                Una impresora puede imprimir 200 páginas en 1 hora. Si se reduce la
+                                                velocidad de impresión
+                                                para que imprima 100 páginas por hora, ¿cuánto tiempo le tomará imprimir
+                                                200 páginas?
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="resaltado">Solución</h5>
+                                    <ul>
+                                        <li>Aquí, el número de páginas impresas (páginas) y el tiempo de impresión
+                                            (horas) están en
+                                            proporción inversa.</li>
+                                        <li>Originalmente, imprime 200 páginas en 1 hora, lo que significa <span
+                                                class="resaltado">\(xy=k\)</span>, donde <span
+                                                class="resaltado">\(x\)</span> es el
+                                            número
+                                            de páginas y <span class="resaltado">\(y\)</span> es el tiempo en horas.
+                                        </li>
+                                        <li>La constante del producto es <span class="resaltado">\(k\)</span>=200
+                                            páginas * 1 hora= 200
+                                            páginas-hora.</li>
+                                        <li>Resolviendo para <span class="resaltado">\(y\)</span>, obtenemos <span
+                                                class="resaltado">\(y=\frac{200}{100}=2\ horas.\)</span></li>
+                                    </ul>
+
+                                    <p>
+                                        <b><span class="resaltado">Respuesta:</span></b> el automóvil consumirá 12.5
+                                        litros
+                                        de gasolina para
+                                        recorrer 250 kilómetros.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN interactivo Proporción directa e inversa -->
+
+                        <div class="bloque-instruccion">
+                            <ol start="3">
+                                <li>
+                                    <p>
+                                        <b>Aplicación práctica:</b> finalmente, regresa a la simulación y relaciona los
+                                        elementos aprendidos. Aplica tu nuevo conocimiento y observa cómo todo cobra
+                                        sentido
+                                        en un contexto práctico.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/ratio-and-proportion/latest/ratio-and-proportion_all.html?locale=es
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <p class="text-center mb-5">
+                            ¡Disfruta del recorrido y aprende de manera divertida e interactiva!
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-aplicacion" ptitle="Aplicación de la proporcionalidad directa e inversa">
+                <div data-title="Aplicación" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Aplicación de la proporcionalidad directa e inversa
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+                        <p>
+                            La proporcionalidad directa e inversa tiene una amplia gama de aplicaciones prácticas en
+                            diversos campos. Estos son algunos ejemplos de sus aplicaciones:
+                        </p>
+
+                        <div class="instruction mt-5" type="info">
+                            Haz clic en cada uno de los botones.
+                        </div>
+
+                        <div class="escenario-aplicacion">
+                            <button class="boton boton1 w-content-controler" data-content="#modalAplicacion1">
+                                <img src="content/btn-economia.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalAplicacion2">
+                                <img src="content/btn-ingenieria.png" alt="">
+                            </button>
+
+                            <button class="boton boton3 w-content-controler" data-content="#modalAplicacion3">
+                                <img src="content/btn-geografia.png" alt="">
+                            </button>
+
+                            <button class="boton boton4 w-content-controler" data-content="#modalAplicacion4">
+                                <img src="content/btn-ciencia.png" alt="">
+                            </button>
+                        </div>
+
+                        <p>
+                            Estos ejemplos demuestran la relevancia y la utilidad de comprender las proporcionalidades
+                            directa e inversa en una variedad de contextos prácticos y teóricos.
+                        </p>
+
+                        <div class="ventanas-modales">
+                            <div data-cssclass="modalCiclista" id="modalAplicacion1" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Economía y negocios: </span>
+                                    En economía, la ley de la oferta y la demanda a menudo exhibe tanto
+                                    proporcionalidades directas como inversas. Por ejemplo, un aumento en la demanda
+                                    (manteniendo constante la oferta) puede conducir a un aumento directo en los
+                                    precios. Inversamente, un aumento en la oferta (con demanda constante) podría
+                                    disminuir los precios.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="modalAplicacion2" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Ingeniería: </span>
+                                    En la ingeniería, las relaciones de proporcionalidad se encuentran en el análisis de
+                                    fuerzas, velocidades, resistencias eléctricas y en la mecánica de fluidos, entre
+                                    otros.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="modalAplicacion3" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Geografía y cartografía: </span>
+                                    Las escalas en mapas y planos son ejemplos de proporcionalidad directa, donde una
+                                    distancia en un mapa representa proporcionalmente una distancia mayor en la
+                                    realidad.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="modalAplicacion4" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Ciencia y tecnología: </span>
+                                    En física, la ley de Hooke sobre la elasticidad de los resortes es un ejemplo de
+                                    proporcionalidad directa. En química, las relaciones en las ecuaciones de reacción
+                                    química a menudo siguen proporcionalidades directas o inversas. En tecnología, la
+                                    relación entre la velocidad de un procesador y el tiempo necesario para procesar
+                                    datos puede ser un ejemplo de proporcionalidad inversa.
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+                        <div class="escenario-aplicacion2">
+
+                            <div class="instruction mt-5" type="info">
+                                Haz clic en cada uno de los botones.
+                            </div>
+
+                            <img src="content/fondo-aplicacion.jpg" alt="" class="fondo">
+
+                            <button class="boton boton1 w-content-controler" data-content="#ventanaAplicacion1">
+                                <img src="content/btn-economia.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#ventanaAplicacion2">
+                                <img src="content/btn-ingenieria.png" alt="">
+                            </button>
+
+                            <button class="boton boton3 w-content-controler" data-content="#ventanaAplicacion3">
+                                <img src="content/btn-geografia.png" alt="">
+                            </button>
+
+                            <button class="boton boton4 w-content-controler" data-content="#ventanaAplicacion4">
+                                <img src="content/btn-ciencia.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="ventanas-modales">
+                            <div data-cssclass="modalCiclista" id="ventanaAplicacion1" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Economía y negocios: </span>
+                                    En economía, la ley de la oferta y la demanda a menudo exhibe tanto
+                                    proporcionalidades directas como inversas. Por ejemplo, un aumento en la demanda
+                                    (manteniendo constante la oferta) puede conducir a un aumento directo en los
+                                    precios. Inversamente, un aumento en la oferta (con demanda constante) podría
+                                    disminuir los precios.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="ventanaAplicacion2" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Ingeniería: </span>
+                                    En la ingeniería, las relaciones de proporcionalidad se encuentran en el análisis de
+                                    fuerzas, velocidades, resistencias eléctricas y en la mecánica de fluidos, entre
+                                    otros.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="ventanaAplicacion3" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Geografía y cartografía: </span>
+                                    Las escalas en mapas y planos son ejemplos de proporcionalidad directa, donde una
+                                    distancia en un mapa representa proporcionalmente una distancia mayor en la
+                                    realidad.
+                                </p>
+                            </div>
+                            <div data-cssclass="modalCiclista" id="ventanaAplicacion4" class="w-content"
+                                data-property-width="40%">
+                                <p>
+                                    <span class="subtitulo">Ciencia y tecnología: </span>
+                                    En física, la ley de Hooke sobre la elasticidad de los resortes es un ejemplo de
+                                    proporcionalidad directa. En química, las relaciones en las ecuaciones de reacción
+                                    química a menudo siguen proporcionalidades directas o inversas. En tecnología, la
+                                    relación entre la velocidad de un procesador y el tiempo necesario para procesar
+                                    datos puede ser un ejemplo de proporcionalidad inversa.
+
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <!-- Archivo de audio -->
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/aplicaciones.mp3" type="audio/ogg">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="contenedor-cards">
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c1.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c2.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c3.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c4.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <script>
+                            var cards = document.querySelectorAll('.contenedor-cards .card');
+
+                            [...cards].forEach((card) => {
+                                card.addEventListener('click', function () {
+                                    card.classList.toggle('voltear');
+                                    if (card.classList.length == 1) {
+                                        var audio = card.getElementsByTagName("audio")[0];
+                                        audio.pause();
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-ejemplos" ptitle="Veamos algunos ejemplos">
+                <div data-title="Ejemplos" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Veamos algunos ejemplos
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada sección.
+                        </div>
+
+                        <div class="accordion mb-5">
+                            <h3>Ejemplo 1</h3>
+                            <div>
+                                <div class="box-text example" label="">
+                                    <div class="ejemplo-auto">
+                                        <img src="content/ico-reloj.png" alt="">
+                                        <p>
+                                            En una tienda, todos los productos tienen un descuento del 15 %. Si el
+                                            precio
+                                            original de un reloj es de $200, ¿cuál será el precio del reloj después del
+                                            descuento?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="resaltado">Solución</h4>
+                                <ul>
+                                    <li>Primero, necesitamos calcular el valor del descuento, que es el 15 % del precio
+                                        original.</li>
+                                    <li>El 15 % de $200 se calcula como 0.15 * $200.</li>
+                                    <li>Esto es igual a $30.</li>
+                                    <li>El precio final del reloj será el precio original menos el valor del descuento.
+                                    </li>
+                                    <li>Por lo tanto, el precio final es 200-30=$170.</li>
+                                </ul>
+                                <p>
+                                    <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                    </span>
+                                    después del descuento, el reloj costará $170.
+                                </p>
+                            </div>
+
+                            <h3>Ejemplo 2</h3>
+                            <div>
+                                <div class="box-text example" label="">
+                                    <div class="ejemplo-auto">
+                                        <img src="content/ico-trabajador.png" alt="">
+                                        <p>
+                                            Si 5 trabajadores pueden completar un proyecto en 15 días, ¿cuántos días
+                                            tomará completar el mismo proyecto con 10 trabajadores?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="resaltado">Solución</h4>
+                                <ul>
+                                    <li>La relación entre el número de trabajadores y el tiempo necesario es
+                                        inversamente proporcional.</li>
+                                    <li>Si se duplica el número de trabajadores, el tiempo necesario se reduce a la
+                                        mitad.</li>
+                                    <li>Por lo tanto, con 10 trabajadores, el proyecto tomará \(\frac{15 días}{2}=7.5\
+                                        días.\) </li>
+                                </ul>
+                                <p>
+                                    <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                    </span>
+                                    con 10 trabajadores, el proyecto tomará 7.5 días.
+                                </p>
+                            </div>
+
+                            <h3>Ejemplo 3</h3>
+                            <div>
+                                <div class="box-text example" label="">
+                                    <div class="ejemplo-auto">
+                                        <img src="content/ico-impresora.png" alt="">
+                                        <p>
+                                            Un fotógrafo utiliza una regla de proporcionalidad para imprimir fotos. Si
+                                            una foto de 10 cm x 15 cm cuesta $5, ¿cuánto costaría imprimir una foto de
+                                            20 cm x 30 cm?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="resaltado">Solución</h4>
+                                <ul>
+                                    <li>La relación entre el tamaño de la foto y su costo es directamente proporcional.
+                                    </li>
+                                    <li>Dado que el tamaño de la segunda foto es exactamente el doble en ambas
+                                        dimensiones (es decir, cuatro
+                                        veces el área), el costo también será cuatro veces mayor.</li>
+                                    <li>Por lo tanto, el costo de la foto más grande será 4 * $5 = 20.</li>
+                                </ul>
+                                <p>
+                                    <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                    </span>
+                                    imprimir una foto de 20 cm x 30 cm costaría $20.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic sobre las flechas para pasar entre páginas.
+                        </div>
+
+                        <div class="ctrl-pagination" data-layer-height="440px" data-labelcurrent="true">
+                            <li>
+                                <h3>Ejemplo 1</h3>
+                                <div>
+                                    <div class="box-text example" label="">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-reloj.png" alt="">
+                                            <p>
+                                                En una tienda, todos los productos tienen un descuento del 15 %. Si el
+                                                precio
+                                                original de un reloj es de $200, ¿cuál será el precio del reloj después
+                                                del
+                                                descuento?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="resaltado">Solución</h4>
+                                    <ul>
+                                        <li>Primero, necesitamos calcular el valor del descuento, que es el 15 % del
+                                            precio
+                                            original.</li>
+                                        <li>El 15 % de $200 se calcula como 0.15 * $200.</li>
+                                        <li>Esto es igual a $30.</li>
+                                        <li>El precio final del reloj será el precio original menos el valor del
+                                            descuento.
+                                        </li>
+                                        <li>Por lo tanto, el precio final es 200-30=$170.</li>
+                                    </ul>
+                                    <p>
+                                        <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                        </span>
+                                        después del descuento, el reloj costará $170.
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 2</h3>
+                                <div>
+                                    <div class="box-text example" label="">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-trabajador.png" alt="">
+                                            <p>
+                                                Si 5 trabajadores pueden completar un proyecto en 15 días, ¿cuántos días
+                                                tomará completar el mismo proyecto con 10 trabajadores?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="resaltado">Solución</h4>
+                                    <ul>
+                                        <li>La relación entre el número de trabajadores y el tiempo necesario es
+                                            inversamente proporcional.</li>
+                                        <li>Si se duplica el número de trabajadores, el tiempo necesario se reduce a la
+                                            mitad.</li>
+                                        <li>Por lo tanto, con 10 trabajadores, el proyecto tomará \(\frac{15
+                                            días}{2}\) = 7.5 días.
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                        </span>
+                                        con 10 trabajadores, el proyecto tomará 7.5 días.
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 3</h3>
+                                <div>
+                                    <div class="box-text example" label="">
+                                        <div class="ejemplo-auto">
+                                            <img src="content/ico-impresora.png" alt="">
+                                            <p>
+                                                Un fotógrafo utiliza una regla de proporcionalidad para imprimir fotos.
+                                                Si
+                                                una foto de 10 cm x 15 cm cuesta $5, ¿cuánto costaría imprimir una foto
+                                                de
+                                                20 cm x 30 cm?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="resaltado">Solución</h4>
+                                    <ul>
+                                        <li>La relación entre el tamaño de la foto y su costo es directamente
+                                            proporcional.
+                                        </li>
+                                        <li>Dado que el tamaño de la segunda foto es exactamente el doble en ambas
+                                            dimensiones (es decir, cuatro
+                                            veces el área), el costo también será cuatro veces mayor.</li>
+                                        <li>Por lo tanto, el costo de la foto más grande será 4 * $5 = 20.</li>
+                                    </ul>
+                                    <p>
+                                        <span class="resaltado" style="font-weight: bold; font-size: large;">Resultado:
+                                        </span>
+                                        imprimir una foto de 20 cm x 30 cm costaría $20.
+                                    </p>
+                                </div>
+                            </li>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="cuadro-azul-ejemplo mb-5">
+                            <h3>
+                                Ejemplo 1
+                            </h3>
+                            <div class="ejemplo-auto mb-5">
+                                <img src="content/ico-reloj2.png" alt="">
+                                <p>
+                                    En una tienda, todos los productos tienen un descuento del 15 %. Si
+                                    el precio original de un reloj es de $200, ¿cuál será el precio del reloj
+                                    después del descuento?
+                                </p>
+                            </div>
+                            <h3>Solución</h3>
+                            <ul>
+                                <li>Primero, necesitamos calcular el valor del descuento, que es el 15 % del
+                                    precio
+                                    original.</li>
+                                <li>El 15 % de $200 se calcula como 0.15 * $200.</li>
+                                <li>Esto es igual a $30.</li>
+                                <li>El precio final del reloj será el precio original menos el valor del
+                                    descuento.
+                                </li>
+                                <li>Por lo tanto, el precio final es 200-30=$170.</li>
+                            </ul>
+
+                            <p>
+                                <b>Respuesta:</b> después del descuento, el reloj costará $170.
+                            </p>
+                        </div>
+
+                        <div class="cuadro-azul-ejemplo mb-5">
+                            <h3>
+                                Ejemplo 2
+                            </h3>
+                            <div class="ejemplo-auto mb-5">
+                                <img src="content/ico-trabajador2.png" alt="">
+                                <p>
+                                    Si 5 trabajadores pueden completar un proyecto en 15 días,
+                                    ¿cuántos días tomará completar el mismo proyecto con 10
+                                    trabajadores?
+                                </p>
+                            </div>
+                            <h3>Solución</h3>
+                            <ul>
+                                <li>La relación entre el número de trabajadores y el tiempo necesario es
+                                    inversamente proporcional.</li>
+                                <li>Si se duplica el número de trabajadores, el tiempo necesario se reduce a la
+                                    mitad.</li>
+                                <li>Por lo tanto, con 10 trabajadores, el proyecto tomará \(\frac{15
+                                    días}{2}=7.5\
+                                    días.\) </li>
+                            </ul>
+                            <p>
+                                <b>Respuesta:</b> con 10 trabajadores, el proyecto tomará 7.5 días.
+                            </p>
+                        </div>
+
+                        <div class="cuadro-azul-ejemplo mb-5">
+                            <h3>
+                                Ejemplo 3
+                            </h3>
+                            <div class="ejemplo-auto mb-5">
+                                <img src="content/ico-impresora3.png" alt="">
+                                <p>
+                                    Un fotógrafo utiliza una regla de proporcionalidad para imprimir
+                                    fotos. Si una foto de 10 cm x 15 cm cuesta $5, ¿cuánto costaría
+                                    imprimir una foto de 20 cm x 30 cm?
+                                </p>
+                            </div>
+                            <h3>Solución</h3>
+                            <ul>
+                                <li>La relación entre el tamaño de la foto y su costo es directamente
+                                    proporcional.
+                                </li>
+                                <li>Dado que el tamaño de la segunda foto es exactamente el doble en ambas
+                                    dimensiones (es decir, cuatro
+                                    veces el área), el costo también será cuatro veces mayor.</li>
+                                <li>Por lo tanto, el costo de la foto más grande será 4 * $5 = 20.</li>
+                            </ul>
+                            <p>
+                                <b>Respuesta:</b> imprimir una foto de 20 cm x 30 cm costaría $20.
+                            </p>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual/Sensorial - Activo/secuencial -->
+
+                        <div data-ls-cycle="active-sequential" id="arrastrar1" class="jpit-activities-droppable" data-verify-type="target"
+                            data-act-id="Ejemplos - arrastrar soluciones">
+                            <p>
+                                Completa los espacios en blanco con las soluciones a los ejercicios que se encuentran a
+                                continuación:
+                            </p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="70px" src="content/ico-reloj.png" alt="">
+                                            <p>
+                                                En una tienda, todos los productos tienen un descuento del 15 %. Si el
+                                                precio original de un reloj es de $200, ¿cuál será el precio del reloj
+                                                después del descuento?
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="1"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="70px" src="content/ico-trabajador.png" alt="">
+                                            <p>
+                                                Si 5 trabajadores pueden completar un proyecto en 15 días, ¿cuántos días
+                                                tomará completar el mismo proyecto con 10 trabajadores?
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="2"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="70px" src="content/ico-impresora.png" alt="">
+                                            <p>
+                                                Un fotógrafo utiliza una regla de proporcionalidad para imprimir fotos.
+                                                Si una foto de 10 cm x 15 cm cuesta $5, ¿cuánto costaría imprimir una
+                                                foto de 20 cm x 30 cm?
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="3"></td>
+                                </tr>
+                            </table>
+
+                            <h4 class="mb-3 mt-5 text-center">Opciones</h4>
+                            <div class="respuestas">
+                                <div data-group="1" class="item1">Solución 1</div>
+                                <div data-group="2" class="item2">Solución 2</div>
+                                <div data-group="3" class="item3">Solución 3</div>
+                            </div>
+                            <!-- <br class="clear" /> -->
+
+                            <div class="box_end"></div>
+                        </div>
+
+                        <div class="cajas-soluciones">
+                            <div>
+                                <h4 style="color: black;">Solución 1</h4>
+                                <ul>
+                                    <li>Primero, necesitamos calcular el valor del descuento, que es el 15 % del precio
+                                        original.</li>
+                                    <li>El 15 % de $200 se calcula como 0.15 * $200.</li>
+                                    <li>Esto es igual a $30.</li>
+                                    <li>El precio final del reloj será el precio original menos el valor del descuento.
+                                    </li>
+                                    <li>Por lo tanto, el precio final es 200-30=$170.</li>
+                                </ul>
+                                <p>
+                                    <span style="color: #601DB7;"><b>Resultado:</b></span>
+                                    después del descuento, el reloj costará $170.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 style="color: black;">Solución 2</h4>
+                                <ul>
+                                    <li>La relación entre el número de trabajadores y el tiempo necesario es
+                                        inversamente proporcional.</li>
+                                    <li>Si se duplica el número de trabajadores, el tiempo necesario se reduce a la
+                                        mitad.</li>
+                                    <li>Por lo tanto, con 10 trabajadores, el proyecto tomará \(\frac{15 días}{2}=7.5\
+                                        días.\) </li>
+                                </ul>
+                                <p>
+                                    <span style="color: #601DB7;"><b>Resultado:</b></span>
+                                    con 10 trabajadores, el proyecto tomará 7.5 días.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 style="color: black;">Solución 3</h4>
+                                <ul>
+                                    <li>La relación entre el tamaño de la foto y su costo es directamente proporcional.
+                                    </li>
+                                    <li>Dado que el tamaño de la segunda foto es exactamente el doble en ambas
+                                        dimensiones (es decir, cuatro
+                                        veces el área), el costo también será cuatro veces mayor.</li>
+                                    <li>Por lo tanto, el costo de la foto más grande será 4 * $5 = 20.</li>
+                                </ul>
+                                <p>
+                                    <span style="color: #601DB7;"><b>Resultado:</b></span>
+                                    imprimir una foto de 20 cm x 30 cm costaría $20.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-resumen" ptitle="Resumen">
+                <div data-title="Resumen" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Resumen
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer com mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-resumen mb-5" data-src="content/resumen-visual-verbal.jpg"
+                            title="">
+                            <img src="content/resumen-visual-verbal.jpg" class="w-100" style="visibility: hidden;"
+                                alt="">
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic sobre cada uno de los puntos que se ubican en la imagen para ampliar y leer con
+                            mayor facilidad el contenido.
+                        </div>
+
+                        <div class="escenario-resumen">
+                            <img class="fondo" src="content/fondo2.png" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalResumen1">
+                                <img src="content/plus-red.png" alt="">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalResumen2">
+                                <img src="content/plus-purple.png" alt="">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalResumen3">
+                                <img src="content/plus-green.png" alt="">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalResumen4">
+                                <img src="content/plus-blue.png" alt="">
+                            </button>
+                            <div id="modalResumen1" class="wf-content" data-property-width="96%">
+                                <p>
+                                    La proporcionalidad directa e inversa son conceptos clave en matemáticas con
+                                    aplicaciones prácticas en diversos campos.
+                                </p>
+                            </div>
+                            <div id="modalResumen2" class="wf-content" data-property-width="96%">
+                                <p>
+                                    La proporcionalidad directa ocurre cuando dos cantidades aumentan o disminuyen a la
+                                    misma tasa, evidenciada en ejemplos como costos en función del tamaño o cantidad,
+                                    donde un aumento en una variable resulta en un incremento proporcional en la otra.
+                                </p>
+                            </div>
+                            <div id="modalResumen3" class="wf-content" data-property-width="96%">
+                                <p>
+                                    La proporcionalidad inversa se da cuando una cantidad aumenta mientras la otra
+                                    disminuye, manteniendo constante el producto de ambas, como se ve en la relación
+                                    entre el número de trabajadores y el tiempo necesario para completar una tarea; más
+                                    trabajadores significan menos tiempo requerido, y viceversa.
+                                </p>
+                            </div>
+                            <div id="modalResumen4" class="wf-content" data-property-width="96%">
+                                <p>
+                                    Estos conceptos son fundamentales para entender relaciones cuantitativas en
+                                    situaciones cotidianas y profesionales, como en la fotografía, la construcción, la
+                                    economía y la ciencia.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <!-- Archivo de audio -->
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/resumen.mp3" type="audio/ogg">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues">
+                            <img src="content/resumen-visual-verbal.jpg" />
+                            <img src="content/resumen-visual-verbal2.jpg" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-prueba" ptitle="Prueba tu conocimiento">
+                <div data-title="Prueba tu conocimiento" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Prueba tu conocimiento
+                    </h3>
+
+                    <p>
+                        Este cuestionario consta de 5 preguntas de selección múltiple con única respuesta. Haz clic
+                        sobre la respuesta que consideres correcta, verifica y avanza haciendo clic en las flechas.
+                    </p>
+
+                    <div class="ctrl-pagination" data-layer-height="auto" data-labelcurrent="true">
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 1"
+                                data-act-id="prueba-p1">
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>1. Si un kilo de café cuesta 25.000 pesos colombianos,
+                                                    ¿cuánto costarán 3 kilos? </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">75.000 pesos</li>
+                                        <li>50.000 pesos</li>
+                                        <li>100.000 pesos</li>
+                                        <li>25.000 pesos</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <span style="color: #601DB7;"><b>A.</b></span> El
+                                            costo
+                                            es directamente proporcional al peso.
+                                            25.000 pesos por kilo multiplicado por 3 kilos son 75.000 pesos.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 2"
+                                data-act-id="prueba-p2">
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>2. Si 10 obreros pueden construir un muro en 5 días,
+                                                    ¿cuántos días tomará si hay 20 obreros trabajando? </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>5 días</li>
+                                        <li>10 días</li>
+                                        <li data-response="true">2.5 días</li>
+                                        <li>3 días</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <span style="color: #601DB7;"><b>C.</b></span> El
+                                            tiempo necesario para la construcción es inversamente proporcional al número
+                                            de
+                                            obreros. Duplicar el número de obreros reduce el tiempo a la mitad.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 3"
+                                data-act-id="prueba-p3">
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>3. Un bus intermunicipal recorre 150 km con 30 litros de
+                                                    combustible. ¿Cuántos litros necesitará para un viaje de 300
+                                                    km?</b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>30 litros</li>
+                                        <li data-response="true">60 litros</li>
+                                        <li>90 litros</li>
+                                        <li>120 litros</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <span style="color: #601DB7;"><b>B.</b></span> El
+                                            consumo de combustible es directamente proporcional a la distancia
+                                            recorrida. El
+                                            doble de la distancia requerirá el doble de combustible.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 4"
+                                data-act-id="prueba-p4">
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>4. Si un inversor obtiene una ganancia del 10 % de su
+                                                    inversión de 50.000 pesos, ¿cuál será su ganancia?</b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">5.000 pesos</li>
+                                        <li>10.000 pesos</li>
+                                        <li>15.000 pesos</li>
+                                        <li>20.000 pesos</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <span style="color: #601DB7;"><b>A.</b></span> La
+                                            ganancia es el 10 % de la inversión, y el 10 % de 50.000 es 5.000 pesos.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 5"
+                                data-act-id="prueba-p5">
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>5. Un inversor colombiano planea distribuir su inversión
+                                                    entre tres fondos
+                                                    diferentes. Decide invertir el 40 % en un fondo de renta fija, el 35
+                                                    %
+                                                    en un
+                                                    fondo de renta variable y el resto en un fondo de acciones
+                                                    internacionales. Si
+                                                    su inversión total es de 120.000.000 de pesos colombianos, ¿cuánto
+                                                    dinero
+                                                    invertirá en el fondo de acciones internacionales?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>42.000.000 de pesos</li>
+                                        <li>35.000.000 de pesos</li>
+                                        <li data-response="true">30.000.000 de pesos</li>
+                                        <li>43.200.000 de pesos</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            • Inversión en renta fija: 40 % * 120.000.000 = 48.000.000 de pesos.
+                                            <br>
+                                            • Inversión en renta variable: 35 % * 120.000.000 = 42.000.000 de pesos.
+                                            <br>
+                                            • La inversión en el fondo de acciones internacionales es el restante 25 %
+                                            (100 % - 40 % - 35 %= 25 %).
+                                            <br>
+                                            • Por lo tanto, la inversión en acciones internacionales es 25 % *
+                                            120.000.000 = 30.000.000 pesos.
+                                            <br><br>
+
+                                            <p>
+                                                La respuesta correcta es <span style="color: #601DB7;"><b>C.</b></span>
+                                                La
+                                                inversión en el fondo de acciones internacionales será de 30.000.000 de
+                                                pesos.
+                                            </p>
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+
+                    </div>
+
+                    <p style="height: 100px;"></p>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="not_print">
+            <div class="contenedor-botones">
+                <div id="subpages_menu">
+                    <div class="button" previous-page>
+                        <span>&#8249;</span> Anterior
+                    </div>
+                    <div class="measuring-progress" data-type="horizontal"></div>
+                    <div id="page_number"></div>
+                    <div class="button" next-page>
+                        Siguiente <span>&#8250;</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="credits-page" data-global="credits" style="display:none;">
+        <h3>Créditos</h3>
+        <br>
+        <h4>Autoría</h4>
+        <p>
+            Diana Cristina Oviedo Ramírez
+            <br>
+            Lorena María Quiroz Betancur
+            <br>
+            Facultad de Educación
+        </p>
+
+        <h4>Asesoría pedagógica</h4>
+        <p>
+            Manuela Mesa Flórez
+        </p>
+
+        <h4>Guionización</h4>
+        <p>
+            Tiany Gamarra Castillo
+        </p>
+
+        <h4>Corrección de estilo</h4>
+        <p>
+            Luisa Fernanda Londoño Castrillón
+        </p>
+
+        <h4>
+            Diseño gráfico e ilustración
+        </h4>
+        <p>
+            Esteban Martínez Pavas
+        </p>
+
+        <h4>Gestión técnica y administrativa </h4>
+        <p>
+            Ángela María Valderrama Muñoz
+            <br>
+            David Herney Bernal García
+        </p>
+
+        <h4>Desarrollo Front-end</h4>
+        <p>
+            Jhon Fredy Saldarriaga
+        </p>
+
+        <br><br>
+
+        <h4>
+            Universidad de Antioquia
+            <br>
+            Vicerrectoría de Docencia
+            <br>
+            Ude@ Educación Virtual
+            <br>
+            2024
+        </h4>
+
+        <img class="logo-sgr" src="content/logo-sgr.svg" alt="">
+        <img class="logo-udea" src="content/logo-udea.svg" alt="">
+        <img class="logo-gobernacion" src="content/logo-gobernacion-antioquia.svg" alt="">
+
+
+    </div>
+
+    <div id="library-page" style="display: none">
+        <div id="library_subpage">
+            <h2>Referencias bibliográficas</h2>
+
+            <p>
+                En el marco del Sistema General de Regalías, esta producción fue creada por los grupos de investigación
+                Telecomunicaciones Aplicadas (GITA) y Didáctica y Nuevas Tecnologías (DyNT), haciendo uso de ChatGPT
+                (OpenAI, 2023. ChatGPT, versión 4.0 del 14 de marzo [modelo multimodal grande].
+                <a href="https://chat.openai.com/chat" target="_blank"
+                    rel="noopener noreferrer">https://chat.openai.com/chat</a>).
+            </p>
+
+            <img class="ico-cc" src="img/ico-creative-commons.svg" alt="">
+        </div>
+    </div>
+
+    <div id="results_page" style="display:none;">
+        <h2>Resumen de su avance en la lectura del documento</h2>
+        <h3>Páginas visitadas</h3>
+        <p>En verde, aquellas páginas que ya ha visitado.</p>
+        <div id="results_page_visited" class="container"></div>
+        <br class="clear" />
+        <h3>Actividades de aprendizaje</h3>
+        <div id="results_page_activities"></div>
+        <br class="clear" />
+        <!-- <h3>Estilos de aprendizaje</h3>
+        <div id="results_page_styles"></div>
+        <br class="clear" />
+        <br> -->
+    </div>
+
+    <div id="printent_content" style="display:none;">
+        <div class="content"></div>
+        <div class="button_container">
+            <button class="general button" onclick="window.print();">Imprimir</button>
+            <button id="printent_back" class="general button">Volver</button>
+        </div>
+    </div>
+
+    <script id="MathJax-script" async src="js/mathjax3.js"></script>
+
+</body>
+
+</html>

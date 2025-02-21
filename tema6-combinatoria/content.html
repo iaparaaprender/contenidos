@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>IA para aprender - Combinatoria</title>
+
+    <link href="components/jquery/css/custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="components/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_quiz.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_mark.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_wordpuzzle.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_crossword.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_zoom.css" rel="stylesheet" type="text/css">
+    <link href="components/csscircle/circle.min.css" rel="stylesheet" type="text/css">
+
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="components/jquery-mobile/jquery.ui.touch-punch.min.js"></script>
+
+    <!--jQuery components -->
+    <script src="components/twentytwenty/js/jquery.event.move.js" type="text/javascript"></script>
+    <script src="components/twentytwenty/js/jquery.twentytwenty.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/twentytwenty/css/twentytwenty.css" type="text/css" media="screen" />
+
+    <script src="components/mediaelementjs/mediaelement-and-player.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/mediaelementjs/mediaelementplayer.css" type="text/css" />
+
+    <script src="components/learningstyles/lib.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/learningstyles/styles.css" type="text/css" />
+
+    <script src="components/maphilight/jquery.maphilight.min.js" type="text/javascript"></script>
+    <!--End jQuery components -->
+
+    <script src="components/interact/interact.min.js"></script>
+    <script src="components/pit/jpit_api.js"></script>
+    <script src="components/pit/utilities/jpit_utilities.js"></script>
+    <script src="components/pit/activity/jpit_activity.js"></script>
+    <script src="components/pit/resources/jpit_resource.js"></script>
+    <script src="components/pit/activity/quiz/jpit_activity_quiz.js"></script>
+    <script src="components/pit/activity/mark/jpit_activity_mark.js"></script>
+    <script src="components/pit/activity/wordpuzzle/jpit_activity_wordpuzzle.js"></script>
+    <script src="components/pit/activity/droppable/jpit_activity_droppable.js"></script>
+    <script src="components/pit/activity/crossword/jpit_activity_crossword.js"></script>
+    <script src="components/pit/activity/cloze/jpit_activity_cloze.js"></script>
+    <script src="components/pit/activity/form/jpit_activity_form.js"></script>
+    <script src="components/pit/activity/sortable/jpit_activity_sortable.js"></script>
+    <script src="components/pit/activity/check/jpit_activity_check.js"></script>
+    <script src="components/pit/resources/movi/jpit_resource_movi.js"></script>
+    <script src="components/pit/resources/zoom/jpit_resource_zoom.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/lang.es.js"></script>
+    <script src="js/jquery.tepuy.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/mobilelib.js"></script>
+    <script src="js/stories.js"></script>
+    <script src="components/scorm/SCORM_12_APIWrapper.js"> </script>
+    <script src="components/scorm/scorm_api.js"> </script>
+
+    <style type='text/css'>
+        body {
+            background-color: rgba(242, 242, 242, 0.7);
+        }
+
+        body.loading {
+            text-align: center;
+        }
+
+        body.loading:after {
+            content: "";
+            background: url(img/loading.gif) no-repeat bottom center;
+            width: 130px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            padding-bottom: 20px;
+        }
+
+        body.loading #body {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body class="loading" data-debug="true" data-model="scorm" data-display-mode="onlypages" data-approve-limit="70"
+    data-activities-percentaje="60" data-mobile-mode="512">
+    <div id="body" class="not_print">
+
+        <div id="not_scorm_msg" style="display: none;"></div>
+
+        <header>
+            <div class="sec-menu">
+                <img src="img/logo-ia-para-aprender.svg" alt="">
+                <div class="botones-sec-menu">
+                    <a href="#" data-global="results" data-position-at="top">
+                        <img src="img/ico-progreso.svg" alt="">
+                        Progreso
+                    </a>
+                    <a href="#" data-global="credits">
+                        <img src="img/ico-creditos.svg" alt="">
+                        Créditos
+                    </a>
+                    <a href="#" data-global="library">
+                        <img src="img/ico-bibliografia.svg" alt="">
+                        Bibliografía
+                    </a>
+                </div>
+                <nav label="Características globales" class="globals notmobile">
+                    <menu>
+                        <menuitem data-global-id="return">
+                        <i title="Maximizar" class="ion-arrow-expand maximize">
+                            <p class="onlymobile">
+                                Maximizar
+                            </p>
+                        </i>
+                        <i title="Minimizar" class="ion-arrow-shrink minimize">
+                            <p class="onlymobile">
+                                Minimizar
+                            </p>
+                        </i>
+                        </menuitem>
+                        <menuitem data-global-id="close_all">
+                        <i title="Salir del contenido educativo" class="ion-close-circled">
+                            <p class="onlymobile">
+                                Salir
+                            </p>
+                        </i>
+                        </menuitem>
+                    </menu>
+                </nav>
+            </div>
+            <!-- <h2 class="page-title"></h2> -->
+            <nav label="Principal" class="horizontal main" data-offset="true">
+                <menu>
+                    <menuitem label="Introducción" data-page="pag-introduccion">
+                    </menuitem>
+                    <menuitem label="Definición" data-page="pag-definicion">
+                    </menuitem>
+                    <menuitem label="Aplicaciones" data-page="pag-aplicaciones">
+                    </menuitem>
+                    <menuitem label="Ejemplos" data-page="pag-ejemplos">
+                    </menuitem>
+                    <menuitem label="Resumen" data-page="pag-resumen">
+                    </menuitem>
+                    <menuitem label="Prueba" data-page="pag-prueba">
+                    </menuitem>
+                </menu>
+            </nav>
+            <nav label="Características globales" class="globals onlymobile">
+                <menu>
+                    <menuitem data-global-id="return">
+                    <i title="Maximizar" class="ion-arrow-expand maximize">
+                        <p class="onlymobile">
+                            Maximizar
+                        </p>
+                    </i>
+                    <i title="Minimizar" class="ion-arrow-shrink minimize">
+                        <p class="onlymobile">
+                            Minimizar
+                        </p>
+                    </i>
+                    </menuitem>
+                    <menuitem data-global-id="close_all">
+                    <i title="Salir del contenido educativo" class="ion-close-circled">
+                        <p class="onlymobile">
+                            Salir
+                        </p>
+                    </i>
+                    </menuitem>
+                </menu>
+            </nav>
+        </header>
+
+        <main style="display: none;">
+
+            <section id="pag-introduccion" ptitle="Introducción a la combinatoria">
+                <div data-title="Introducción a la combinatoria" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Introducción a la combinatoria
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5"
+                            data-src="content/introduccion-vi-infografia.jpg" title="¿Qué es la combinatoria?">
+                            <img src="content/introduccion-vi-infografia.jpg" class="w-100" style="visibility: hidden;"
+                                alt="">
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic sobre cada botón para conocer en qué consiste la combinatoria, sus usos y
+                            aplicaciones.
+                        </div>
+
+                        <div class="escenario-intro">
+                            <img class="fondo" src="content/fondo-mesa.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalIntro1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalIntro2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalIntro3">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalIntro4">
+                            </button>
+                            <div id="modalIntro1" class="wf-content" data-property-width="80%">
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        ¿Qué es la combinatoria?
+                                    </b>
+                                </p>
+                                <p>
+                                    La combinatoria, una rama esencial de las matemáticas discretas, se ocupa del
+                                    estudio de la enumeración, combinación y permutación de elementos dentro de
+                                    conjuntos definidos. En términos simples, se enfoca en contar, organizar y optimizar
+                                    agrupaciones de objetos siguiendo reglas específicas.
+                                </p>
+                            </div>
+                            <div id="modalIntro2" class="wf-content" data-property-width="80%">
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        ¿Cuáles son las principales características de la combinatoria?
+                                    </b>
+                                </p>
+
+                                <p>
+                                    Un aspecto central de la combinatoria es el cálculo del número de posibles
+                                    configuraciones o arreglos de un conjunto dado de objetos. Esto puede incluir, por
+                                    ejemplo, determinar cuántas maneras diferentes hay de ordenar un grupo de libros en
+                                    un estante, seleccionar un comité de cierto tamaño de un grupo más grande de
+                                    personas o distribuir regalos entre un grupo de amigos. Estas actividades,
+                                    aparentemente sencillas, tienen profundas implicaciones y aplicaciones.
+                                </p>
+                            </div>
+                            <div id="modalIntro3" class="wf-content" data-property-width="80%">
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        ¿En qué casos puede usarse la combinatoria?
+                                    </b>
+                                </p>
+                                <p>
+                                    Este campo tiene aplicaciones en muchas otras áreas de las matemáticas, como la
+                                    teoría de grafos, la teoría de números, la optimización y la estadística. Además, su
+                                    influencia se extiende a campos como la informática, la física, la economía y la
+                                    biología, donde los problemas combinatorios surgen naturalmente en el estudio de
+                                    redes, la estructura molecular, los algoritmos de optimización, y más.
+                                </p>
+                            </div>
+                            <div id="modalIntro4" class="wf-content" data-property-width="80%">
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        ¿Qué herramientas ofrece la combinatoria?
+                                    </b>
+                                </p>
+                                <p>
+                                    La combinatoria no solo es fundamental para entender el mundo matemático de las
+                                    estructuras discretas y los procesos de decisión, sino que también ofrece
+                                    herramientas esenciales para abordar problemas complejos en una amplia gama de
+                                    disciplinas científicas y tecnológicas.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/introduccion.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues">
+                            <img src="content/introduccion-vi-infografia.jpg" />
+                            <img src="content/introduccion-vi-infografia2.jpg" />
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-definicion" ptitle="Definición de Combinatoria: conceptos y técnicas">
+                <div data-title="Definición de Combinatoria: conceptos y técnicas" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Definición de Combinatoria: conceptos y técnicas
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/metodos.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="horizontal-menu definicion-tabs">
+                            <dl>
+                                <dt><i title="ion-home" class="ion-home"></i> Inicio</dt>
+                                <dd>
+                                    <div class="escenario-definicionvi">
+                                        <img class="w-100" src="content/definicion-vi/fondo.jpg" alt="">
+
+                                        <button class="boton boton1" onclick="clickTab(this)">
+                                            <img src="content/definicion-vi/cuadro2.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro2-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <button class="boton boton2" onclick="clickTab(this)">
+                                            <img src="content/definicion-vi/cuadro1.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro1-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <button class="boton boton3" onclick="clickTab(this)">
+                                            <img src="content/definicion-vi/cuadro3.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro3-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <button class="boton boton4" onclick="clickTab(this)">
+                                            <img src="content/definicion-vi/cuadro4.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro4-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <script>
+                                            function clickTab(buttonClicked) {
+                                                if (buttonClicked === "home") {
+                                                    $("#pag-definicion .chalkboard_items > div:nth-child(1)").click();
+                                                    return;
+                                                }
+
+                                                var tab = parseInt(buttonClicked.classList[1].slice(5), 10) + 1;
+                                                $("#pag-definicion .chalkboard_items > div:nth-child(" + tab + ")").click();
+                                            }
+                                        </script>
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Principio de suma</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/1.png" alt="">
+                                        Principio de suma o regla de suma
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro2.png" alt="">
+
+                                    <p>
+                                        El principio de suma, también conocido como la regla de la suma, es un concepto
+                                        fundamental en
+                                        combinatoria que se utiliza para determinar el número total de maneras en que se
+                                        puede realizar una tarea
+                                        que se puede dividir en dos o más actividades mutuamente excluyentes. Según este
+                                        principio, si una tarea se puede realizar de <i>n</i> maneras diferentes y
+                                        otra tarea se puede realizar de <i>m</i>
+                                        maneras diferentes, y no hay ninguna superposición entre las dos tareas (es
+                                        decir, son mutuamente
+                                        excluyentes), entonces hay <i>n</i> + <i>m</i> maneras diferentes de realizar
+                                        una de las tareas.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo2">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Principio de multiplicación</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/2.png" alt="">
+                                        Principio de multiplicación o regla del producto
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro1.png" alt="">
+                                    <p>
+                                        El principio de multiplicación, también conocido como la regla del producto, es
+                                        un concepto fundamental en combinatoria y en matemáticas discretas. Este
+                                        principio se utiliza para determinar el número total de maneras en que se puede
+                                        realizar una secuencia de tareas o eventos, bajo la condición de que cada tarea
+                                        o evento se realice de manera independiente de los demás.
+                                    </p>
+                                    <p>
+                                        Matemáticamente, el principio se puede describir de la siguiente manera:
+                                    </p>
+                                    <p>
+                                        Si una tarea se puede realizar de <i>n</i> maneras diferentes y una segunda
+                                        tarea se puede realizar de manera independiente de <i>m</i> maneras diferentes,
+                                        entonces la secuencia de las dos tareas se puede realizar de <i>n</i> x <i>m</i>
+                                        maneras diferentes.
+                                    </p>
+                                    <p>
+                                        Este principio se puede generalizar a más de dos tareas. Por ejemplo, si hay
+                                        tres tareas, donde la primera se puede realizar de <i>n</i> maneras, la
+                                        segunda de <i>m</i> maneras, y la tercera de <i>p</i> maneras, entonces las tres
+                                        tareas juntas
+                                        se pueden realizar de <i>n</i> x <i>m</i> x <i>p</i> maneras diferentes.
+                                    </p>
+                                    <p>
+                                        El principio de multiplicación es la base para muchos cálculos en combinatoria,
+                                        como el conteo de permutaciones y combinaciones, y es
+                                        esencial para resolver problemas de conteo más complejos en matemáticas y en
+                                        campos relacionados, como la probabilidad, la estadística y la
+                                        informática.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo1">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Permutaciones</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/3.png" alt="">
+                                        Permutaciones
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro3.png" alt="">
+
+                                    <p>
+                                        Una permutación es un arreglo ordenado de objetos, donde el orden de los objetos
+                                        es importante. En
+                                        matemáticas, especialmente en combinatoria, se refiere a la disposición de todos
+                                        o algunos de los miembros
+                                        de un conjunto en alguna secuencia u orden específico.
+                                    </p>
+                                    <p>
+                                        Hay dos tipos principales de permutaciones:
+
+                                    </p>
+                                    <p>
+                                        <b>• Permutaciones sin repetición:</b> ocurren cuando se arreglan todos los
+                                        elementos de un conjunto sin repetir
+                                        ninguno. El número de estas permutaciones de un conjunto de <i>n</i> elementos
+                                        únicos
+                                        es <i>n!</i> (<i>n</i> factorial), que es el
+                                        producto de todos los números enteros positivos hasta <i>n</i>.
+                                    </p>
+                                    <p>
+                                        <b>• Permutaciones con repetición:</b> se dan cuando algunos elementos del
+                                        conjunto se repiten y el conjunto total
+                                        de arreglos posibles aumenta.
+                                    </p>
+
+                                    <div class="mb-5" style="display: flex;justify-content: center; flex-wrap: wrap;">
+                                        <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo3">
+                                            <img src="content/definicion-vi/btn-p-sin-repeticion.png" alt="">
+                                        </button>
+                                        <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo4">
+                                            <img src="content/definicion-vi/btn-p-con-repeticion.png" alt="">
+                                        </button>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Combinaciones</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/4.png" alt="">
+                                        Combinación
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro4.png" alt="">
+
+                                    <p>
+                                        Una combinación en matemáticas es una forma de seleccionar elementos de un
+                                        conjunto más grande sin tener
+                                        en cuenta el orden. En otras palabras, es una selección de algunos o todos los
+                                        miembros de un conjunto donde
+                                        el orden de selección no importa. Esto se diferencia de una permutación, donde
+                                        el orden de los elementos es
+                                        relevante.
+                                    </p>
+                                    <p>
+                                        Para calcular el número de combinaciones posibles de <i>n</i> elementos tomados
+                                        de
+                                        <i>k</i> en
+                                        <i>k</i> (es decir, seleccionando
+                                        <i>k</i> elementos de un conjunto de <i>n</i> elementos), utilizamos la fórmula
+                                        del
+                                        coeficiente binomial:
+                                    </p>
+
+                                    <img width="135px" class="d-block mx-auto" src="content/definicion-vi/formula2.jpg"
+                                        alt="">
+
+                                    <p>
+                                        Donde <i>n!</i> es el factorial de <i>n</i> (el producto de todos los números
+                                        enteros
+                                        positivos hasta <i>n</i>), <i>k</i> es el número de elementos seleccionados, y
+                                        <i>n−k</i> es
+                                        la diferencia entre el número total de elementos y el número de elementos
+                                        seleccionados.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler mb-3"
+                                        data-content="#modalEjemplo5">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+                                </dd>
+                            </dl>
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Definición de Combinatoria: conceptos y técnicas
+                        </h3>
+
+                        <p>
+                            A continuación, encontrarás un audio y un texto escrito.Te proponemos escuchar el audio
+                            mientras lees, así podrás identificar los ejemplos y las expresiones matemáticas. Siéntete
+                            libre de pausar el audio cuando quieras detenerte en algún detalle de la lectura.
+                        </p>
+
+                        <br>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio mb-4">
+                            <audio controls>
+                                <source src="content/audio/metodos.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p>
+                            La combinatoria es una rama de las matemáticas que se centra en el estudio de contar,
+                            organizar y estructurar conjuntos de elementos de acuerdo con reglas específicas. Se
+                            ocupa de problemas relacionados con la selección y disposición de objetos dentro de un
+                            conjunto finito.
+                        </p>
+
+                        <p>
+                            La combinatoria incluye varios conceptos y técnicas fundamentales, tales como:
+                        </p>
+
+                        <p>
+                            <b>• Principio de multiplicación</b>: establece que, si hay <i>n</i> formas de realizar una
+                            tarea y
+                            <i>m</i> formas de realizar otra tarea de manera independiente, entonces hay <i>n*m</i>
+                            formas
+                            de realizar ambas tareas en secuencia.
+                        </p>
+                        <p>
+                            <b>• Principio de suma</b>: si hay <i>n</i> formas de hacer una cosa y <i>m</i> formas de
+                            hacer otra, y
+                            estas dos cosas no pueden hacerse al mismo tiempo (son mutuamente excluyentes),
+                            entonces hay <i>n</i>+<i>m</i> formas de realizar una de las tareas.
+                        </p>
+                        <p>
+                            <b>• Permutaciones</b>: el estudio de las diferentes formas en que se pueden ordenar un
+                            conjunto de elementos. Por ejemplo, determinar cuántas formas diferentes hay de
+                            organizar una serie de libros en un estante.
+                        </p>
+                        <p>
+                            <b>• Combinaciones</b>: se enfoca en seleccionar subconjuntos de un conjunto más
+                            grande, donde el orden de los elementos no importa. Por ejemplo, calcular cuántos
+                            equipos diferentes se pueden formar a partir de un grupo de personas.
+                        </p>
+
+                        <!-- 
+                            Principio de multiplicación o regla del producto
+                         -->
+
+                        <div class="img-cuadro">
+                            <img src="content/definicion-vi/cuadro1.jpg" alt="">
+                            <p class="fondo-crema">
+                                <b>Principio de multiplicación o regla del producto</b> <br>
+                                El principio de multiplicación, también conocido como la regla
+                                del producto, es un concepto fundamental en combinatoria y
+                                en matemáticas discretas. Este principio se utiliza para
+                                determinar el número total de maneras en que se puede
+                                realizar una secuencia de tareas o eventos, bajo la condición de
+                                que cada tarea o evento se realice de manera independiente
+                                de los demás.
+                            </p>
+                        </div>
+
+                        <p class="fondo-crema" style="padding: 20px 30px;">
+                            Matemáticamente, el principio se puede describir de la siguiente manera:
+                            <br><br>
+                            Si una tarea se puede realizar de <i>n</i> maneras diferentes y una segunda tarea se puede
+                            realizar de manera independiente de <i>m</i> maneras diferentes, entonces la secuencia de
+                            las
+                            dos tareas se puede realizar de <i>n</i> x <i>m</i> maneras diferentes.
+                            <br><br>
+                            Este principio se puede generalizar a más de dos tareas. Por ejemplo, si hay tres tareas,
+                            donde la primera se puede realizar de <i>n</i> maneras, la segunda de <i>m</i> maneras, y la
+                            tercera de
+                            p maneras, entonces las tres tareas juntas se pueden realizar de <i>n</i> x <i>m</i> x
+                            <i>p</i> maneras
+                            diferentes.
+                            <br><br>
+                            El principio de multiplicación es la base para muchos cálculos en combinatoria, como el
+                            conteo de permutaciones y combinaciones, y es esencial para resolver problemas de conteo
+                            más complejos en matemáticas y en campos relacionados, como la probabilidad, la
+                            estadística y la informática.
+                        </p>
+                        <p>
+                            <b>Ejemplo</b>
+                        </p>
+                        <div class="img-flex">
+                            <img src="content/definicion-vi/ico-menu.png" alt="">
+                            <p>
+                                Supongamos que un restaurante ofrece 3 opciones diferentes para el
+                                entrante,
+                                5 opciones para el plato principal y 2 opciones
+                                para el postre. Queremos calcular de cuántas maneras diferentes se puede
+                                elegir un menú de tres platos, consistiendo en un
+                                entrante, un plato principal y un postre.
+                            </p>
+                        </div>
+                        <p>
+                            <b>Solución</b>
+                        </p>
+                        <p>
+                            <b>• Entrantes:</b> hay 3 opciones diferentes para el entrante. <br>
+                            <b>• Plato principal:</b> hay 5 opciones diferentes para el plato
+                            principal.<br>
+                            <b>• Postres:</b> hay 2 opciones diferentes para el postre.
+                        </p>
+                        <p>
+                            Aplicando el principio de multiplicación, multiplicamos el número de
+                            opciones para cada elección:
+                        </p>
+                        <p>
+                            <b>Número total de menús posibles =</b> Número de entrantes × Número de
+                            platos principales × Número de postres.
+                        </p>
+                        <p>
+                            = 3 x 5 x 2 <br>
+                            = 30
+                        </p>
+                        <p>
+                            <b>Conclusión:</b> existen 30 combinaciones diferentes en las que se puede
+                            elegir un menú de tres platos en este restaurante.
+                        </p>
+
+                        <!-- 
+                            Principio de suma o regla de suma
+                         -->
+
+                        <div class="img-cuadro">
+                            <img src="content/definicion-vi/cuadro2.jpg" alt="">
+                            <div class="fondo-crema">
+                                <p>
+                                    <b>Principio de suma o regla de suma</b> <br><br>
+                                    El principio de suma, también conocido como la regla de la
+                                    suma, es un concepto fundamental en combinatoria que se
+                                    utiliza para determinar el número total de maneras en que se
+                                    puede realizar una tarea que se puede dividir en dos o más
+                                    actividades mutuamente excluyentes.
+                                    <br><br>
+                                    Según este principio, si una tarea se puede realizar de <i>n</i>
+                                    maneras diferentes y otra tarea se puede realizar de <i>m</i>
+                                    maneras diferentes, y no hay ninguna superposición entre las
+                                    dos tareas (es decir, son mutuamente excluyentes), entonces
+                                    hay <i>n</i> + <i>m</i> maneras diferentes de realizar una de las tareas.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="img-flex">
+                            <img src="content/definicion-vi/ico-snacks.png" alt="">
+                            <p>
+                                Imagina que estás en un restaurante y puedes elegir entre un postre o una bebida con tu
+                                menú. Supongamos que hay 4 opciones de postres y 3 opciones de bebidas. Queremos
+                                calcular de cuántas maneras diferentes puedes elegir entre un postre o una bebida.
+                            </p>
+                        </div>
+                        <p>
+                            <b>Solución</b>
+                        </p>
+                        <p>
+                            <b>• Opciones de postre:</b> hay 4 opciones diferentes. <br>
+                            <b>• Opciones de bebida:</b> hay 3 opciones diferentes.
+                        </p>
+                        <p>
+                            Dado que puedes elegir o un postre o una bebida (pero no ambos), aplicamos
+                            el principio de suma:
+                        </p>
+                        <p>
+                            <b>Número total de opciones =</b> Número de opciones de postre + Número de
+                            opciones
+                            de bebida.
+                        </p>
+                        <p>
+                            = 4 + 3 <br>
+                            = 7
+                        </p>
+                        <p>
+                            <b>Conclusión:</b> hay 7 formas diferentes de elegir entre un postre o una
+                            bebida.
+                        </p>
+
+                        <!-- 
+                            Permutaciones
+                         -->
+
+                        <div class="img-cuadro">
+                            <img src="content/definicion-vi/cuadro3.jpg" alt="">
+                            <div class="fondo-crema">
+                                <p>
+                                    <b>Permutaciones</b> <br><br>
+                                    Una permutación es un arreglo ordenado de objetos, donde el
+                                    orden de los objetos es importante. En matemáticas,
+                                    especialmente en combinatoria, se refiere a la disposición de
+                                    todos o algunos de los miembros de un conjunto en alguna
+                                    secuencia u orden específico.
+                                    <br><br>
+                                    Hay dos tipos principales de permutaciones:
+                                </p>
+                            </div>
+                        </div>
+
+                        <p>
+                            <b>• Permutaciones sin repetición:</b> ocurren cuando se arreglan todos los elementos de un
+                            conjunto sin repetir ninguno. El número de estas permutaciones de un conjunto de <i>n</i>
+                            elementos
+                            únicos es <i>n</i>! (<i>n</i> factorial), que es el producto de todos los números enteros
+                            positivos
+                            hasta <i>n</i>.
+                        </p>
+                        <p>
+                            <b>• Permutaciones con repetición:</b> se dan cuando algunos elementos del conjunto se
+                            repiten y el
+                            conjunto total de arreglos posibles aumenta.
+                        </p>
+
+                        <p class="mt-5">
+                            <b>
+                                Permutaciones sin repetición
+                            </b>
+                        </p>
+                        <div class="img-flex">
+                            <img src="content/definicion-vi/ico-libros.png" alt="">
+                            <p>
+                                Las permutaciones sin repetición se refieren al arreglo de todos o
+                                algunos de los miembros de un conjunto en secuencias o
+                                disposiciones ordenadas, donde cada elemento se utiliza una sola vez. En
+                                otras palabras, son maneras de organizar un conjunto
+                                de elementos únicos donde el orden es importante.
+                                <br><br>
+                                Matemáticamente, el número de permutaciones sin repetición de un
+                                conjunto de <i>n</i> elementos distintos es <i>n!</i> (<i>n</i> factorial), que es el
+                                producto de todos los números enteros positivos hasta <i>n</i>. Por
+                                ejemplo, 4!
+                                = 4 x 3 x 2 x 1= 24.
+                            </p>
+                        </div>
+                        <p>
+                            <b>Ejemplo </b> <br>
+                            Supongamos que queremos saber cuántas formas diferentes hay de organizar los
+                            números 1, 2 y 3.
+                        </p>
+                        <p>
+                            <b>Solución</b>
+                            <br>
+                            • Tenemos un conjunto de 3 elementos (1, 2, 3). <br>
+                            • El número total de permutaciones sin repetición se calcula como 3!. <br>
+                            • Entonces, 3! = 3 x 2 x 1 = 6.
+                        </p>
+                        <p>
+                            Las 6 permutaciones de los números 1, 2, 3 son:<br><br>
+                            • 123<br>
+                            • 132<br>
+                            • 213<br>
+                            • 231<br>
+                            • 312<br>
+                            • 321
+                        </p>
+                        <p>
+                            <b>Conclusión:</b> hay 6 maneras diferentes de organizar los números 1, 2 y
+                            3.
+                        </p>
+
+                        <p class="mt-5">
+                            <b>
+                                Permutación con repetición
+                            </b>
+                        </p>
+                        <div class="img-flex">
+                            <img src="content/definicion-vi/ico-contrasena.png" alt="">
+                            <p>
+                                Una permutación con repetición es un tipo de permutación donde algunos
+                                elementos en el conjunto a permutar se repiten. En estas
+                                permutaciones, aunque los elementos repetidos sean idénticos, se
+                                consideran como elementos diferenciados en el cálculo del
+                                número total de arreglos posibles.
+                                <br><br>
+                                La fórmula para calcular el número de permutaciones con repetición de un
+                                conjunto de <i>n</i> elementos, donde hay <i>n</i><sup>1</sup> elementos de un
+                                tipo, <i>n</i><sub>2</sub> elementos de otro tipo, y así sucesivamente
+                                hasta <i>n</i><sub>k</sub>
+                                elementos del <i>k</i>-ésimo tipo, es:
+                            </p>
+                        </div>
+
+                        <img class="d-block mx-auto" style="width: 120px;" src="content/definicion-vi/formula.jpg"
+                            alt="">
+                        <p>
+                            <b>Ejemplo</b> <br>
+                            Calcula cuántas permutaciones diferentes se pueden formar con las letras de
+                            la palabra "BALANCE"
+                        </p>
+                        <p>
+                            <b>Solución</b><br>
+                            • La palabra “BALANCE” tiene 7 letras en total. <br>
+                            • Las letras “A” se repiten 2 veces y las demás letras son únicas. <br>
+                            • Utilizamos la fórmula de permutaciones con repetición: \(\frac{7!}{2!}\)
+                            <br>
+                            • Calculamos: \(\frac{7x6x5x4x3x2x1}{2x1}\) = 2520.
+                        </p>
+                        <p>
+                            <b>Conclusión: </b>hay 2520 formas diferentes de organizar las letras de la
+                            palabra “BALANCE”
+                        </p>
+
+                        <!-- 
+                            Combinación
+                         -->
+                        <div class="img-cuadro">
+                            <img src="content/definicion-vi/cuadro4.jpg" alt="">
+                            <div class="fondo-crema">
+                                <p>
+                                    <b>Combinación</b> <br><br>
+                                    Una combinación en matemáticas es una forma de seleccionar
+                                    elementos de un conjunto más grande sin tener en cuenta el
+                                    orden. En otras palabras, es una selección de algunos o todos
+                                    los miembros de un conjunto donde el orden de selección no
+                                    importa. Esto se diferencia de una permutación, donde el
+                                    orden de los elementos es relevante.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p>
+                            Para calcular el número de combinaciones posibles de <i>n</i> elementos tomados de
+                            <i>k</i> en
+                            <i>k</i> (es decir, seleccionando
+                            <i>k</i> elementos de un conjunto de <i>n</i> elementos), utilizamos la fórmula del
+                            coeficiente binomial:
+                        </p>
+
+                        <img width="135px" class="d-block mx-auto" src="content/definicion-vi/formula2.jpg" alt="">
+
+                        <p><b>
+                                Ejemplo
+                            </b></p>
+                        <p>
+                            Donde <i>n!</i> es el factorial de <i>n</i> (el producto de todos los números
+                            enteros
+                            positivos hasta <i>n</i>), <i>k</i> es el número de elementos seleccionados, y
+                            <i>n−k</i> es
+                            la diferencia entre el número total de elementos y el número de elementos
+                            seleccionados.
+                        </p>
+
+                        <div class="img-flex">
+                            <img src="content/definicion-vi/ico-clase.png" alt="">
+                            <p>
+                                Supongamos que en una clase hay 30 estudiantes y se quiere formar un
+                                comité de 4 estudiantes. ¿De cuántas formas diferentes
+                                se puede formar este comité?
+                            </p>
+                        </div>
+                        <p>
+                            <b>Solución</b>
+                        </p>
+                        <p>
+                            • Aquí, el número total de estudiantes (nuestro conjunto) es <i>n</i> = 30
+                            <br>
+                            • El número de estudiantes en el comité (la selección que estamos haciendo)
+                            es <i>k</i> = 4. <br>
+                            • Usamos la fórmula del coeficiente binomial para calcular el número de
+                            combinaciones:
+                            <img width="130px" style="display: inline;" src="content/definicion-vi/formula3.jpg" alt="">
+                            <br>
+                            • Simplificando, <img width="190px" style="display: inline;"
+                                src="content/definicion-vi/formula4.jpg" alt="">
+                        </p>
+                        <p class="mb-5">
+                            <b>Conclusión: </b>hay 27405 formas diferentes de seleccionar un comité de 4
+                            estudiantes de un grupo de 30 estudiantes.
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <p>
+                            Te invitamos a realizar un emocionante recorrido que potenciará tu aprendizaje. Para ello,
+                            sigue estos pasos:
+                        </p>
+
+                        <div class="bloque-instruccion">
+                            <ol>
+                                <li>
+                                    <p>
+                                        <b>Explora la simulación:</b> te invitamos a navegar por la siguiente
+                                        simulación. Tómate
+                                        tu tiempo para observar, interactuar y comprender los diferentes elementos
+                                        presentados.
+                                    </p>
+                                    <a href="https://www.geogebra.org/m/jN2kfvQB#material/pPhgSYcB" target="_blank">
+                                        https://www.geogebra.org/m/jN2kfvQB#material/pPhgSYcB
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="bloque-instruccion">
+                            <ol start="2">
+                                <li>
+                                    <p>
+                                        <b>Interactivo educativo:</b> luego de explorar la simulación, ingresa al
+                                        siguiente interactivo y revisa todo el contenido. Aquí podrás profundizar en los
+                                        conceptos y adquirir un entendimiento más completo.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Interactivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="horizontal-menu definicion-tabs tabs2">
+                            <dl>
+                                <dt><i title="ion-home" class="ion-home"></i> Inicio</dt>
+                                <dd>
+                                    <div class="escenario-definicionvi">
+                                        <img class="w-100" src="content/definicion-vi/fondo.jpg" alt="">
+
+                                        <button class="boton boton1" onclick="clickTab2(this)">
+                                            <img src="content/definicion-vi/cuadro2.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro2-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+
+                                        <button class="boton boton2" onclick="clickTab2(this)">
+                                            <img src="content/definicion-vi/cuadro1.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro1-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <button class="boton boton3" onclick="clickTab2(this)">
+                                            <img src="content/definicion-vi/cuadro3.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro3-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <button class="boton boton4" onclick="clickTab2(this)">
+                                            <img src="content/definicion-vi/cuadro4.png" alt="" class="cuadro">
+                                            <img src="content/definicion-vi/cuadro4-btn.png" alt=""
+                                                class="boton-cuadro">
+                                        </button>
+
+                                        <script>
+                                            function clickTab2(buttonClicked) {
+                                                console.log(buttonClicked);
+                                                if (buttonClicked === 'home') {
+                                                    $("#pag-definicion .tabs2 .chalkboard_items > div:nth-child(1)").click();
+                                                    return;
+                                                }
+                                                var tab = parseInt(buttonClicked.classList[1].slice(5)) + 1;
+                                                console.log(tab);
+                                                $("#pag-definicion .tabs2 .chalkboard_items > div:nth-child(" + tab + ")").click();
+                                            }
+                                        </script>
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Principio de suma</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab2('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/1.png" alt="">
+                                        Principio de suma o regla de suma
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro2.png" alt="">
+
+                                    <p>
+                                        El principio de suma, también conocido como la regla de la suma, es un concepto
+                                        fundamental en
+                                        combinatoria que se utiliza para determinar el número total de maneras en que se
+                                        puede realizar una tarea
+                                        que se puede dividir en dos o más actividades mutuamente excluyentes. Según este
+                                        principio, si una tarea se puede realizar de <i>n</i> maneras diferentes y
+                                        otra tarea se puede realizar de <i>m</i>
+                                        maneras diferentes, y no hay ninguna superposición entre las dos tareas (es
+                                        decir, son mutuamente
+                                        excluyentes), entonces hay <i>n</i> + <i>m</i> maneras diferentes de realizar
+                                        una de las tareas.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo2">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Principio de multiplicación</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab2('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/2.png" alt="">
+                                        Principio de multiplicación o regla del producto
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro1.png" alt="">
+                                    <p>
+                                        El principio de multiplicación, también conocido como la regla del producto, es
+                                        un concepto fundamental en
+                                        combinatoria y en matemáticas discretas. Este principio se utiliza para
+                                        determinar el número total de maneras
+                                        en que se puede realizar una secuencia de tareas o eventos, bajo la condición de
+                                        que cada tarea o evento se
+                                        realice de manera independiente de los demás.
+                                    </p>
+                                    <p>
+                                        Matemáticamente, el principio se puede describir de la siguiente manera:
+
+                                    </p>
+                                    <p>
+                                        Si una tarea se puede realizar de <i>n</i> maneras diferentes y una segunda
+                                        tarea se
+                                        puede realizar de manera
+                                        independiente de <i>m</i> maneras diferentes, entonces la secuencia de las dos
+                                        tareas
+                                        se puede realizar de <i>n × m</i>
+                                        maneras diferentes.
+                                    </p>
+                                    <p>
+                                        Este principio se puede generalizar a más de dos tareas. Por ejemplo, si hay
+                                        tres tareas, donde la primera se puede realizar de <i>n</i> maneras, la
+                                        segunda de <i>m</i> maneras, y la tercera de <i>p</i> maneras, entonces las tres
+                                        tareas juntas
+                                        se pueden realizar de <i>n × m × p</i> maneras diferentes.
+                                    </p>
+                                    <p>
+                                        El principio de multiplicación es la base para muchos cálculos en combinatoria,
+                                        como el conteo de permutaciones y combinaciones, y es
+                                        esencial para resolver problemas de conteo más complejos en matemáticas y en
+                                        campos relacionados, como la probabilidad, la estadística y la
+                                        informática.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo1">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+
+                                </dd>
+                            </dl>
+
+
+                            <dl>
+                                <dt>Permutaciones</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab2('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/3.png" alt="">
+                                        Permutaciones
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro3.png" alt="">
+
+                                    <p>
+                                        Una permutación es un arreglo ordenado de objetos, donde el orden de los objetos
+                                        es importante. En
+                                        matemáticas, especialmente en combinatoria, se refiere a la disposición de todos
+                                        o algunos de los miembros
+                                        de un conjunto en alguna secuencia u orden específico.
+                                    </p>
+                                    <p>
+                                        Hay dos tipos principales de permutaciones:
+
+                                    </p>
+                                    <p>
+                                        <b>• Permutaciones sin repetición:</b> ocurren cuando se arreglan todos los
+                                        elementos de un conjunto sin repetir
+                                        ninguno. El número de estas permutaciones de un conjunto de <i>n</i> elementos
+                                        únicos
+                                        es <i>n!</i> (<i>n</i> factorial), que es el
+                                        producto de todos los números enteros positivos hasta <i>n</i>.
+                                    </p>
+                                    <p>
+                                        <b>• Permutaciones con repetición:</b> se dan cuando algunos elementos del
+                                        conjunto se repiten y el conjunto total
+                                        de arreglos posibles aumenta.
+                                    </p>
+
+                                    <div class="mb-5" style="display: flex;justify-content: center; flex-wrap: wrap;">
+                                        <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo3">
+                                            <img src="content/definicion-vi/btn-p-sin-repeticion.png" alt="">
+                                        </button>
+                                        <button class="boton-ejemplo w-content-controler" data-content="#modalEjemplo4">
+                                            <img src="content/definicion-vi/btn-p-con-repeticion.png" alt="">
+                                        </button>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>Combinaciones</dt>
+                                <dd>
+                                    <button class="notmobile definicion-home-btn boton0" onclick="clickTab2('home')">
+                                        <i title="ion-home" class="ion-home"></i> Inicio
+                                    </button>
+                                    <h2 class="titulo">
+                                        <img src="content/definicion-vi/4.png" alt="">
+                                        Combinación
+                                    </h2>
+
+                                    <img class="img-float" src="content/definicion-vi/cuadro4.png" alt="">
+
+                                    <p>
+                                        Una combinación en matemáticas es una forma de seleccionar elementos de un
+                                        conjunto más grande sin tener
+                                        en cuenta el orden. En otras palabras, es una selección de algunos o todos los
+                                        miembros de un conjunto donde
+                                        el orden de selección no importa. Esto se diferencia de una permutación, donde
+                                        el orden de los elementos es
+                                        relevante.
+                                    </p>
+                                    <p>
+                                        Para calcular el número de combinaciones posibles de n elementos tomados de
+                                        <i>k</i> en
+                                        <i>k</i> (es decir, seleccionando
+                                        <i>k</i> elementos de un conjunto de <i>n</i> elementos), utilizamos la fórmula
+                                        del
+                                        coeficiente binomial:
+                                    </p>
+
+                                    <img width="135px" class="d-block mx-auto" src="content/definicion-vi/formula2.jpg"
+                                        alt="">
+
+                                    <p>
+                                        Donde <i>n!</i> es el factorial de <i>n</i> (el producto de todos los números
+                                        enteros
+                                        positivos hasta <i>n</i>), <i>k</i> es el número de elementos seleccionados, y
+                                        <i>n−k</i> es
+                                        la diferencia entre el número total de elementos y el número de elementos
+                                        seleccionados.
+                                    </p>
+
+                                    <button class="boton-ejemplo w-content-controler mb-3"
+                                        data-content="#modalEjemplo5">
+                                        <img src="content/definicion-vi/btn-ejemplo.png" alt="">
+                                    </button>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!-- FIN Interactivo -->
+
+                        <div class="bloque-instruccion">
+                            <ol start="3">
+                                <li>
+                                    <p>
+                                        <b>Aplicación práctica:</b> finalmente, regresa a la simulación y relaciona los
+                                        elementos aprendidos. Aplica tu nuevo conocimiento y observa cómo todo cobra
+                                        sentido
+                                        en un contexto práctico.
+                                    </p>
+                                    <a href="https://www.geogebra.org/m/jN2kfvQB#material/pPhgSYcB" target="_blank">
+                                        https://www.geogebra.org/m/jN2kfvQB#material/pPhgSYcB
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <p class="text-center mb-5">
+                            ¡Disfruta del recorrido y aprende de manera divertida e interactiva!
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <!-- Ventanas modales -->
+                    <div>
+                        <div id="modalEjemplo1" data-cssclass="modalDefinicion" class="w-content"
+                            data-property-width="80%">
+                            <p>
+                                <b>Ejemplo</b>
+                            </p>
+                            <div class="img-flex">
+                                <img src="content/definicion-vi/ico-menu.png" alt="">
+                                <p>
+                                    Supongamos que un restaurante ofrece 3 opciones diferentes para el
+                                    entrante,
+                                    5 opciones para el plato principal y 2 opciones
+                                    para el postre. Queremos calcular de cuántas maneras diferentes se puede
+                                    elegir un menú de tres platos, consistiendo en un
+                                    entrante, un plato principal y un postre.
+                                </p>
+                            </div>
+                            <p>
+                                <b>Solución</b>
+                            </p>
+                            <p>
+                                <b>• Entrantes:</b> hay 3 opciones diferentes para el entrante. <br>
+                                <b>• Plato principal:</b> hay 5 opciones diferentes para el plato
+                                principal.<br>
+                                <b>• Postres:</b> hay 2 opciones diferentes para el postre.
+                            </p>
+                            <p>
+                                Aplicando el principio de multiplicación, multiplicamos el número de
+                                opciones para cada elección:
+                            </p>
+                            <p>
+                                <b>Número total de menús posibles =</b> Número de entrantes × Número de
+                                platos principales × Número de postres.
+                            </p>
+                            <p>
+                                = 3 x 5 x 2 <br>
+                                = 30
+                            </p>
+                            <p>
+                                <b>Conclusión:</b> existen 30 combinaciones diferentes en las que se puede
+                                elegir un menú de tres platos en este restaurante.
+
+                            </p>
+                        </div>
+                        <div id="modalEjemplo2" data-cssclass="modalDefinicion" class="w-content"
+                            data-property-width="80%">
+                            <p>
+                                <b>Ejemplo</b>
+                            </p>
+                            <div class="img-flex">
+                                <img src="content/definicion-vi/ico-snacks.png" alt="">
+                                <p>
+                                    Imagina que estás en un restaurante y puedes elegir entre un postre o una bebida con
+                                    tu menú. Supongamos que hay 4 opciones de postres y 3 opciones de bebidas. Queremos
+                                    calcular de cuántas maneras diferentes puedes elegir entre un postre o una bebida.
+                                </p>
+                            </div>
+                            <p>
+                                <b>Solución</b>
+                            </p>
+                            <p>
+                                <b>• Opciones de postre:</b> hay 4 opciones diferentes. <br>
+                                <b>• Opciones de bebida:</b> hay 3 opciones diferentes.
+                            </p>
+                            <p>
+                                Dado que puedes elegir o un postre o una bebida (pero no ambos), aplicamos
+                                el principio de suma:
+                            </p>
+                            <p>
+                                <b>Número total de opciones =</b> Número de opciones de postre + Número de
+                                opciones
+                                de bebida.
+                            </p>
+                            <p>
+                                = 4 + 3 <br>
+                                = 7
+                            </p>
+                            <p>
+                                <b>Conclusión:</b> hay 7 formas diferentes de elegir entre un postre o una
+                                bebida.
+                            </p>
+                        </div>
+                        <div id="modalEjemplo3" data-cssclass="modalDefinicion" class="w-content"
+                            data-property-width="80%">
+                            <p>
+                                <b>
+                                    Permutaciones sin repetición
+                                </b>
+                            </p>
+                            <div class="img-flex">
+                                <img src="content/definicion-vi/ico-libros.png" alt="">
+                                <p>
+                                    Las permutaciones sin repetición se refieren al arreglo de todos o
+                                    algunos de los miembros de un conjunto en secuencias o
+                                    disposiciones ordenadas, donde cada elemento se utiliza una sola vez. En
+                                    otras palabras, son maneras de organizar un conjunto
+                                    de elementos únicos donde el orden es importante.
+                                    <br><br>
+                                    Matemáticamente, el número de permutaciones sin repetición de un
+                                    conjunto de <i>n</i> elementos distintos es <i>n!</i> (<i>n</i> factorial), que es
+                                    el
+                                    producto de todos los números enteros positivos hasta <i>n</i>. Por
+                                    ejemplo, 4! = 4 x 3 x 2 x 1= 24.
+                                </p>
+                            </div>
+                            <p>
+                                <b>Ejemplo </b> <br>
+                                Supongamos que queremos saber cuántas formas diferentes hay de organizar los
+                                números 1, 2 y 3.
+                            </p>
+                            <p>
+                                <b>Solución</b>
+                                <br>
+                                • Tenemos un conjunto de 3 elementos (1, 2, 3). <br>
+                                • El número total de permutaciones sin repetición se calcula como 3!. <br>
+                                • Entonces, 3! = 3 x 2 x 1 = 6.
+                            </p>
+                            <p>
+                                Las 6 permutaciones de los números 1, 2, 3 son:<br>
+                                • 123<br>
+                                • 132<br>
+                                • 213<br>
+                                • 231<br>
+                                • 312<br>
+                                • 321
+                            </p>
+                            <p>
+                                <b>Conclusión:</b> hay 6 maneras diferentes de organizar los números 1, 2 y
+                                3.
+                            </p>
+                        </div>
+                        <div id="modalEjemplo4" data-cssclass="modalDefinicion" class="w-content"
+                            data-property-width="80%">
+                            <p>
+                                <b>
+                                    Permutación con repetición
+                                </b>
+                            </p>
+                            <div class="img-flex">
+                                <img src="content/definicion-vi/ico-contrasena.png" alt="">
+                                <p>
+                                    Una permutación con repetición es un tipo de permutación donde algunos
+                                    elementos en el conjunto a permutar se repiten. En estas
+                                    permutaciones, aunque los elementos repetidos sean idénticos, se
+                                    consideran como elementos diferenciados en el cálculo del
+                                    número total de arreglos posibles.
+                                    <br><br>
+                                    La fórmula para calcular el número de permutaciones con repetición de un
+                                    conjunto de <i>n</i> elementos, donde hay <i>n</i><sup>1</sup> elementos de un
+                                    tipo, <i>n</i><sub>2</sub> elementos de otro tipo, y así sucesivamente
+                                    hasta <i>n</i><sub>k</sub>
+                                    elementos del <i>k</i>-ésimo tipo, es:
+                                </p>
+                            </div>
+
+                            <img class="d-block mx-auto" style="width: 120px;" src="content/definicion-vi/formula.jpg"
+                                alt="">
+                            <p>
+                                <b>Ejemplo</b> <br>
+                                Calcula cuántas permutaciones diferentes se pueden formar con las letras de
+                                la palabra "BALANCE"
+                            </p>
+                            <p>
+                                <b>Solución</b><br>
+                                • La palabra “BALANCE” tiene 7 letras en total. <br>
+                                • Las letras “A” se repiten 2 veces y las demás letras son únicas. <br>
+                                • Utilizamos la fórmula de permutaciones con repetición: \(\frac{7!}{2!}\)
+                                <br>
+                                • Calculamos: \(\frac{7x6x5x4x3x2x1}{2x1}\) = 2520.
+                            </p>
+                            <p>
+                                <b>Conclusión: </b>hay 2520 formas diferentes de organizar las letras de la
+                                palabra “BALANCE”
+                            </p>
+                        </div>
+                        <div id="modalEjemplo5" data-cssclass="modalDefinicion" class="w-content"
+                            data-property-width="80%">
+                            <div class="img-flex">
+                                <img src="content/definicion-vi/ico-clase.png" alt="">
+                                <p>
+                                    Supongamos que en una clase hay 30 estudiantes y se quiere formar un
+                                    comité de 4 estudiantes. ¿De cuántas formas diferentes
+                                    se puede formar este comité?
+                                </p>
+                            </div>
+                            <p>
+                                <b>Solución</b>
+                            </p>
+                            <p>
+                                • Aquí, el número total de estudiantes (nuestro conjunto) es <i>n</i> = 30
+                                <br>
+                                • El número de estudiantes en el comité (la selección que estamos haciendo)
+                                es <i>k</i> = 4. <br>
+                                • Usamos la fórmula del coeficiente binomial para calcular el número de
+                                combinaciones:
+                                <img width="130px" style="display: inline;" src="content/definicion-vi/formula3.jpg"
+                                    alt="">
+                                <br>
+                                • Simplificando, <img width="190px" style="display: inline;"
+                                    src="content/definicion-vi/formula4.jpg" alt="">
+                            </p>
+                            <p>
+                                <b>Conclusión: </b>hay 27405 formas diferentes de seleccionar un comité de 4
+                                estudiantes de un grupo de 30 estudiantes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-aplicaciones" ptitle="Aplicaciones de la combinatoria">
+                <div data-title="Aplicaciones de la combinatoria" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de la combinatoria
+                        </h3>
+
+                        <p>
+                            La combinatoria, con su enfoque en el conteo, organización y estructuración de conjuntos,
+                            tiene aplicaciones en una amplia gama de campos tanto dentro como fuera de las matemáticas.
+                            Aquí hay algunas de sus aplicaciones más destacadas:
+                        </p>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones.
+                        </div>
+
+                        <div class="iconos-aplicaciones">
+                            <button class="w-content-controler" data-content="#modal1" data-property-width="40%">
+                                <img src="content/btn-informatica.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#modal2" data-property-width="40%">
+                                <img src="content/btn-teoria-probabilidad.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="iconos-aplicaciones">
+                            <button class="w-content-controler" data-content="#modal3" data-property-width="40%">
+                                <img src="content/btn-teoria-grafos.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#modal4" data-property-width="40%">
+                                <img src="content/btn-ciencias.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#modal5" data-property-width="40%">
+                                <img src="content/btn-biologia.png" alt="">
+                            </button>
+                        </div>
+                        <div class="iconos-aplicaciones">
+                            <button class="w-content-controler" data-content="#modal6" data-property-width="40%">
+                                <img src="content/btn-criptografia.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#modal7" data-property-width="40%">
+                                <img src="content/btn-optimizacion.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#modal8" data-property-width="40%">
+                                <img src="content/btn-organizacion.png" alt="">
+                            </button>
+                        </div>
+
+                        <p class="mb-5">
+                            Estas aplicaciones demuestran cómo la combinatoria es una herramienta poderosa y versátil
+                            para resolver problemas prácticos y teóricos en una variedad de disciplinas.
+                        </p>
+
+                        <div class="ventanas-modales">
+                            <div id="modal1" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Informática y algoritmos
+                                </h4>
+                                <p>
+                                    En la informática, la combinatoria se utiliza para el diseño de algoritmos, la
+                                    estructuración de datos, la optimización de búsquedas y la criptografía. Es esencial
+                                    para entender la complejidad computacional y desarrollar algoritmos eficientes.
+                                </p>
+                            </div>
+                            <div id="modal2" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Teoría de la probabilidad y estadística
+                                </h4>
+                                <p>
+                                    La combinatoria proporciona las bases para calcular probabilidades en diversos
+                                    contextos, lo que es fundamental para la estadística, la toma de decisiones y el
+                                    análisis de datos.
+                                </p>
+                            </div>
+                            <div id="modal3" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Teoría de grafos
+                                </h4>
+                                <p>
+                                    Utilizada en redes sociales, biología, logística y ciencias de la computación, la
+                                    teoría de grafos, que es un campo de la combinatoria, ayuda a modelar y resolver
+                                    problemas relacionados con redes, conectividad y optimización de rutas.
+                                </p>
+                            </div>
+                            <div id="modal4" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Ciencias físicas y química
+                                </h4>
+                                <p>
+                                    En química, la combinatoria se aplica en el estudio de la estructura molecular y las
+                                    combinaciones químicas. En física, contribuye al análisis de sistemas complejos y
+                                    fenómenos de redes.
+                                </p>
+                            </div>
+                            <div id="modal5" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Biología y genética
+                                </h4>
+                                <p>
+                                    En biología, la combinatoria se usa para entender combinaciones genéticas,
+                                    estructuras de proteínas y rutas metabólicas.
+                                </p>
+                            </div>
+                            <div id="modal6" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Criptografía
+                                </h4>
+                                <p>
+                                    Las técnicas combinatorias se usan para desarrollar códigos seguros y algoritmos de
+                                    encriptación, fundamentales para la seguridad de la información.
+                                </p>
+                            </div>
+                            <div id="modal7" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Optimización y teoría de juegos
+                                </h4>
+                                <p>
+                                    La combinatoria permite resolver problemas de optimización y es clave en la teoría
+                                    de juegos, donde se analizan estrategias y decisiones en situaciones de competición
+                                    o cooperación.
+                                </p>
+                            </div>
+                            <div id="modal8" data-cssclass="modalAplicacion" class="w-content">
+                                <h4>
+                                    Organización y planificación
+                                </h4>
+                                <p>
+                                    Desde la planificación urbana hasta la gestión de proyectos y la logística, la
+                                    combinatoria ayuda a optimizar la asignación de recursos y la programación.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-aplicaciones">
+
+                            <img src="content/fondo-aplicacion-vi.jpg" alt="" class="fondo">
+
+                            <button class="boton1 w-content-controler" data-content="#modal1" data-property-width="40%">
+                                <img src="content/btn-informatica.png" alt="">
+                            </button>
+                            <button class="boton2 w-content-controler" data-content="#modal2" data-property-width="40%">
+                                <img src="content/btn-teoria-probabilidad.png" alt="">
+                            </button>
+                            <button class="boton3 w-content-controler" data-content="#modal3" data-property-width="40%">
+                                <img src="content/btn-teoria-grafos.png" alt="">
+                            </button>
+                            <button class="boton4 w-content-controler" data-content="#modal4" data-property-width="40%">
+                                <img src="content/btn-ciencias.png" alt="">
+                            </button>
+                            <button class="boton5 w-content-controler" data-content="#modal5" data-property-width="40%">
+                                <img src="content/btn-biologia.png" alt="">
+                            </button>
+                            <button class="boton6 w-content-controler" data-content="#modal6" data-property-width="40%">
+                                <img src="content/btn-criptografia.png" alt="">
+                            </button>
+                            <button class="boton7 w-content-controler" data-content="#modal7" data-property-width="40%">
+                                <img src="content/btn-optimizacion.png" alt="">
+                            </button>
+                            <button class="boton8 w-content-controler" data-content="#modal8" data-property-width="40%">
+                                <img src="content/btn-organizacion.png" alt="">
+                            </button>
+
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de la combinatoria
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio mb-4">
+                            <audio controls>
+                                <source src="content/audio/aplicaciones.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de la combinatoria
+                        </h3>
+
+                        <p class="text-center">
+                            Da vuelta a cada una de las tarjetas, escucha el audio y reconoce las aplicaciones del tema
+                            que estás estudiando.
+                        </p>
+
+                        <div class="contenedor-cards">
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c1.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c2.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c3.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c4.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c5.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c6.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c7.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/8.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/8-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c8.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            var cards = document.querySelectorAll('.contenedor-cards .card');
+
+                            [...cards].forEach((card) => {
+                                card.addEventListener('click', function () {
+                                    card.classList.toggle('voltear');
+                                    if (card.classList.length == 1) {
+                                        var audio = card.getElementsByTagName("audio")[0];
+                                        audio.pause();
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-ejemplos" ptitle="Veamos algunos ejemplos">
+                <div data-title="Veamos algunos ejemplos" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Veamos algunos ejemplos
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada sección.
+                        </div>
+
+                        <div class="accordion">
+                            <h3>Ejemplo 1</h3>
+                            <div>
+                                <div class="img-flex">
+                                    <img width="72px" src="content/ico-silla.png" alt="">
+                                    <p class="letra-morada">
+                                        <b>¿De cuántas maneras diferentes se pueden sentar 5 personas en una fila de 5
+                                            sillas?</b>
+                                    </p>
+                                </div>
+
+                                <p class="letra-morada"><b>
+                                        Solución
+                                    </b></p>
+                                <p>
+                                    Utilizamos permutaciones sin repetición. El número de permutaciones de 5 elementos
+                                    es 5! = 5 x 4 x 3 x 2 x 1 = 120.
+                                </p>
+
+                                <p class="letra-morada"><b>
+                                        Respuesta
+                                    </b></p>
+                                <p>
+                                    Hay 120 maneras diferentes.
+                                </p>
+                            </div>
+
+                            <h3>Ejemplo 2</h3>
+                            <div>
+                                <div class="img-flex">
+                                    <img width="72px" src="content/ico-grupo.png" alt="">
+                                    <p class="letra-morada">
+                                        <b>De un grupo de 8 amigos, ¿de cuántas maneras diferentes se pueden elegir 3
+                                            para formar un equipo?</b>
+                                    </p>
+                                </div>
+
+                                <p class="letra-morada"><b>
+                                        Solución
+                                    </b></p>
+                                <p class="flex-centered">
+                                    Utilizamos combinaciones ya que el orden no importa. El número de combinaciones es
+                                    <img width="280px" src="content/ejemplos-formula1.jpg" alt=""
+                                        style="display: inline;">
+                                </p>
+
+                                <p class="letra-morada"><b>
+                                        Respuesta
+                                    </b></p>
+                                <p>
+                                    Hay 56 maneras diferentes.
+                                </p>
+                                <p>
+
+                            </div>
+
+
+                            <h3>Ejemplo 3</h3>
+                            <div>
+                                <div class="img-flex">
+                                    <img width="72px" src="content/ico-carro.png" alt="">
+                                    <p class="letra-morada">
+                                        <b>
+                                            ¿De cuántas maneras diferentes se pueden ordenar las letras en la
+                                            palabra "CARRO", considerando que la "R" aparece dos veces?
+                                        </b>
+                                    </p>
+                                </div>
+                                <p class="letra-morada">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    Utilizamos permutaciones con repetición. Hay 5 letras en total, con una letra
+                                    repetida 2 veces:
+                                    \(\frac{5!}{2!} = \frac{120}{2} = 60. \)
+                                </p>
+                                <p class="letra-morada">
+                                    <b>
+                                        Respuesta
+                                    </b>
+                                </p>
+                                <p>
+                                    Hay 60 arreglos diferentes.
+                                </p>
+                            </div>
+
+
+                            <h3>Ejemplo 4</h3>
+                            <div>
+                                <div class="img-flex">
+                                    <img width="72px" src="content/ico-menu.png" alt="">
+                                    <p class="letra-morada">
+                                        <b>
+                                            Un restaurante ofrece 4 entrantes y 7 platos principales. ¿Cuántas
+                                            combinaciones diferentes de un entrante y un plato principal se pueden
+                                            elegir?
+                                        </b>
+                                    </p>
+                                </div>
+                                <p class="letra-morada">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    Multiplicamos las opciones de cada categoría: 4 × 7 = 28.
+                                </p>
+                                <p class="letra-morada">
+                                    <b>
+                                        Respuesta
+                                    </b>
+                                </p>
+                                <p>
+                                    Hay 28 combinaciones diferentes.
+                                </p>
+                            </div>
+
+
+                            <h3>Ejemplo 5</h3>
+                            <div>
+                                <div class="img-flex">
+                                    <img width="72px" src="content/ico-clase.png" alt="">
+                                    <p class="letra-morada">
+                                        <b>
+                                            Un estudiante puede elegir un curso de matemáticas entre 3 profesores
+                                            diferentes y un curso de física entre 2 profesores diferentes. Si solo puede
+                                            elegir uno de los cursos, ¿cuántas opciones tiene?
+                                        </b>
+                                    </p>
+                                </div>
+                                <p class="letra-morada">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    Sumamos las opciones de cada curso: 3+2=5.
+                                </p>
+                                <p class="letra-morada">
+                                    <b>
+                                        Respuesta
+                                    </b>
+                                </p>
+                                <p>
+                                    El estudiante tiene 5 opciones en total.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en las flechas para avanzar en el contenido.
+                        </div>
+
+                        <div class="ctrl-pagination" data-layer-height="auto" data-orientation="sides">
+
+                            <li>
+                                <h3>Ejemplo 1</h3>
+                                <div>
+                                    <div class="img-flex">
+                                        <img width="72px" src="content/ico-silla.png" alt="">
+                                        <p class="letra-morada">
+                                            <b>¿De cuántas maneras diferentes se pueden sentar 5 personas en una fila de
+                                                5
+                                                sillas?</b>
+                                        </p>
+                                    </div>
+
+                                    <div class="cuadro-morado">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Solución
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Utilizamos permutaciones sin repetición. El número de permutaciones de 5
+                                            elementos
+                                            es 5! = 5 x 4 x 3 x 2 x 1 = 120.
+                                        </p>
+
+                                        <p class="letra-morada">
+                                            <b>
+                                                Respuesta
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Hay 120 maneras diferentes.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 2</h3>
+                                <div>
+                                    <div class="img-flex">
+                                        <img width="72px" src="content/ico-grupo.png" alt="">
+                                        <p class="letra-morada">
+                                            <b>
+                                                De un grupo de 8 amigos, ¿de cuántas maneras diferentes se pueden elegir
+                                                3 para formar un equipo?
+                                            </b>
+                                        </p>
+                                    </div>
+
+                                    <div class="cuadro-morado">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Solución
+                                            </b>
+                                        </p>
+                                        <p class="flex-centered">
+                                            Utilizamos combinaciones ya que el orden no importa. El número de
+                                            combinaciones
+                                            es
+                                            <img width="280px" src="content/ejemplos-formula1.jpg" alt=""
+                                                style="display: inline;">
+                                        </p>
+
+                                        <p class="letra-morada">
+                                            <b>
+                                                Respuesta
+                                            </b>
+                                        </p>
+
+                                        <p>
+                                            Hay 56 maneras diferentes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 3</h3>
+                                <div>
+                                    <div class="img-flex">
+                                        <img width="72px" src="content/ico-carro.png" alt="">
+                                        <p class="letra-morada">
+                                            <b>
+                                                ¿De cuántas maneras diferentes se pueden ordenar las letras en la
+                                                palabra "CARRO", considerando que la "R" aparece dos veces?
+                                            </b>
+                                        </p>
+                                    </div>
+                                    <div class="cuadro-morado">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Solución
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Utilizamos permutaciones con repetición. Hay 5 letras en total, con una
+                                            letra
+                                            repetida 2 veces:
+                                            \(\frac{5!}{2!} = \frac{120}{2} = 60. \)
+                                        </p>
+                                        <p class="letra-morada">
+                                            <b>
+                                                Respuesta
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Hay 60 arreglos diferentes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 4</h3>
+                                <div>
+                                    <div class="img-flex">
+                                        <img width="72px" src="content/ico-menu.png" alt="">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Un restaurante ofrece 4 entrantes y 7 platos principales. ¿Cuántas
+                                                combinaciones diferentes de un entrante y un plato principal se pueden
+                                                elegir?
+                                            </b>
+                                        </p>
+                                    </div>
+                                    <div class="cuadro-morado">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Solución
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Multiplicamos las opciones de cada categoría: 4 × 7 = 28.
+                                        </p>
+                                        <p class="letra-morada">
+                                            <b>
+                                                Respuesta
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Hay 28 combinaciones diferentes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <h3>Ejemplo 5</h3>
+                                <div>
+                                    <div class="img-flex">
+                                        <img width="72px" src="content/ico-clase.png" alt="">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Un estudiante puede elegir un curso de matemáticas entre 3 profesores
+                                                diferentes y un curso de física entre 2 profesores diferentes. Si solo
+                                                puede elegir uno de los cursos, ¿cuántas opciones tiene?
+                                            </b>
+                                        </p>
+                                    </div>
+                                    <div class="cuadro-morado">
+                                        <p class="letra-morada">
+                                            <b>
+                                                Solución
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Sumamos las opciones de cada curso: 3+2=5.
+                                        </p>
+                                        <p class="letra-morada">
+                                            <b>
+                                                Respuesta
+                                            </b>
+                                        </p>
+                                        <p>
+                                            El estudiante tiene 5 opciones en total.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="ejemplo-vs">
+                            <h3>Ejemplo 1</h3>
+                            <div class="img-flex">
+                                <img width="72px" src="content/ico-silla.png" alt="">
+                                <p>
+                                    ¿De cuántas maneras diferentes se pueden sentar 5 personas en una fila de 5 sillas?
+                                </p>
+                            </div>
+
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                Utilizamos permutaciones sin repetición. El número de permutaciones de 5 elementos
+                                es 5! = 5 x 4 x 3 x 2 x 1 = 120.
+                            </p>
+
+                            <p>
+                                <b>
+                                    Respuesta
+                                </b>
+                                <br>
+                                Hay 120 maneras diferentes.
+                            </p>
+
+                        </div>
+
+                        <img class="raya-divisora" src="content/rayas-divisoras.jpg" alt="">
+
+                        <div class="ejemplo-vs">
+                            <h3>Ejemplo 2</h3>
+                            <div class="img-flex">
+                                <img width="72px" src="content/ico-grupo.png" alt="">
+                                <p>
+                                    De un grupo de 8 amigos, ¿de cuántas maneras
+                                    diferentes se pueden elegir 3 para formar un equipo?
+                                </p>
+                            </div>
+
+                            <p class="mb-0">
+                                <b>
+                                    Solución
+                                </b>
+                            </p>
+                            <p class="flex-centered">
+                                Utilizamos combinaciones ya que el orden no importa. El número de
+                                combinaciones es
+                                <img width="280px" src="content/ejemplos-formula1.jpg" alt="" style="display: inline;">
+                            </p>
+
+                            <p>
+                                <b>
+                                    Respuesta
+                                </b>
+                                <br>
+                                Hay 56 maneras diferentes.
+                            </p>
+                        </div>
+
+                        <img class="raya-divisora" src="content/rayas-divisoras.jpg" alt="">
+
+                        <div class="ejemplo-vs">
+                            <h3>Ejemplo 3</h3>
+                            <div class="img-flex">
+                                <img width="72px" src="content/ico-carro.png" alt="">
+                                <p>
+                                    ¿De cuántas maneras diferentes se pueden ordenar las letras en la
+                                    palabra "CARRO", considerando que la "R" aparece dos veces?
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                Utilizamos permutaciones con repetición. Hay 5 letras en total, con una
+                                letra
+                                repetida 2 veces:
+                                \(\frac{5!}{2!} = \frac{120}{2} = 60. \)
+                            </p>
+                            <p>
+                                <b>
+                                    Respuesta
+                                </b>
+                                <br>
+                                Hay 60 arreglos diferentes.
+                            </p>
+                        </div>
+
+                        <img class="raya-divisora" src="content/rayas-divisoras.jpg" alt="">
+
+
+                        <div class="ejemplo-vs">
+                            <h3>Ejemplo 4</h3>
+                            <div class="img-flex">
+                                <img width="72px" src="content/ico-menu.png" alt="">
+                                <p>
+                                    <b>
+                                        Un restaurante ofrece 4 entrantes y 7 platos principales. ¿Cuántas
+                                        combinaciones diferentes de un entrante y un plato principal se pueden
+                                        elegir?
+                                    </b>
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                Multiplicamos las opciones de cada categoría: 4 × 7 = 28.
+                            </p>
+                            <p>
+                                <b>
+                                    Respuesta
+                                </b>
+                                <br>
+                                Hay 28 combinaciones diferentes.
+                            </p>
+                        </div>
+
+                        <img class="raya-divisora" src="content/rayas-divisoras.jpg" alt="">
+
+                        <div class="ejemplo-vs">
+                            <h3>Ejemplo 5</h3>
+                            <div class="img-flex">
+                                <img width="72px" src="content/ico-clase.png" alt="">
+                                <p>
+                                    <b>
+                                        Un estudiante puede elegir un curso de matemáticas entre 3 profesores
+                                        diferentes y un curso de física entre 2 profesores diferentes. Si solo
+                                        puede elegir uno de los cursos, ¿cuántas opciones tiene?
+                                    </b>
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                Sumamos las opciones de cada curso: 3+2=5.
+                            </p>
+                            <p>
+                                <b>
+                                    Respuesta
+                                </b>
+                                <br>
+                                El estudiante tiene 5 opciones en total.
+                            </p>
+                        </div>
+
+                        <img class="raya-divisora" src="content/rayas-divisoras.jpg" alt="">
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div data-ls-cycle="active-sequential" id="arrastrar1" class="jpit-activities-droppable"
+                            data-verify-type="target" data-act-id="Ejemplos - Arrastrar soluciones">
+                            <p>
+                                Completa los espacios en blanco con las soluciones a los ejercicios que se encuentran a
+                                continuación:
+                            </p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-silla.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    ¿De cuántas maneras diferentes se pueden sentar 5 personas en una
+                                                    fila de 5 sillas?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="1"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-grupo.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    De un grupo de 8 amigos, ¿de cuántas maneras diferentes se pueden
+                                                    elegir 3 para formar un equipo?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="2"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-carro.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    ¿De cuántas maneras diferentes se pueden ordenar las letras en la
+                                                    palabra "CARRO", considerando que la "R" aparece dos veces?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="3"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-menu.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Un restaurante ofrece 4 entrantes y 7 platos principales. ¿Cuántas
+                                                    combinaciones diferentes de un entrante y un plato principal se
+                                                    pueden elegir?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="4"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-clase.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Un estudiante puede elegir un curso de matemáticas entre 3
+                                                    profesores diferentes y un curso de física entre 2 profesores
+                                                    diferentes. Si solo puede elegir uno de los cursos, ¿cuántas
+                                                    opciones tiene?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="5"></td>
+                                </tr>
+                            </table>
+
+                            <h4 class="mb-3 mt-5 text-center">Opciones</h4>
+                            <div class="respuestas">
+                                <div data-group="1" class="item1">Solución 1</div>
+                                <div data-group="2" class="item2">Solución 2</div>
+                                <div data-group="3" class="item3">Solución 3</div>
+                                <div data-group="4" class="item4">Solución 4</div>
+                                <div data-group="5" class="item5">Solución 5</div>
+                            </div>
+                            <!-- <br class="clear" /> -->
+
+                            <div class="box_end"></div>
+                        </div>
+
+                        <div class="cajas-soluciones">
+                            <div>
+                                <h4 style="color: black;">Solución 1</h4>
+                                <p>
+                                    Utilizamos permutaciones sin repetición. El número de permutaciones de 5 elementos
+                                    es 5! = 5 x 4 x 3 x 2 x 1 = 120.
+                                </p>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                    Hay 120 maneras diferentes.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 2</h4>
+                                <p>
+                                    Utilizamos combinaciones ya que el orden no importa. El número de combinaciones es:
+                                    <img width="280px" src="content/ejemplos-formula1.jpg" alt=""
+                                        style="display: inline;">
+                                </p>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                    Hay 56 maneras diferentes.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 3</h4>
+                                <p>
+                                    Utilizamos permutaciones con repetición. Hay 5 letras en total, con una letra
+                                    repetida 2 veces: 5! 2!= 1202=60
+                                </p>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                    Hay 60 arreglos diferentes.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 4</h4>
+                                <p>
+                                    Multiplicamos las opciones de cada categoría: 4 x 7 = 28.
+                                </p>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                    Hay 28 combinaciones diferentes.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 5</h4>
+                                <p>
+                                    Sumamos las opciones de cada curso: 3 + 2 = 5.
+                                </p>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                    El estudiante tiene 5 opciones en total.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-resumen" ptitle="Resumen">
+                <div data-title="Resumen" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-resumen mb-5" data-src="content/resumen-vb.jpg" title="Resumen">
+                            <img src="content/resumen-vb.jpg" class="w-100" style="visibility: hidden;" alt="">
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic sobre cada botón para conocer en qué consiste la combinatoria, sus usos y
+                            aplicaciones.
+                        </div>
+
+                        <div class="escenario-resumen">
+                            <img class="fondo" src="content/fondo-hombre.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalResumen1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalResumen2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalResumen3">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalResumen4">
+                            </button>
+                            <button class="boton boton5 wf-content-controler" data-content="#modalResumen5">
+                            </button>
+                            <button class="boton boton6 wf-content-controler" data-content="#modalResumen6">
+                            </button>
+                            <button class="boton boton7 wf-content-controler" data-content="#modalResumen7">
+                            </button>
+
+                            <div class="puntos-calientes">
+                                <div id="modalResumen1" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        La combinatoria es una rama de las matemáticas que se centra en el conteo, la
+                                        organización y el análisis de formas para agrupar u ordenar elementos de un
+                                        conjunto.
+                                    </p>
+                                </div>
+                                <div id="modalResumen2" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        Los conceptos clave incluyen permutaciones, combinaciones, y principios de suma
+                                        y multiplicación.
+                                    </p>
+                                </div>
+                                <div id="modalResumen3" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        Las permutaciones sin repetición, donde el orden es importante, se calculan como
+                                        el factorial del número de elementos. Por ejemplo, ordenar 5 personas en 5
+                                        sillas tiene 120 posibilidades distintas.
+                                    </p>
+                                </div>
+                                <div id="modalResumen4" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        Las combinaciones, por otro lado, no consideran el orden y se usan para
+                                        determinar cuántos grupos se pueden formar de un conjunto mayor, como
+                                        seleccionar un equipo de 3 de 8 amigos, resultando en 56 posibilidades.
+                                    </p>
+                                </div>
+                                <div id="modalResumen5" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        Las permutaciones con repetición se aplican a situaciones donde algunos
+                                        elementos se repiten, como en la organización de letras en una palabra.
+                                    </p>
+                                </div>
+                                <div id="modalResumen6" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        El principio de multiplicación combina opciones de diferentes categorías,
+                                        mientras que el principio de suma se usa cuando hay varias opciones exclusivas
+                                        entre sí.
+                                    </p>
+                                </div>
+                                <div id="modalResumen7" class="wf-content" data-property-width="80%">
+                                    <p>
+                                        Estos conceptos tienen aplicaciones prácticas en diversos campos, desde
+                                        la planificación de menús hasta la selección de cursos académicos.
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio mb-4">
+                            <audio controls>
+                                <source src="content/audio/resumen.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues2 mb-5">
+                            <img src="content/resumen-vb.jpg" />
+                            <img src="content/resumen-vb2.jpg" />
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-prueba" ptitle="Prueba tu conocimiento">
+                <div data-title="Prueba tu conocimiento" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Prueba tu conocimiento
+                    </h3>
+
+                    <p>
+                        Este cuestionario consta de 7 preguntas de selección múltiple con única respuesta. Haz clic
+                        sobre la respuesta que consideres correcta, verifica y avanza haciendo clic en las flechas.
+                    </p>
+
+                    <div class="ctrl-pagination" data-layer-height="auto" data-labelcurrent="true">
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 1"
+                                data-act-id="cuestionario-p1" data-shuffle="false">
+                                <!-- Question 1 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    1. Si un restaurante ofrece 3 entrantes y 4 platos principales,
+                                                    ¿cuántas
+                                                    combinaciones diferentes de un entrante y un plato principal se
+                                                    pueden
+                                                    elegir?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>7</li>
+                                        <li data-response="true">12</li>
+                                        <li>10</li>
+                                        <li>15</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es
+                                            (3 x 4= 12). <span style="color: #601DB7;"><b>B.</b></span> Multiplica las
+                                            opciones
+                                            de entradas y platos principales
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 2"
+                                data-act-id="cuestionario-p2" data-shuffle="false">
+                                <!-- Question 2 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    2. Un menú tiene 5 opciones de desayuno y 6 de almuerzo. ¿Cuántas
+                                                    opciones
+                                                    hay en total?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">11</li>
+                                        <li>30</li>
+                                        <li>10</li>
+                                        <li>15</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>A.</b></span> Suma
+                                            las
+                                            opciones de desayuno y almuerzo (5 + 6 = 11).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 3"
+                                data-act-id="cuestionario-p3" data-shuffle="false">
+                                <!-- Question 3 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    3. ¿De cuántas maneras diferentes pueden sentarse 4 amigos en una
+                                                    banca si
+                                                    hay 4 espacios?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">24</li>
+                                        <li>16</li>
+                                        <li>256</li>
+                                        <li>64</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>A.</b></span> Es
+                                            una
+                                            permutación de 4 elementos (4! = 4x3x2x1= 24).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 4"
+                                data-act-id="cuestionario-p4" data-shuffle="false">
+                                <!-- Question 4 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    4. De un equipo de 5 jugadores, ¿de cuántas formas se pueden elegir
+                                                    3 para
+                                                    un juego?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>20</li>
+                                        <li data-response="true">10</li>
+                                        <li>5</li>
+                                        <li>15</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>B.</b></span> Usa
+                                            la
+                                            fórmula de combinaciones
+                                            <br>
+                                            <img src="content/formula-retro-4.png" alt="">
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 5"
+                                data-act-id="cuestionario-p5" data-shuffle="false">
+                                <!-- Question 5 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    5. Si un código de seguridad consta de 2 letras seguidas de 3
+                                                    dígitos,
+                                                    ¿cuántas combinaciones diferentes son posibles? (Asumiendo 26 letras
+                                                    y 10
+                                                    dígitos).
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>26.000</li>
+                                        <li>67.600</li>
+                                        <li>260.000</li>
+                                        <li data-response="true">676.000</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>D.</b></span>
+                                            Multiplica
+                                            las opciones de letras y números \(({26}^2x{10}^3=676.000).\)
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 6"
+                                data-act-id="cuestionario-p6" data-shuffle="false">
+                                <!-- Question 6 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    6. Un boleto de lotería se gana con 6 números. Si puedes elegir
+                                                    entre
+                                                    números del 1 al 40 o del 41 al 80, ¿cuántas opciones de números
+                                                    hay?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>40</li>
+                                        <li data-response="true">80</li>
+                                        <li>120</li>
+                                        <li>160</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>B.</b></span> Suma
+                                            las
+                                            opciones de ambos rangos (40+40=80).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 7"
+                                data-act-id="cuestionario-p7" data-shuffle="false">
+                                <!-- Question 7 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span><b>
+                                                    7. ¿De cuántas maneras diferentes se pueden ordenar las letras de la
+                                                    palabra
+                                                    "COCO"?
+                                                </b></span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">12</li>
+                                        <li>24</li>
+                                        <li>6</li>
+                                        <li>4</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <span style="color: #601DB7;"><b>A.</b></span> Usa
+                                            la
+                                            fórmula de permutaciones con repetición (4!/2! = 4x3=12).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                    </div>
+
+                    <p style="height: 100px;"></p>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="not_print">
+            <div class="contenedor-botones">
+
+                <div id="subpages_menu">
+                    <div class="button" previous-page>
+                        <span>&#8249;</span> Anterior
+                    </div>
+                    <div class="measuring-progress" data-type="horizontal"></div>
+                    <div id="page_number"></div>
+                    <div class="button" next-page>
+                        Siguiente <span>&#8250;</span>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!--Créditos-->
+    <div id="credits-page" data-global="credits" style="display:none;">
+        <h3>Créditos</h3>
+        <br>
+        <h4>Autoría</h4>
+        <cite>
+            Diana Cristina Oviedo Ramírez
+            <br>
+            Lorena María Quiroz Betancur
+            <br>
+            Facultad de Educación
+        </cite>
+
+        <h4>Asesoría pedagógica</h4>
+        <cite>
+            Manuela Mesa Flórez
+        </cite>
+
+        <h4>Guionización</h4>
+        <cite>
+            Tiany Gamarra Castillo
+        </cite>
+
+        <h4>Corrección de estilo</h4>
+        <cite>
+            Luisa Fernanda Londoño Castrillón
+        </cite>
+
+        <h4>
+            Diseño gráfico e ilustración
+        </h4>
+        <cite>
+            Esteban Martínez Pavas
+        </cite>
+
+        <h4>Gestión técnica y administrativa </h4>
+        <cite>
+            Ángela María Valderrama Muñoz
+            <br>
+            David Herney Bernal García
+        </cite>
+
+        <h4>Desarrollo Front-end</h4>
+        <cite>
+            Jhon Fredy Saldarriaga
+        </cite>
+
+        <br><br>
+
+        <h4>
+            Universidad de Antioquia
+            <br>
+            Vicerrectoría de Docencia
+            <br>
+            Ude@ Educación Virtual
+            <br>
+            2024
+        </h4>
+
+        <img class="logo-sgr" src="content/logo-sgr.svg" alt="">
+        <img class="logo-udea" src="content/logo-udea.svg" alt="">
+        <img class="logo-gobernacion" src="content/logo-gobernacion-antioquia.svg" alt="">
+
+    </div>
+    <!-- FIN Créditos -->
+
+
+    <!-- Bibliografía -->
+    <div id="library-page" style="display: none">
+        <div id="library_subpage">
+            <h2>Referencias bibliográficas</h2>
+
+            <p>
+                En el marco del Sistema General de Regalías, esta producción fue creada por los grupos de investigación
+                Telecomunicaciones Aplicadas (GITA) y Didáctica y Nuevas Tecnologías (DyNT), haciendo uso de ChatGPT
+                (OpenAI, 2023. ChatGPT, versión 4.0 del 14 de marzo [modelo multimodal grande].
+                <a href="https://chat.openai.com/chat" target="_blank"
+                    rel="noopener noreferrer">https://chat.openai.com/chat</a>).
+            </p>
+
+            <img src="img/ico-creative-commons.svg" alt="" class="ico-cc">
+        </div>
+    </div>
+
+
+
+    <div id="results_page" style="display:none;">
+        <h2>Resumen de su avance en la lectura del documento</h2>
+        <h3>Páginas visitadas</h3>
+        <p>En verde, aquellas páginas que ya ha visitado.</p>
+        <div id="results_page_visited" class="container"></div>
+        <br class="clear" />
+        <h3>Actividades de aprendizaje</h3>
+        <div id="results_page_activities"></div>
+        <br class="clear" />
+        <!-- <h3>Estilos de aprendizaje</h3>
+        <div id="results_page_styles"></div>
+        <br class="clear" />
+        <br> -->
+    </div>
+
+    <div id="printent_content" style="display:none;">
+        <div class="content"></div>
+        <div class="button_container">
+            <button class="general button" onclick="window.print();">Imprimir</button>
+            <button id="printent_back" class="general button">Volver</button>
+        </div>
+    </div>
+
+    <script id="MathJax-script" async src="js/mathjax3.js"></script>
+
+</body>
+
+</html>

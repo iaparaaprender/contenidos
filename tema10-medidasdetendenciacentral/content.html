@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>IA para aprender - Medidas de tendencia central</title>
+
+    <link href="components/jquery/css/custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="components/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_quiz.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_mark.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_wordpuzzle.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_crossword.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_zoom.css" rel="stylesheet" type="text/css">
+    <link href="components/csscircle/circle.min.css" rel="stylesheet" type="text/css">
+
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="components/jquery-mobile/jquery.ui.touch-punch.min.js"></script>
+
+    <!--jQuery components -->
+    <script src="components/twentytwenty/js/jquery.event.move.js" type="text/javascript"></script>
+    <script src="components/twentytwenty/js/jquery.twentytwenty.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/twentytwenty/css/twentytwenty.css" type="text/css" media="screen" />
+
+    <script src="components/mediaelementjs/mediaelement-and-player.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/mediaelementjs/mediaelementplayer.css" type="text/css" />
+
+    <script src="components/learningstyles/lib.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/learningstyles/styles.css" type="text/css" />
+
+    <script src="components/maphilight/jquery.maphilight.min.js" type="text/javascript"></script>
+    <!--End jQuery components -->
+
+    <script src="components/interact/interact.min.js"></script>
+    <script src="components/pit/jpit_api.js"></script>
+    <script src="components/pit/utilities/jpit_utilities.js"></script>
+    <script src="components/pit/activity/jpit_activity.js"></script>
+    <script src="components/pit/resources/jpit_resource.js"></script>
+    <script src="components/pit/activity/quiz/jpit_activity_quiz.js"></script>
+    <script src="components/pit/activity/mark/jpit_activity_mark.js"></script>
+    <script src="components/pit/activity/wordpuzzle/jpit_activity_wordpuzzle.js"></script>
+    <script src="components/pit/activity/droppable/jpit_activity_droppable.js"></script>
+    <script src="components/pit/activity/crossword/jpit_activity_crossword.js"></script>
+    <script src="components/pit/activity/cloze/jpit_activity_cloze.js"></script>
+    <script src="components/pit/activity/form/jpit_activity_form.js"></script>
+    <script src="components/pit/activity/sortable/jpit_activity_sortable.js"></script>
+    <script src="components/pit/activity/check/jpit_activity_check.js"></script>
+    <script src="components/pit/resources/movi/jpit_resource_movi.js"></script>
+    <script src="components/pit/resources/zoom/jpit_resource_zoom.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/lang.es.js"></script>
+    <script src="js/jquery.tepuy.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/mobilelib.js"></script>
+    <script src="js/stories.js"></script>
+    <script src="components/scorm/SCORM_12_APIWrapper.js"> </script>
+    <script src="components/scorm/scorm_api.js"> </script>
+
+    <style type='text/css'>
+        body {
+            background-color: rgba(242, 242, 242, 0.7);
+        }
+
+        body.loading {
+            text-align: center;
+        }
+
+        body.loading:after {
+            content: "";
+            background: url(img/loading.gif) no-repeat bottom center;
+            width: 130px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            padding-bottom: 20px;
+        }
+
+        body.loading #body {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body class="loading" data-debug="true" data-model="scorm" data-display-mode="onlypages" data-approve-limit="70"
+    data-activities-percentaje="60" data-mobile-mode="512">
+    <div id="body" class="not_print">
+
+        <div id="not_scorm_msg" style="display: none;"></div>
+
+        <header>
+            <div class="sec-menu">
+                <img src="img/logo-ia-para-aprender.svg" alt="">
+                <div class="botones-sec-menu">
+                    <a href="#" data-global="results" data-position-at="top">
+                        <img src="img/ico-progreso.svg" alt="">
+                        Progreso
+                    </a>
+                    <a href="#" data-global="credits">
+                        <img src="img/ico-creditos.svg" alt="">
+                        Créditos
+                    </a>
+                    <a href="#" data-global="library">
+                        <img src="img/ico-bibliografia.svg" alt="">
+                        Bibliografía
+                    </a>
+                </div>
+                <nav label="Características globales" class="globals notmobile">
+                    <menu>
+                        <menuitem data-global-id="return">
+                        <i title="Maximizar" class="ion-arrow-expand maximize">
+                            <p class="onlymobile">
+                                Maximizar
+                            </p>
+                        </i>
+                        <i title="Minimizar" class="ion-arrow-shrink minimize">
+                            <p class="onlymobile">
+                                Minimizar
+                            </p>
+                        </i>
+                        </menuitem>
+                        <menuitem data-global-id="close_all">
+                        <i title="Salir del contenido educativo" class="ion-close-circled">
+                            <p class="onlymobile">
+                                Salir
+                            </p>
+                        </i>
+                        </menuitem>
+                    </menu>
+                </nav>
+            </div>
+            <!-- <h2 class="page-title"></h2> -->
+            <nav label="Principal" class="horizontal main" data-offset="true">
+                <menu>
+                    <menuitem label="Introducción" data-page="pag-introduccion">
+                    </menuitem>
+                    <menuitem label="Definición" data-page="pag-definicion">
+                    </menuitem>
+                    <menuitem label="Aplicación" data-page="pag-aplicacion">
+                    </menuitem>
+                    <menuitem label="Ejemplos" data-page="pag-ejemplos">
+                    </menuitem>
+                    <menuitem label="Resumen" data-page="pag-resumen">
+                    </menuitem>
+                    <menuitem label="Prueba" data-page="pag-prueba">
+                    </menuitem>
+                </menu>
+            </nav>
+            <nav label="Características globales" class="globals onlymobile">
+                <menu>
+                    <menuitem data-global-id="return">
+                    <i title="Maximizar" class="ion-arrow-expand maximize">
+                        <p class="onlymobile">
+                            Maximizar
+                        </p>
+                    </i>
+                    <i title="Minimizar" class="ion-arrow-shrink minimize">
+                        <p class="onlymobile">
+                            Minimizar
+                        </p>
+                    </i>
+                    </menuitem>
+                    <menuitem data-global-id="close_all">
+                    <i title="Salir del contenido educativo" class="ion-close-circled">
+                        <p class="onlymobile">
+                            Salir
+                        </p>
+                    </i>
+                    </menuitem>
+                </menu>
+            </nav>
+        </header>
+
+        <main style="display: none;">
+
+            <section id="pag-introduccion" ptitle="Introducción a las medidas de tendencia central">
+                <div data-title="Introducción a las medidas de tendencia central" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5" data-src="content/introduccion-vb.jpg"
+                            title="Introducción a las medidas de tendencia central">
+                            <img src="content/introduccion-vb.jpg" style="visibility: hidden;" alt="" class="w-100">
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <h3 class="titulo-pagina">
+                            Introducción a las medidas de tendencia central
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada pregunta para conocer sobre la teoría de conjuntos y sus operaciones.
+                        </div>
+
+                        <div class="escenario-intro">
+                            <img class="fondo" src="content/fondo-tablet.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalIntro1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalIntro2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalIntro3">
+                            </button>
+                            <div id="modalIntro1" class="wf-content" data-property-width="80%">
+                                <h3 style="color: #601DB7;">
+                                    ¿Qué incluyen las medidas de tendencia central?
+                                </h3>
+                                <p>
+                                    Las medidas de tendencia central, que incluyen la media, la mediana y la moda,
+                                    proporcionan un valor representativo que refleja el punto central de un conjunto de
+                                    datos.
+                                </p>
+                            </div>
+                            <div id="modalIntro2" class="wf-content" data-property-width="80%">
+                                <h3 style="color: #601DB7;">
+                                    ¿Media, mediana y moda?
+                                </h3>
+                                <p>
+                                    La media, conocida comúnmente como el promedio, es la suma total de todos los
+                                    valores dividida por su cantidad, ofreciendo una visión general de los datos, pero
+                                    susceptible a ser afectada por valores extremos. La mediana, el valor que se
+                                    encuentra en el medio de un conjunto de datos ordenados, divide este conjunto en dos
+                                    partes iguales y es útil especialmente en distribuciones sesgadas, ya que es menos
+                                    sensible a valores atípicos. La moda, el valor que aparece con más frecuencia, es
+                                    crucial en el análisis de datos categóricos.
+                                </p>
+                            </div>
+                            <div id="modalIntro3" class="wf-content" data-property-width="80%">
+                                <h3 style="color: #601DB7;">
+                                    ¿Cuál es su importancia?
+                                </h3>
+                                <p>
+                                    La importancia de estas medidas trasciende el ámbito académico, influyendo
+                                    significativamente en la vida cotidiana. Por ejemplo, en economía y negocios, la
+                                    comprensión del ingreso medio de una población puede informar decisiones de política
+                                    económica y estrategias de mercado. En medicina, la media de ciertos indicadores
+                                    clínicos es vital para establecer normas de salud. En el ámbito educativo, la media
+                                    y la mediana pueden indicar el desempeño general de los estudiantes.
+                                </p>
+                                <p>
+                                    Así, las medidas de tendencia central no solo simplifican la complejidad de los
+                                    datos, sino que también facilitan la toma de decisiones informadas en diversas áreas
+                                    de la vida.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Introducción a las medidas de tendencia central
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/introduccion.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues">
+                            <img src="content/introduccion-vb.jpg" />
+                            <img src="content/introduccion-vb2.jpg" />
+                        </div>
+
+                        <p style="height: 80px;"></p>
+                    </div>
+
+            </section>
+
+            <section id="pag-definicion"
+                ptitle="Definición de medidas de tendencia central y estrategia de la “marcha atrás”">
+                <div data-title="Definición de medidas de tendencia central y estrategia de la “marcha atrás”"
+                    class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Definición de medidas de tendencia central y estrategia de la “marcha atrás”
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/metodos.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic los botones <span class="mas">+</span> para obtener información.
+                        </div>
+
+                        <div id="paginacion-numeros" class="ctrl-pagination" data-layer-height="auto"
+                            data-numeric-pagination="true">
+                            <li>
+                                <div class="escenario-definicion">
+                                    <img class="fondo" src="content/definicion/fondo.jpg" alt="">
+
+                                    <button class="boton boton1 w-content-controler" data-content="#modalDefinicion1">
+                                    </button>
+
+                                    <button class="boton boton2 w-content-controler" data-content="#modalDefinicion2">
+                                    </button>
+
+                                    <button class="boton boton3 w-content-controler" data-content="#modalDefinicion3">
+                                    </button>
+
+                                    <button class="boton boton4 w-content-controler" data-content="#modalDefinicion4">
+                                    </button>
+
+                                    <button onclick="abrirPag(2)" class="boton boton5 w-content-controler">
+                                    </button>
+                                </div>
+                            </li>
+                            <li>
+                                <!-- Pagina Estrategia de la "marcha atrás" -->
+                                <button class="boton-inicio" onclick="abrirPag(1)">
+                                    Inicio
+                                </button>
+                                <h2 class="titulo-definicion">
+                                    Estrategia de la “marcha atrás” para la resolución de problemas con medidas de tendencia central
+                                </h2>
+                                <p>
+                                    La estrategia de la "marcha atrás" en la resolución de problemas con medidas de tendencia central implica trabajar en sentido inverso desde el resultado conocido (como la media, la mediana o la moda) hacia los datos originales del problema. Esta técnica es especialmente útil cuando se conocen ciertos estadísticos de un conjunto de datos y se quiere deducir información sobre los datos mismos. Aquí te explico paso a paso cómo aplicarla:
+                                </p>
+                                <div>
+                                    <div class="mt-5"
+                                        style="display: flex; flex-wrap: nowrap; justify-content: center;">
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha1">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso1.png" alt="">
+                                        </button>
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha2">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso2.png" alt="">
+                                        </button>
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha3">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso3.png" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <script>
+                                function abrirPag(pag) {
+                                    document.querySelector('#paginacion-numeros .pagination li:nth-child(' + pag + ')').click();
+                                    document.querySelector('html').style.overflow = 'auto';
+                                }
+                            </script>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+                        <h3 class="titulo-pagina">
+                            Definición de medidas de tendencia central y estrategia de la “marcha atrás”
+                        </h3>
+
+                        <p>
+                            A continuación, encontrarás un audio y un texto escrito. Te proponemos escuchar el audio
+                            mientras lees, así podrás identificar los ejemplos y las expresiones matemáticas. Siéntete
+                            libre de pausar el audio
+                            cuando quieras detenerte en algún detalle de la lectura.
+                        </p>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio mb-5">
+                            <audio controls>
+                                <source src="content/audio/metodos.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <h2 class="mt-5">
+                            Definición de medidas de tendencia central
+                        </h2>
+
+                        <p>
+                            Una medida de tendencia central es un valor estadístico que intenta capturar la característica central o típica de un conjunto de datos. Estas medidas son cruciales para resumir y comprender conjuntos de datos grandes o complejos. Las tres medidas de tendencia central más comunes son la media, la mediana y la moda.
+                        </p>
+
+                        <h2 class="titulo-definicion2">
+                            Media (promedio)
+                        </h2>
+                        <p>
+                            Es la suma de todos los valores en un conjunto de datos dividida por el número de
+                            valores. La media es útil para obtener una visión general de los datos, pero puede
+                            verse afectada por valores atípicos extremos (muy altos o muy bajos). Es decir, la
+                            media de un conjunto de <i>n</i> valores numéricos se define como la suma de todos los
+                            valores dividida por <i>n</i>. Matemáticamente, si los valores son \(x_{1,\
+                            }x_{2,...,}x_n\),
+                            entonces la media \(\bar{x}\) se calcula como:
+                        </p>
+                        <p class="text-center">
+                            \(\bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}\), donde \(\mathrm{\Sigma}\) denota la suma de
+                            los valores.
+                        </p>
+
+                        <h2 style="color: black;">
+                            <b>Ejemplo</b>
+                        </h2>
+                        <p>
+                            En un conjunto de datos con los valores 3, 5 y 7, la media sería:
+                        </p>
+                        <p class="text-center">
+                            \(\frac{3+5+7}{3}=\frac{15}{3}=5\).
+                        </p>
+
+                        <h2 class="titulo-definicion2 mt-5">
+                            Mediana
+                        </h2>
+                        <p>
+                            Es el valor que se encuentra en el punto medio de un conjunto de datos ordenados. Si
+                            el conjunto tiene un número par de valores, la mediana es el promedio de los dos
+                            valores medios. La mediana es menos sensible a valores atípicos y es útil en
+                            distribuciones sesgadas. En otras palabras, la mediana es el valor que separa la
+                            mitad superior de la mitad inferior de un conjunto de datos ordenados. Si el número
+                            de valores <i>n</i> es impar, la mediana es el valor en la posición \(\frac{n+1}{2}\)
+                            una vez
+                            que los datos están ordenados. Si \(n\) es par, es el promedio de los dos valores
+                            centrales. Matemáticamente, para un conjunto ordenado \(x_1\le x_2\le...\le x_n\),
+                            la
+                            mediana <i>M</i> se define como:
+                        </p>
+                        <p class="text-center">
+                            \(x_\frac{n+1}{2}\), si <i>n</i> es impar
+                        </p>
+                        <p class="text-center">
+                            \(\frac{x_\frac{n}{2}+x_{\frac{n}{2}+1}}{2}\), si <i>n</i> es par
+                        </p>
+                        <h2 style="color: black;">
+                            Ejemplo
+                        </h2>
+                        <p>
+                            En un conjunto de datos con los valores 1, 3, 5, 7, la mediana sería:
+                        </p>
+                        <p class="text-center">
+                            \(\frac{3+5}{2}=\frac{8}{2}=4\).
+                        </p>
+                        <p>
+                            Si el conjunto fuese 1, 3, 7, la mediana sería 3.
+                        </p>
+
+                        <h2 class="titulo-definicion2 mt-5">
+                            Moda
+                        </h2>
+                        <p>
+                            Es el valor o valores que aparecen con mayor frecuencia en un conjunto de datos. La moda es especialmente útil para datos categóricos y puede haber más de una moda en un conjunto de datos. Así pues, la moda de un conjunto de datos es el valor o los valores que aparecen con mayor frecuencia. No tiene fórmula matemática única, ya que depende de la aparición de los valores. En un conjunto de datos, puede haber una moda (unimodal), dos modas (bimodal) o incluso múltiples modas. 
+                        </p>
+                        <h2 style="color: black;">
+                            Ejemplo
+                        </h2>
+                        <p>
+                            En un conjunto de datos con los valores 2, 4, 4, 6, 8, 8, 8, la moda sería 8 por ser el dato que más se repite.
+                        </p>
+                        <p>
+                            Cada una de estas medidas proporciona información diferente sobre la distribución de los datos y es útil en diferentes contextos analíticos. La elección de la medida más adecuada depende de la naturaleza de los datos y del objetivo del análisis.
+                        </p>
+
+
+                        <h2>
+                            Estrategia de la “marcha atrás” para la resolución de problemas con medidas de tendencia
+                            central
+                        </h2>
+                        <p>
+                            La estrategia de la "marcha atrás" en la resolución de problemas con medidas de tendencia central implica trabajar en sentido inverso desde el resultado conocido (como la media, la mediana o la moda) hacia los datos originales del problema. Esta técnica es especialmente útil cuando se conocen ciertos estadísticos de un conjunto de datos y se quiere deducir información sobre los datos mismos. Aquí te explico paso a paso cómo aplicarla: 
+                        </p>
+
+                        <h2 class="titulo-definicion2 mt-5">
+                            Paso 1. <span style="color: black;">Entendiendo el problema y la medida conocida:</span>
+                        </h2>
+                        <ul>
+                            <li>
+                                Identifica qué medida de tendencia central (media, mediana o moda) se proporciona en el problema y cuál es su valor. 
+                            </li>
+                            <br>
+                            <li>
+                                Comprende lo que representa esta medida. Por ejemplo, la media es el promedio, la mediana es el valor central en un conjunto de datos ordenados, y la moda es el valor más frecuente. 
+                            </li>
+                        </ul>
+
+                        <h2 class="titulo-definicion2 mt-5">
+                            Paso 2. <span style="color: black;">Utiliza la definición de la medida para revertir el
+                                proceso:</span>
+                        </h2>
+                        <ul>
+                            <li>
+                                <b>Para la media:</b> si conoces la media y el número total de datos, puedes multiplicar la media por el número de datos para obtener la suma total de los valores del conjunto de datos. Esta información puede ayudarte a deducir los valores individuales o propiedades del conjunto.
+                            </li>
+                            <br>
+                            <li>
+                                <b>Para la mediana:</b> si conoces la mediana y tienes información adicional sobre cómo se distribuyen los datos (por ejemplo, si están simétricamente distribuidos), puedes inferir características de los datos individuales. 
+                            </li>
+                            <br>
+                            <li>
+                                <b>Para la moda:</b> si conoces la moda y otros detalles sobre la frecuencia o la distribución de los datos, puedes hacer inferencias sobre la cantidad de veces que aparece cierto valor o sobre otros valores en el conjunto. 
+                            </li>
+                        </ul>
+
+                        <h2 class="titulo-definicion2 mt-5">
+                            Paso 3. <span style="color: black;">Resolver el problema paso a paso:</span>
+                        </h2>
+                        <ul>
+                            <li>
+                                Aplica la definición de la medida de tendencia central de forma inversa para
+                                reconstruir la información sobre el conjunto de datos.
+                            </li>
+                            <br>
+                            <li>
+                                Realiza cálculos matemáticos donde sea necesario para encontrar los datos
+                                faltantes o resolver la pregunta planteada.
+                            </li>
+                        </ul>
+
+                        <p style="height: 100px;"></p>
+
+
+                        <!-- FIN verbal / sensorial -->
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <h3 class="titulo-pagina">
+                            Definición de medidas de tendencia central y estrategia de la “marcha atrás”
+                        </h3>
+
+                        <p>
+                            Te invitamos a realizar un emocionante recorrido que potenciará tu aprendizaje. Para ello,
+                            sigue estos pasos:
+                        </p>
+
+                        <div class="bloque-instruccion">
+                            <ol>
+                                <li>
+                                    <p>
+                                        <b>Explora la simulación:</b> te invitamos a navegar por la siguiente
+                                        simulación. Tómate
+                                        tu tiempo para observar, interactuar y comprender los diferentes elementos
+                                        presentados.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_all.html?locale=es
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="bloque-instruccion">
+                            <ol start="2">
+                                <li>
+                                    <p>
+                                        <b>Interactivo educativo:</b> luego de explorar la simulación, ingresa al
+                                        siguiente interactivo y revisa todo el contenido. Aquí podrás profundizar en los
+                                        conceptos y adquirir un entendimiento más completo.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Interactivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic los botones <span class="mas">+</span> para obtener información.
+                        </div>
+
+                        <div id="paginacion-numeros" class="paginacion2 ctrl-pagination" data-layer-height="auto"
+                            data-numeric-pagination="true">
+                            <li>
+                                <div class="escenario-definicion">
+                                    <img class="fondo" src="content/definicion/fondo.jpg" alt="">
+
+                                    <button class="boton boton1 w-content-controler" data-content="#modalDefinicion1">
+                                    </button>
+
+                                    <button class="boton boton2 w-content-controler" data-content="#modalDefinicion2">
+                                    </button>
+
+                                    <button class="boton boton3 w-content-controler" data-content="#modalDefinicion3">
+                                    </button>
+
+                                    <button class="boton boton4 w-content-controler" data-content="#modalDefinicion4">
+                                    </button>
+
+                                    <button onclick="abrirPag2(2)" class="boton boton5 w-content-controler">
+                                    </button>
+                                </div>
+                            </li>
+                            <li>
+                                <!-- Pagina Estrategia de la "marcha atrás" -->
+                                <button class="boton-inicio" onclick="abrirPag2(1)">
+                                    Inicio
+                                </button>
+                                <h2 class="titulo-definicion">
+                                    Estrategia de la “marcha atrás” para la resolución de problemas con medidas de
+                                    tendencia central
+                                </h2>
+                                <p>
+                                    La estrategia de la "marcha atrás" en la resolución de problemas con medidas de
+                                    tendencia central implica trabajar en sentido inverso desde el resultado conocido
+                                    (como la media, la mediana o la moda) hacia los datos originales del problema. Esta
+                                    técnica es especialmente útil cuando se conocen ciertos estadísticos de un conjunto
+                                    de datos y se quiere deducir información sobre los datos mismos. Aquí te explico
+                                    paso a paso cómo aplicarla:
+                                </p>
+                                <div>
+                                    <div class="mt-5"
+                                        style="display: flex; flex-wrap: nowrap; justify-content: center;">
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha1">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso1.png" alt="">
+                                        </button>
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha2">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso2.png" alt="">
+                                        </button>
+                                        <button class="boton-definicion w-content-controler"
+                                            data-content="#modalMarcha3">
+                                            <img class="w-100" style="max-width: 250px;"
+                                                src="content/definicion/btn-paso3.png" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <script>
+                                function abrirPag2(pag) {
+                                    document.querySelector('#paginacion-numeros.paginacion2 .pagination li:nth-child(' + pag + ')').click();
+                                    document.querySelector('html').style.overflow = 'auto';
+                                }
+                            </script>
+                        </div>
+                        <!-- FIN Interactivo -->
+
+                        <div class="bloque-instruccion">
+                            <ol start="3">
+                                <li>
+                                    <p>
+                                        <b>Aplicación práctica:</b> finalmente, regresa a la simulación y relaciona los
+                                        elementos aprendidos. Aplica tu nuevo conocimiento y observa cómo todo cobra
+                                        sentido
+                                        en un contexto práctico.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_all.html?locale=es
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <p class="text-center mb-5">
+                            ¡Disfruta del recorrido y aprende de manera divertida e interactiva!
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <!-- Ventanas modales -->
+                    <div class="ventanas-modales">
+                        <div data-cssclass="modalDefinicion" id="modalDefinicion1" class="w-content"
+                            data-property-width="50%">
+                            <h2 class="titulo-definicion">
+                                Definición de medidas de tendencia central
+                            </h2>
+                            <p>
+                                Una medida de tendencia central es un valor estadístico que intenta capturar la
+                                característica central o típica de un conjunto de datos. Estas medidas son cruciales
+                                para resumir y comprender conjuntos de datos grandes o complejos. Las tres medidas
+                                de tendencia central más comunes son la media, la mediana y la moda.
+                            </p>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalDefinicion2" class="w-content"
+                            data-property-width="80%">
+                            <h2 class="titulo-definicion">
+                                Media (promedio)
+                            </h2>
+                            <p>
+                                Es la suma de todos los valores en un conjunto de datos dividida por el número de
+                                valores. La media es útil para obtener una visión general de los datos, pero puede
+                                verse afectada por valores atípicos extremos (muy altos o muy bajos). Es decir, la
+                                media de un conjunto de <i>n</i> valores numéricos se define como la suma de todos los
+                                valores dividida por <i>n</i>. Matemáticamente, si los valores son \(x_{1,\
+                                }x_{2,...,}x_n\),
+                                entonces la media \(\bar{x}\) se calcula como:
+                            </p>
+                            <p class="text-center">
+                                \(\bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}\), donde \(\mathrm{\Sigma}\) denota la suma de
+                                los valores.
+                            </p>
+
+                            <p>
+                                <b class="color-morado">Ejemplo</b>
+                            </p>
+                            <p>
+                                En un conjunto de datos con los valores 3, 5 y 7, la media sería
+                                \(\frac{3+5+7}{3}=\frac{15}{3}=5\).
+                            </p>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalDefinicion3" class="w-content"
+                            data-property-width="80%">
+                            <h2 class="titulo-definicion">
+                                Mediana
+                            </h2>
+                            <p>
+                                Es el valor que se encuentra en el punto medio de un conjunto de datos ordenados. Si
+                                el conjunto tiene un número par de valores, la mediana es el promedio de los dos
+                                valores medios. La mediana es menos sensible a valores atípicos y es útil en
+                                distribuciones sesgadas. En otras palabras, la mediana es el valor que separa la
+                                mitad superior de la mitad inferior de un conjunto de datos ordenados. Si el número
+                                de valores <i>n</i> es impar, la mediana es el valor en la posición \(\frac{n+1}{2}\)
+                                una vez
+                                que los datos están ordenados. Si <i>n</i> es par, es el promedio de los dos valores
+                                centrales. Matemáticamente, para un conjunto ordenado \(x_1\le x_2\le...\le x_n\),
+                                la
+                                mediana <i>M</i> se define como:
+                            </p>
+                            <p class="text-center">
+                                \(x_\frac{n+1}{2}\), si <i>n</i> es impar
+                            </p>
+                            <p class="text-center">
+                                \(\frac{x_\frac{n}{2}+x_{\frac{n}{2}+1}}{2}\), si <i>n</i> es par
+                            </p>
+                            <p>
+                                <b class="color-morado">Ejemplo</b>
+                            </p>
+                            <p>
+                                En un conjunto de datos con los valores 1, 3, 5, 7, la mediana sería
+                                \(\frac{3+5}{2}=\frac{8}{2}=4\). Si el conjunto fuese 1, 3, 7, la mediana sería 3.
+                            </p>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalDefinicion4" class="w-content"
+                            data-property-width="80%">
+                            <h2 class="titulo-definicion">
+                                <span></span>
+                                Moda
+                            </h2>
+                            <p>
+                                Es el valor o valores que aparecen con mayor frecuencia en un conjunto de datos. La
+                                moda es especialmente útil para datos categóricos y puede haber más de una moda en
+                                un conjunto de datos. Así pues, la moda de un conjunto de datos es el valor o los
+                                valores que aparecen con mayor frecuencia. No tiene fórmula matemática única, ya que
+                                depende de la aparición de los valores. En un conjunto de datos, puede haber una
+                                moda (unimodal), dos modas (bimodal) o incluso múltiples modas.
+                            </p>
+                            <p>
+                                <b class="color-morado">Ejemplo</b>
+                            </p>
+                            <p>
+                                En un conjunto de datos con los valores 2, 4, 4, 6, 8, 8, 8, la moda sería 8 por ser
+                                el dato que más se repite.
+                            </p>
+                            <p>
+                                Cada una de estas medidas proporciona información diferente sobre la distribución de
+                                los datos y es útil en diferentes contextos analíticos. La elección de la medida más
+                                adecuada depende de la naturaleza de los datos y del objetivo del análisis.
+                            </p>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalMarcha1" class="w-content"
+                            data-property-width="50%">
+                            <h2 class="titulo-definicion">
+                                Paso 1. Entendiendo el problema y la medida conocida:
+                            </h2>
+                            <ul>
+                                <li>
+                                    Identifica qué medida de tendencia central (media, mediana o moda) se proporciona en el problema y cuál es su valor. 
+                                </li>
+                                <li>
+                                    Comprende lo que representa esta medida. Por ejemplo, la media es el promedio, la mediana es el valor central en un conjunto de datos ordenados, y la moda es el valor más frecuente. 
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalMarcha2" class="w-content"
+                            data-property-width="50%">
+                            <h2 class="titulo-definicion">
+                                Paso 2. Utiliza la definición de la medida para revertir el proceso:
+                            </h2>
+                            <ul>
+                                <li>
+                                    <b class="color-morado">Para la media:</b> si conoces la media y el número total de datos, puedes multiplicar la media por el número de datos para obtener la suma total de los valores del conjunto de datos. Esta información puede ayudarte a deducir los valores individuales o propiedades del conjunto.
+                                </li>
+                                <li>
+                                    <b class="color-morado">Para la mediana:</b> si conoces la mediana y tienes información adicional sobre cómo se distribuyen los datos (por ejemplo, si están simétricamente distribuidos), puedes inferir características de los datos individuales. 
+                                </li>
+                                <li>
+                                    <b class="color-morado">Para la moda:</b> si conoces la moda y otros detalles sobre la frecuencia o la distribución de los datos, puedes hacer inferencias sobre la cantidad de veces que aparece cierto valor o sobre otros valores en el conjunto. 
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div data-cssclass="modalDefinicion" id="modalMarcha3" class="w-content"
+                            data-property-width="50%">
+                            <h2 class="titulo-definicion">
+                                Paso 3. Resolver el problema paso a paso:
+                            </h2>
+                            <ul>
+                                <li>
+                                    Aplica la definición de la medida de tendencia central de forma inversa para reconstruir la información sobre el conjunto de datos.
+                                </li>
+                                <li>
+                                    Realiza cálculos matemáticos donde sea necesario para encontrar los datos faltantes o resolver la pregunta planteada.
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-aplicacion" ptitle="Aplicación de las medidas de tendencia central">
+                <div data-title="Aplicación de las medidas de tendencia central" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicación de las medidas de tendencia central
+                        </h3>
+
+                        <p>
+                            Las medidas de tendencia central, que incluyen la media, la mediana y la moda, tienen
+                            amplias aplicaciones en diversos campos, brindando una forma poderosa y sencilla de resumir
+                            y describir conjuntos de datos. Algunas de sus aplicaciones clave incluyen:
+                        </p>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="botones-modales">
+                            <button class="w-content-controler" data-content="#aplicaciones1Modal">
+                                <img src="content/investigacion-analisis.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones2Modal">
+                                <img src="content/economia-negocios.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones3Modal">
+                                <img src="content/psicologia-ciencias.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones4Modal">
+                                <img src="content/medicina-salud.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="botones-modales">
+                            <button class="w-content-controler" data-content="#aplicaciones5Modal">
+                                <img src="content/educacion.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones6Modal">
+                                <img src="content/ingenieria.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones7Modal">
+                                <img src="content/investigacion.png" alt="">
+                            </button>
+                        </div>
+
+                        <p class="mb-5">
+                            En resumen, las medidas de tendencia central son esenciales para sintetizar información
+                            compleja, facilitando la comprensión y el análisis en una variedad de contextos prácticos y
+                            académicos.
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-aplicaciones">
+
+
+                            <img class="w-100" src="content/fondo-aplicaciones.jpg" alt="">
+
+                            <button class="w-content-controler boton1" data-content="#aplicaciones1Modal">
+                            </button>
+                            <button class="w-content-controler boton2" data-content="#aplicaciones2Modal">
+                            </button>
+                            <button class="w-content-controler boton3" data-content="#aplicaciones3Modal">
+                            </button>
+                            <button class="w-content-controler boton4" data-content="#aplicaciones4Modal">
+                            </button>
+                            <button class="w-content-controler boton5" data-content="#aplicaciones5Modal">
+                            </button>
+                            <button class="w-content-controler boton6" data-content="#aplicaciones6Modal">
+                            </button>
+                            <button class="w-content-controler boton7" data-content="#aplicaciones7Modal">
+                            </button>
+                        </div>
+
+                        <p style="height: 100px;">
+                            &nbsp;
+                        </p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicación de las medidas de tendencia central
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio mb-5">
+                            <audio controls>
+                                <source src="content/audio/aplicaciones.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicación de las medidas de tendencia central
+                        </h3>
+
+                        <p class="text-center">
+                            Da vuelta a cada una de las tarjetas, escucha el audio y reconoce las aplicaciones del tema
+                            que estás estudiando.
+                        </p>
+
+                        <div class="contenedor-cards">
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c1.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c2.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c3.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c4.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c5.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c6.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c7.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <script>
+                            var cards = document.querySelectorAll('.contenedor-cards .card');
+
+                            [...cards].forEach((card) => {
+                                card.addEventListener('click', function () {
+                                    card.classList.toggle('voltear');
+                                    if (card.classList.length == 1) {
+                                        var audio = card.getElementsByTagName("audio")[0];
+                                        audio.pause();
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div class="ventanas-modales">
+                        <div id="aplicaciones1Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Investigación y análisis de datos
+                                </b>
+                            </p>
+                            <p>
+                                En estadística y análisis de datos, las medidas de tendencia central son herramientas
+                                fundamentales para resumir las características de un conjunto de datos, permitiendo
+                                comprender rápidamente su naturaleza general.
+                            </p>
+                        </div>
+                        <div id="aplicaciones2Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Economía y negocios
+                                </b>
+                            </p>
+                            <p>
+                                En el ámbito empresarial, la media se utiliza para calcular promedios de ventas,
+                                ingresos, costos y otros indicadores clave, lo que ayuda en la toma de decisiones y en
+                                la planificación estratégica.
+                            </p>
+                        </div>
+                        <div id="aplicaciones3Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Psicología y ciencias sociales
+                                </b>
+                            </p>
+                            <p>
+                                Permiten interpretar resultados de encuestas y estudios, como determinar la actitud o
+                                comportamiento promedio en un grupo de estudio.
+                            </p>
+                        </div>
+                        <div id="aplicaciones4Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Medicina y salud pública
+                                </b>
+                            </p>
+                            <p>
+                                Estas medidas se utilizan para analizar datos clínicos y epidemiológicos, como el
+                                cálculo de la edad promedio de aparición de ciertas enfermedades, o la expectativa media
+                                de vida.
+                            </p>
+                        </div>
+                        <div id="aplicaciones5Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Educación
+                                </b>
+                            </p>
+                            <p>
+                                En el sector educativo, la media y la mediana son útiles para analizar el rendimiento de
+                                los estudiantes, como promedios de calificaciones, ofreciendo una visión general del
+                                desempeño académico.
+                            </p>
+                        </div>
+                        <div id="aplicaciones6Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Ingeniería y calidad
+                                </b>
+                            </p>
+                            <p>
+                                En control de calidad y procesos industriales, la media es crucial para determinar
+                                estándares y evaluar la consistencia de los productos o procesos.
+                            </p>
+                        </div>
+                        <div id="aplicaciones7Modal" class="w-content" data-cssclass="modalAplicaciones">
+                            <p style="color: #601DB7;">
+                                <b>
+                                    Investigación de mercados
+                                </b>
+                            </p>
+                            <p>
+                                En el análisis de mercados, estas medidas ayudan a entender tendencias y preferencias de
+                                los consumidores, facilitando la toma de decisiones en marketing y publicidad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="pag-ejemplos" ptitle="Veamos algunos ejemplos">
+                <div data-title="Veamos algunos ejemplos" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Veamos algunos ejemplos
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada sección.
+                        </div>
+
+                        <div class="accordion mb-5">
+                            <h3>Ejemplo 1</h3>
+                            <div>
+                                <div class="box-text example">
+                                    <div class="caja-flex">
+                                        <img src="content/ico-checklist.png" alt="">
+                                        <p class="color-morado text-bold">
+                                            En un examen, cinco estudiantes obtuvieron las siguientes calificaciones:
+                                            85, 90, 75, 95, y 80. ¿Cuál es la media de sus calificaciones?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="color-morado mt-4">Solucion:</h4>
+                                <ul>
+                                    <li>
+                                        Suma todas las calificaciones: 85+90+75+95+80 = 425.
+                                    </li>
+                                    <li>
+                                        Divide la suma por el número de estudiantes: \(\frac{425}{5}=85.\)
+                                    </li>
+                                </ul>
+                                <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>La media de las calificaciones es 85.</p>
+                            </div>
+
+                            <h3>Ejemplo 2</h3>
+                            <div>
+                                <div class="box-text example">
+                                    <div class="caja-flex">
+                                        <img src="content/ico-crecimiento.png" alt="">
+                                        <p class="color-morado text-bold">
+                                            Se han registrado las siguientes edades en un grupo de estudio: 22, 29, 35,
+                                            19, 24, 31, 27. Encuentra la mediana de estas edades.
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="color-morado mt-4">Solucion:</h4>
+                                <ul>
+                                    <li>
+                                        Primero, ordena los datos de menor a mayor: 19, 22, 24, 27, 29, 31, 35.
+                                    </li>
+                                    <li>
+                                        Como hay 7 datos, la mediana será el cuarto valor (el del medio): 27.
+                                    </li>
+                                </ul>
+                                <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>La mediana de las edades es 27 años.</p>
+                            </div>
+
+                            <h3>Ejemplo 3</h3>
+                            <div>
+                                <div class="box-text example">
+                                    <div class="caja-flex">
+                                        <img src="content/ico-crecimiento.png" alt="">
+                                        <p class="color-morado text-bold">
+                                            En una encuesta sobre la cantidad de libros leídos en un mes, se obtuvieron
+                                            las siguientes respuestas: 1, 3, 2, 3, 2, 3, 1, 2, 4, 2. ¿Cuál es la moda?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="color-morado mt-4">Solucion:</h4>
+                                <ul>
+                                    <li>
+                                        Cuenta la frecuencia de cada número: <br>
+                                        1 aparece 2 veces <br>
+                                        2 aparece 4 veces <br>
+                                        3 aparece 3 veces <br>
+                                        4 aparece 1 vez
+                                    </li>
+                                    <li>
+                                        El número que aparece con mayor frecuencia es 2.
+                                    </li>
+                                </ul>
+                                <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>La moda es 2 libros.</p>
+                            </div>
+
+                            <h3>Ejemplo 4</h3>
+                            <div>
+                                <div class="box-text example">
+                                    <div class="caja-flex">
+                                        <img src="content/ico-grupo.png" alt="">
+                                        <p class="color-morado text-bold">
+                                            En un grupo de 8 amigos, se sabe que la media de sus edades es 26 años. Sin
+                                            embargo, uno de los amigos, que tiene 30 años, no fue considerado en el
+                                            cálculo original de la media. ¿Cuál es la nueva media de edad del grupo,
+                                            incluyendo a este amigo?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="color-morado mt-4">Solucion:</h4>
+                                <p><span class="color-morado text-bold">Paso 1. </span> Calcular la suma original de las
+                                    edades:</p>
+                                <ul>
+                                    <li>
+                                        La media original (sin el amigo de 30 años) es de 26 años para 7 personas.
+                                    </li>
+                                    <li>
+                                        Por lo tanto, la suma total de las edades de estos 7 amigos es 26 años * 7 = 182
+                                        años.
+                                    </li>
+                                </ul>
+                                <p><span class="color-morado text-bold">Paso 2. </span> Agregar la edad del octavo
+                                    amigo:</p>
+                                <ul>
+                                    <li>
+                                        Ahora, agregamos la edad del amigo que fue omitido, que es de 30 años.
+                                    </li>
+                                    <li>
+                                        La nueva suma total de edades es 182 años + 30 años= 212 años.
+                                    </li>
+                                </ul>
+                                <p><span class="color-morado text-bold">Paso 3. </span> Calcular la nueva media:</p>
+                                <ul>
+                                    <li>
+                                        Ahora, el grupo consta de 8 personas.
+                                    </li>
+                                    <li>
+                                        La nueva media de edad es \(\frac{212 años}{8}=26.5\) años.
+                                    </li>
+                                </ul>
+                                <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>
+                                    La nueva media de edad del grupo, incluyendo al amigo de 30 años, es de 26.5 años.
+                                </p>
+                            </div>
+
+                            <h3>Ejemplo 5</h3>
+                            <div>
+                                <div class="box-text example">
+                                    <h4 class="color-morado mb-3">Aplicación de la “marcha atrás” con la media</h4>
+                                    <div class="caja-flex">
+                                        <img src="content/ico-personas.png" alt="">
+                                        <p>
+                                            <span class="color-morado text-bold">Problema:</span> si se sabe que la
+                                            media de las edades en un grupo de 4 personas es 25 años, ¿cuál es la suma
+                                            total de sus edades?
+                                        </p>
+                                    </div>
+                                </div>
+                                <h4 class="color-morado mt-4">Solucion:</h4>
+                                <ul>
+                                    <li>Media: 25 años</li>
+                                    <li>Número de personas: 4</li>
+                                    <li>Suma total de edades: media * número de personas: 25 * 4 = 100 años</li>
+                                </ul>
+                                <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>
+                                    La suma total de sus edades es 100 años.
+                                </p>
+                                <p class="mt-5">Esta estrategia es particularmente eficaz cuando se tienen datos limitados y se
+                                    necesita inferir información adicional sobre el conjunto de datos.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en las flechas para avanzar en el contenido.
+                        </div>
+
+                        <div class="ctrl-pagination" data-layer-height="auto" data-labelcurrent="true">
+
+                            <li>
+                                <h3 class="color-morado">Ejemplo 1</h3>
+                                <div>
+                                    <div class="box-text example">
+                                        <div class="caja-flex">
+                                            <img src="content/ico-checklist.png" alt="">
+                                            <p class="color-morado text-bold">
+                                                En un examen, cinco estudiantes obtuvieron las siguientes
+                                                calificaciones:
+                                                85, 90, 75, 95, y 80. ¿Cuál es la media de sus calificaciones?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="color-morado mt-4">Solucion:</h4>
+                                    <ul>
+                                        <li>
+                                            Suma todas las calificaciones: 85+90+75+95+80 = 425.
+                                        </li>
+                                        <li>
+                                            Divide la suma por el número de estudiantes: \(\frac{425}{5}=85.\)
+                                        </li>
+                                    </ul>
+                                    <h4 class="color-morado mt-4">Respuesta</h4>
+                                    <p>La media de las calificaciones es 85.</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <h3 class="color-morado">Ejemplo 2</h3>
+                                <div>
+                                    <div class="box-text example">
+                                        <div class="caja-flex">
+                                            <img src="content/ico-crecimiento.png" alt="">
+                                            <p class="color-morado text-bold">
+                                                Se han registrado las siguientes edades en un grupo de estudio: 22, 29,
+                                                35,
+                                                19, 24, 31, 27. Encuentra la mediana de estas edades.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="color-morado mt-4">Solucion:</h4>
+                                    <ul>
+                                        <li>
+                                            Primero, ordena los datos de menor a mayor: 19, 22, 24, 27, 29, 31, 35.
+                                        </li>
+                                        <li>
+                                            Como hay 7 datos, la mediana será el cuarto valor (el del medio): 27.
+                                        </li>
+                                    </ul>
+                                    <h4 class="color-morado mt-4">Respuesta</h4>
+                                    <p>La mediana de las edades es 27 años.</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <h3 class="color-morado">Ejemplo 3</h3>
+                                <div>
+                                    <div class="box-text example">
+                                        <div class="caja-flex">
+                                            <img src="content/ico-crecimiento.png" alt="">
+                                            <p class="color-morado text-bold">
+                                                En una encuesta sobre la cantidad de libros leídos en un mes, se
+                                                obtuvieron
+                                                las siguientes respuestas: 1, 3, 2, 3, 2, 3, 1, 2, 4, 2. ¿Cuál es la
+                                                moda?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="color-morado mt-4">Solucion:</h4>
+                                    <ul>
+                                        <li>
+                                            Cuenta la frecuencia de cada número: <br>
+                                            1 aparece 2 veces <br>
+                                            2 aparece 4 veces <br>
+                                            3 aparece 3 veces <br>
+                                            4 aparece 1 vez
+                                        </li>
+                                        <li>
+                                            El número que aparece con mayor frecuencia es 2.
+                                        </li>
+                                    </ul>
+                                    <h4 class="color-morado mt-4">Respuesta</h4>
+                                    <p>La moda es 2 libros.</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <h3 class="color-morado">Ejemplo 4</h3>
+                                <div>
+                                    <div class="box-text example">
+                                        <div class="caja-flex">
+                                            <img src="content/ico-grupo.png" alt="">
+                                            <p class="color-morado text-bold">
+                                                En un grupo de 8 amigos, se sabe que la media de sus edades es 26 años.
+                                                Sin
+                                                embargo, uno de los amigos, que tiene 30 años, no fue considerado en el
+                                                cálculo original de la media. ¿Cuál es la nueva media de edad del grupo,
+                                                incluyendo a este amigo?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="color-morado mt-4">Solucion:</h4>
+                                    <p><span class="color-morado text-bold">Paso 1. </span> Calcular la suma original de
+                                        las
+                                        edades:</p>
+                                    <ul>
+                                        <li>
+                                            La media original (sin el amigo de 30 años) es de 26 años para 7 personas.
+                                        </li>
+                                        <li>
+                                            Por lo tanto, la suma total de las edades de estos 7 amigos es 26 años * 7 =
+                                            182
+                                            años.
+                                        </li>
+                                    </ul>
+                                    <p><span class="color-morado text-bold">Paso 2. </span> Agregar la edad del octavo
+                                        amigo:</p>
+                                    <ul>
+                                        <li>
+                                            Ahora, agregamos la edad del amigo que fue omitido, que es de 30 años.
+                                        </li>
+                                        <li>
+                                            La nueva suma total de edades es 182 años + 30 años= 212 años.
+                                        </li>
+                                    </ul>
+                                    <p><span class="color-morado text-bold">Paso 3. </span> Calcular la nueva media:</p>
+                                    <ul>
+                                        <li>
+                                            Ahora, el grupo consta de 8 personas.
+                                        </li>
+                                        <li>
+                                            La nueva media de edad es \(\frac{212 años}{8}=26.5\) años.
+                                        </li>
+                                    </ul>
+                                    <h4 class="color-morado mt-4">Respuesta</h4>
+                                    <p>
+                                        La nueva media de edad del grupo, incluyendo al amigo de 30 años, es de 26.5
+                                        años.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <h3 class="color-morado">Ejemplo 5</h3>
+                                <div>
+                                    <div class="box-text example">
+                                        <h4 class="color-morado mb-3">Aplicación de la “marcha atrás” con la media</h4>
+                                        <div class="caja-flex">
+                                            <img src="content/ico-personas.png" alt="">
+                                            <p>
+                                                <span class="color-morado text-bold">Problema:</span> si se sabe que la
+                                                media de las edades en un grupo de 4 personas es 25 años, ¿cuál es la
+                                                suma
+                                                total de sus edades?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h4 class="color-morado mt-4">Solucion:</h4>
+                                    <ul>
+                                        <li>Media: 25 años</li>
+                                        <li>Número de personas: 4</li>
+                                        <li>Suma total de edades: media * número de personas: 25 * 4 = 100 años</li>
+                                    </ul>
+
+                                        <h4 class="color-morado mt-4">Respuesta</h4>
+                                <p>
+                                    La suma total de sus edades es 100 años.
+                                </p>
+                                <p class="mt-5">Esta estrategia es particularmente eficaz cuando se tienen datos limitados y se
+                                    necesita inferir información adicional sobre el conjunto de datos.
+                                </p>
+
+                                </div>
+                            </li>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="mb-2" style="color: black;">Ejemplo 1</h3>
+                        <div>
+                            <div class="caja-flex2">
+                                <img src="content/ico-checklist.png" alt="">
+                                <p>
+                                    En un examen, cinco estudiantes obtuvieron las siguientes
+                                    calificaciones:
+                                    85, 90, 75, 95, y 80. ¿Cuál es la media de sus calificaciones?
+                                </p>
+                            </div>
+
+                            <h4 class="mt-4" style="color: black;">Solucion:</h4>
+                            <ul>
+                                <li>
+                                    Suma todas las calificaciones: 85+90+75+95+80 = 425.
+                                </li>
+                                <li>
+                                    Divide la suma por el número de estudiantes: \(\frac{425}{5}=85.\)
+                                </li>
+                            </ul>
+                            <h4 class="mt-4" style="color: black;">Respuesta</h4>
+                            <p>La media de las calificaciones es 85.</p>
+                        </div>
+
+                        <img class="mt-5 mb-5" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-2" style="color: black;">Ejemplo 2</h3>
+                        <div>
+                            <div class="caja-flex2">
+                                <img src="content/ico-crecimiento.png" alt="">
+                                <p>
+                                    Se han registrado las siguientes edades en un grupo de estudio: 22, 29,
+                                    35,
+                                    19, 24, 31, 27. Encuentra la mediana de estas edades.
+                                </p>
+                            </div>
+                            <h4 class="mt-4" style="color: black;">Solucion:</h4>
+                            <ul>
+                                <li>
+                                    Primero, ordena los datos de menor a mayor: 19, 22, 24, 27, 29, 31, 35.
+                                </li>
+                                <li>
+                                    Como hay 7 datos, la mediana será el cuarto valor (el del medio): 27.
+                                </li>
+                            </ul>
+                            <h4 class="mt-4" style="color: black;">Respuesta</h4>
+                            <p>La mediana de las edades es 27 años.</p>
+                        </div>
+
+                        <img class="mt-5 mb-5" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-2" style="color: black;">Ejemplo 3</h3>
+                        <div>
+                            <div class="caja-flex2">
+                                <img src="content/ico-crecimiento.png" alt="">
+                                <p>
+                                    En una encuesta sobre la cantidad de libros leídos en un mes, se
+                                    obtuvieron
+                                    las siguientes respuestas: 1, 3, 2, 3, 2, 3, 1, 2, 4, 2. ¿Cuál es la
+                                    moda?
+                                </p>
+                            </div>
+                            <h4 class="mt-4" style="color: black;">Solucion:</h4>
+                            <ul>
+                                <li>
+                                    Cuenta la frecuencia de cada número: <br>
+                                    1 aparece 2 veces <br>
+                                    2 aparece 4 veces <br>
+                                    3 aparece 3 veces <br>
+                                    4 aparece 1 vez
+                                </li>
+                                <li>
+                                    El número que aparece con mayor frecuencia es 2.
+                                </li>
+                            </ul>
+                            <h4 class="mt-4" style="color: black;">Respuesta</h4>
+                            <p>La moda es 2 libros.</p>
+                        </div>
+
+                        <img class="mt-5 mb-5" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-2" style="color: black;">Ejemplo 4</h3>
+                        <div>
+                            <div class="caja-flex2">
+                                <img src="content/ico-grupo.png" alt="">
+                                <p>
+                                    En un grupo de 8 amigos, se sabe que la media de sus edades es 26 años.
+                                    Sin
+                                    embargo, uno de los amigos, que tiene 30 años, no fue considerado en el
+                                    cálculo original de la media. ¿Cuál es la nueva media de edad del grupo,
+                                    incluyendo a este amigo?
+                                </p>
+                            </div>
+                            <h4 class="mt-4" style="color: black;">Solucion:</h4>
+                            <p><span class="text-bold">Paso 1. </span> Calcular la suma original de
+                                las
+                                edades:</p>
+                            <ul>
+                                <li>
+                                    La media original (sin el amigo de 30 años) es de 26 años para 7 personas.
+                                </li>
+                                <li>
+                                    Por lo tanto, la suma total de las edades de estos 7 amigos es 26 años * 7 =
+                                    182
+                                    años.
+                                </li>
+                            </ul>
+                            <p><span class="text-bold">Paso 2. </span> Agregar la edad del octavo
+                                amigo:</p>
+                            <ul>
+                                <li>
+                                    Ahora, agregamos la edad del amigo que fue omitido, que es de 30 años.
+                                </li>
+                                <li>
+                                    La nueva suma total de edades es 182 años + 30 años= 212 años.
+                                </li>
+                            </ul>
+                            <p><span class="text-bold">Paso 3. </span> Calcular la nueva media:</p>
+                            <ul>
+                                <li>
+                                    Ahora, el grupo consta de 8 personas.
+                                </li>
+                                <li>
+                                    La nueva media de edad es \(\frac{212 años}{8}=26.5\) años.
+                                </li>
+                            </ul>
+                            <h4 class="mt-4" style="color: black;">Respuesta</h4>
+                            <p>
+                                La nueva media de edad del grupo, incluyendo al amigo de 30 años, es de 26.5
+                                años.
+                            </p>
+                        </div>
+
+                        <img class="mt-5 mb-5" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-2" style="color: black;">Ejemplo 5</h3>
+                        <div>
+                            <h4 style="color: black;" class="mb-3"></h4>
+                            <div class="caja-flex2">
+                                <img src="content/ico-personas.png" alt="">
+                                <p>
+                                    <span class="text-bold">Aplicación de la “marcha atrás” con la media</span>
+                                    <br><br>
+                                    <span class="text-bold">Problema:</span> si se sabe que la
+                                    media de las edades en un grupo de 4 personas es 25 años, ¿cuál es la
+                                    suma
+                                    total de sus edades?
+                                </p>
+                            </div>
+                            <h4 class="mt-4" style="color: black;">Solucion:</h4>
+                            <ul>
+                                <li>Media: 25 años</li>
+                                <li>Número de personas: 4</li>
+                                <li>Suma total de edades: media * número de personas: 25 * 4 = 100 años</li>
+                            </ul>
+                            <h4 class="mt-4" style="color: black;">Respuesta</h4>
+                                <p>
+                                    La suma total de sus edades es 100 años.
+                                </p>
+                                <p class="mt-5">Esta estrategia es particularmente eficaz cuando se tienen datos limitados y se
+                                    necesita inferir información adicional sobre el conjunto de datos.
+                                </p>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div data-ls-cycle="active-sequential" id="arrastrar1" class="jpit-activities-droppable" data-verify-type="target"
+                            data-act-id="Ejemplos - Arrastrar soluciones">
+                            <p>
+                                Completa los espacios en blanco con las soluciones a los ejercicios que se encuentran a
+                                continuación:
+                            </p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-checklist.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    En un examen, cinco estudiantes obtuvieron las siguientes
+                                                    calificaciones: 85, 90, 75, 95, y 80. ¿Cuál es la media de sus
+                                                    calificaciones?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="1"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-crecimiento.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Se han registrado las siguientes edades en un grupo de estudio: 22,
+                                                    29, 35, 19, 24, 31, 27. Encuentra la mediana de estas edades.
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="2"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-libro.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    En una encuesta sobre la cantidad de libros leídos en un mes, se
+                                                    obtuvieron las siguientes respuestas: 1, 3, 2, 3, 2, 3, 1, 2, 4, 2.
+                                                    ¿Cuál es la moda?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="3"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-grupo.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    En un grupo de 8 amigos, se sabe que la media de sus edades es 26
+                                                    años. Sin embargo, uno de los amigos, que tiene 30 años, no fue
+                                                    considerado en el cálculo original de la media. ¿Cuál es la nueva
+                                                    media de edad del grupo, incluyendo a este amigo?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="4"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-personas.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Aplicación de la “marcha atrás” con la media
+                                                </b>
+                                                <br>
+                                                <b style="color: #601DB7;">
+                                                    Problema:
+                                                </b>
+                                                si se sabe que la media de las edades en un grupo de 4 personas es 25
+                                                años, ¿cuál es la suma total de sus edades?
+
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="5"></td>
+                                </tr>
+                            </table>
+
+                            <h4 class="mb-3 mt-5 text-center">Opciones</h4>
+                            <div class="respuestas">
+                                <div data-group="1" class="item1">Solución 1</div>
+                                <div data-group="2" class="item2">Solución 2</div>
+                                <div data-group="3" class="item3">Solución 3</div>
+                                <div data-group="4" class="item4">Solución 4</div>
+                                <div data-group="5" class="item5">Solución 5</div>
+                            </div>
+                            <!-- <br class="clear" /> -->
+
+                            <div class="box_end"></div>
+                        </div>
+
+                        <div class="cajas-soluciones">
+                            <div>
+                                <h4 style="color: black;">Solución 1</h4>
+                                <ul>
+                                    <li>
+                                        Suma todas las calificaciones: 85+90+75+95+80 = 425.
+                                    </li>
+                                    <li>
+                                        Divide la suma por el número de estudiantes: \(\frac{425}{5}=85.\)
+                                    </li>
+                                </ul>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                </p>
+                                <p>La media de las calificaciones es 85.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 2</h4>
+                                <ul>
+                                    <li>
+                                        Primero, ordena los datos de menor a mayor: 19, 22, 24, 27, 29, 31, 35.
+                                    </li>
+                                    <li>
+                                        Como hay 7 datos, la mediana será el cuarto valor (el del medio): 27.
+                                    </li>
+                                </ul>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                </p>
+                                <p>La mediana de las edades es 27 años.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 3</h4>
+                                <ul>
+                                    <li>
+                                        Cuenta la frecuencia de cada número: <br>
+                                        1 aparece 2 veces <br>
+                                        2 aparece 4 veces <br>
+                                        3 aparece 3 veces <br>
+                                        4 aparece 1 vez
+                                    </li>
+                                    <li>
+                                        El número que aparece con mayor frecuencia es 2.
+                                    </li>
+                                </ul>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                </p>
+                                <p>La moda es 2 libros.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 4</h4>
+                                <p><span class="color-morado text-bold">Paso 1. </span> Calcular la suma original de
+                                    las
+                                    edades:</p>
+                                <ul>
+                                    <li>
+                                        La media original (sin el amigo de 30 años) es de 26 años para 7 personas.
+                                    </li>
+                                    <li>
+                                        Por lo tanto, la suma total de las edades de estos 7 amigos es 26 años * 7 =
+                                        182
+                                        años.
+                                    </li>
+                                </ul>
+                                <p><span class="color-morado text-bold">Paso 2. </span> Agregar la edad del octavo
+                                    amigo:</p>
+                                <ul>
+                                    <li>
+                                        Ahora, agregamos la edad del amigo que fue omitido, que es de 30 años.
+                                    </li>
+                                    <li>
+                                        La nueva suma total de edades es 182 años + 30 años= 212 años.
+                                    </li>
+                                </ul>
+                                <p><span class="color-morado text-bold">Paso 3. </span> Calcular la nueva media:</p>
+                                <ul>
+                                    <li>
+                                        Ahora, el grupo consta de 8 personas.
+                                    </li>
+                                    <li>
+                                        La nueva media de edad es \(\frac{212 años}{8}=26.5\) años.
+                                    </li>
+                                </ul>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                </p>
+                                <p>
+                                    La nueva media de edad del grupo, incluyendo al amigo de 30 años, es de 26.5
+                                    años.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 5</h4>
+                                <ul>
+                                    <li>Media: 25 años</li>
+                                    <li>Número de personas: 4</li>
+                                    <li>Suma total de edades: media * número de personas: 25 * 4 = 100 años</li>
+                                </ul>
+                                <p>
+                                    <b style="color: #601DB7;">
+                                        Respuesta:
+                                    </b>
+                                </p>
+                                <p>
+                                    La suma total de sus edades es 100 años.
+                                </p>
+                                <p class="mt-5">Esta estrategia es particularmente eficaz cuando se tienen datos limitados y se
+                                    necesita inferir información adicional sobre el conjunto de datos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-resumen" ptitle="Resumen">
+                <div data-title="Resumen" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5" data-src="content/resumen-vb.jpg"
+                            title="Resumen">
+                            <img src="content/resumen-vb.jpg" style="visibility: hidden;" alt="" class="w-100">
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada elemento para obtener el resumen de la temática.
+                        </div>
+
+                        <div class="escenario-resumen">
+                            <img class="fondo" src="content/fondo-nube.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalResumen1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalResumen2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalResumen3">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalResumen4">
+                            </button>
+                            <button class="boton boton5 wf-content-controler" data-content="#modalResumen5">
+                            </button>
+                            <div id="modalResumen1" class="wf-content" data-property-width="80%">
+                                <h3 class="color-morado">¿Medidas de tendencia central?</h3>
+                                <p>
+                                    Las medidas de tendencia central, como la media, la mediana y la moda, son conceptos
+                                    estadísticos clave que proporcionan una comprensión fundamental de las
+                                    características de un conjunto de datos.
+                                </p>
+                            </div>
+                            <div id="modalResumen2" class="wf-content" data-property-width="80%">
+                                <h3 class="color-morado">Media</h3>
+
+                                <p>
+                                    La media, o promedio, se calcula sumando todos los valores y dividiéndolos por el
+                                    número de datos, ofreciendo una visión general del conjunto. Sin embargo, puede ser
+                                    sensible a valores extremos.
+                                </p>
+                            </div>
+                            <div id="modalResumen3" class="wf-content" data-property-width="80%">
+                                <h3 class="color-morado">Mediana</h3>
+
+                                <p>
+                                    La mediana, el valor central en un conjunto ordenado de datos, es menos susceptible
+                                    a tales valores atípicos y resulta útil en distribuciones sesgadas.
+                                </p>
+                            </div>
+                            <div id="modalResumen4" class="wf-content" data-property-width="80%">
+                                <h3 class="color-morado">Moda</h3>
+
+                                <p>
+                                    La moda, el valor más frecuente en un conjunto de datos, es particularmente
+                                    relevante en el análisis de datos categóricos.
+                                </p>
+                            </div>
+                            <div id="modalResumen5" class="wf-content" data-property-width="80%">
+                                <h3 class="color-morado">¿Cuáles son sus aplicaciones?</h3>
+
+                                <p>
+                                    Estas medidas tienen amplias aplicaciones prácticas, desde la toma de decisiones en
+                                    negocios y economía hasta el análisis de tendencias en ciencias sociales y medicina.
+                                    <br>
+                                    Son herramientas esenciales para resumir y analizar datos, permitiendo
+                                    interpretaciones claras y decisiones informadas en diversos contextos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/resumen.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues2 mb-5">
+                            <img src="content/resumen-vb.jpg" />
+                            <img src="content/resumen-vb2.jpg" />
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-prueba" ptitle="Prueba tu conocimiento">
+                <div data-title="Prueba tu conocimiento" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Prueba tu conocimiento
+                    </h3>
+
+                    <p>
+                        Este cuestionario consta de 5 preguntas de selección múltiple con única respuesta. Haz clic sobre la respuesta que consideres correcta, verifica y avanza haciendo clic en las flechas.
+                    </p>
+
+                    <div class="ctrl-pagination" data-layer-height="auto" data-labelcurrent="true">
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 1"
+                                data-act-id="cuestionario-p1">
+                                <!-- Question 1 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    1. Si la media de 4 números es 20 y tres de los números son 15, 25,
+                                                    y 10,
+                                                    ¿cuál es el cuarto número?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">30</li>
+                                        <li>25</li>
+                                        <li>20</li>
+                                        <li>15</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es la <b>a.</b> La suma de los cuatro números es
+                                            4*20=80. La
+                                            suma de los tres números es 15+25+10=50. El cuarto número es 80-50=30.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 2"
+                                data-act-id="cuestionario-p2">
+                                <!-- Question 2 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    2. En un conjunto de datos ordenados de 7 números, si la mediana es
+                                                    18,
+                                                    ¿cuál es el valor mínimo que puede tener el tercer número en el
+                                                    conjunto?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>18</li>
+                                        <li data-response="true">Igual o menor de 18</li>
+                                        <li>Más que 18</li>
+                                        <li>No se puede determinar</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es la <b>b.</b> La mediana es el valor medio en un
+                                            conjunto de
+                                            datos ordenados. Para un conjunto de 7 números, el cuarto número es la
+                                            mediana. Los
+                                            tres primeros números pueden ser iguales o menores a la mediana.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 3"
+                                data-act-id="cuestionario-p3">
+                                <!-- Question 3 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    3. Si en un conjunto de datos la moda es 5 y todos los valores son
+                                                    enteros
+                                                    positivos menores que 10, ¿cuál de los siguientes podría ser el
+                                                    conjunto de
+                                                    datos?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>{1, 2, 3, 4, 5}</li>
+                                        <li>{5, 5, 6, 7, 8, 10}</li>
+                                        <li data-response="true">{1, 2, 5, 5, 9}</li>
+                                        <li>{3, 4, 5, 6, 7}</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es la <b>c.</b> La moda es el número que aparece con
+                                            mayor
+                                            frecuencia en un conjunto de datos. Para este caso, el número 5 aparece dos
+                                            veces,
+                                            que es más frecuente que cualquier otro número en el conjunto.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 4"
+                                data-act-id="cuestionario-p4">
+                                <!-- Question 4 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    4. Un grupo de 5 amigos tiene una media de edad de 25 años. Si se
+                                                    une un
+                                                    nuevo amigo de 35 años, ¿cuál será la nueva media de edad del grupo?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>26 años</li>
+                                        <li data-response="true">27 años</li>
+                                        <li>28 años</li>
+                                        <li>29 años</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es la <b>b.</b> La suma original de las edades es 25
+                                            años * 5
+                                            = 125
+                                            años. Añadiendo al nuevo amigo, la suma total es 125 años + 35 años= 160
+                                            años. La
+                                            nueva media es \(\frac{160 años}{6} ≈ \)27 años.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 5"
+                                data-act-id="cuestionario-p5">
+                                <!-- Question 5 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    5. En un conjunto de datos ordenados de 6 números, la mediana es el
+                                                    promedio
+                                                    del tercer y cuarto número, que son 15 y 17 respectivamente. Si se
+                                                    añade un
+                                                    número adicional de 20 al conjunto, ¿cuál será la nueva mediana?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li>16</li>
+                                        <li data-response="true">17</li>
+                                        <li>18</li>
+                                        <li>19</li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            la respuesta correcta es <b>b.</b> Originalmente, la mediana es
+                                            \(\frac{15+17}{2}\)
+                                            = 16. Al
+                                            añadir un nuevo número (20), el conjunto tiene ahora 7 números, y la mediana
+                                            es el
+                                            cuarto número. Dado que 20 es mayor que los números medianos originales, la
+                                            mediana
+                                            ahora será el número originalmente en la cuarta posición, que es 17.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                    </div>
+
+                    <p style="height: 100px;"></p>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="not_print">
+            <div class="contenedor-botones">
+
+                <div id="subpages_menu">
+                    <div class="button" previous-page>
+                        <span>&#8249;</span> Anterior
+                    </div>
+                    <div class="measuring-progress" data-type="horizontal"></div>
+                    <div id="page_number"></div>
+                    <div class="button" next-page>
+                        Siguiente <span>&#8250;</span>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!--Créditos-->
+    <div id="credits-page" data-global="credits" style="display:none;">
+        <h3>Créditos</h3>
+        <br>
+        <h4>Autoría</h4>
+        <cite>
+            Diana Cristina Oviedo Ramírez
+            <br>
+            Lorena María Quiroz Betancur
+            <br>
+            Facultad de Educación
+        </cite>
+
+        <h4>Asesoría pedagógica</h4>
+        <cite>
+            Manuela Mesa Flórez
+        </cite>
+
+        <h4>Guionización</h4>
+        <cite>
+            Tiany Gamarra Castillo
+        </cite>
+
+        <h4>Corrección de estilo</h4>
+        <cite>
+            Luisa Fernanda Londoño Castrillón
+        </cite>
+
+        <h4>
+            Diseño gráfico e ilustración
+        </h4>
+        <cite>
+            Esteban Martínez Pavas
+        </cite>
+
+        <h4>Gestión técnica y administrativa </h4>
+        <cite>
+            Ángela María Valderrama Muñoz
+            <br>
+            David Herney Bernal García
+        </cite>
+
+        <h4>Desarrollo Front-end</h4>
+        <cite>
+            Jhon Fredy Saldarriaga
+        </cite>
+
+        <br><br>
+
+        <h4>
+            Universidad de Antioquia
+            <br>
+            Vicerrectoría de Docencia
+            <br>
+            Ude@ Educación Virtual
+            <br>
+            2024
+        </h4>
+
+        <img class="logo-sgr" src="content/logo-sgr.svg" alt="">
+        <img class="logo-udea" src="content/logo-udea.svg" alt="">
+        <img class="logo-gobernacion" src="content/logo-gobernacion-antioquia.svg" alt="">
+
+
+    </div>
+    <!-- FIN Créditos -->
+
+
+    <!-- Bibliografía -->
+    <div id="library-page" style="display: none">
+        <div id="library_subpage">
+            <h2>Referencias bibliográficas</h2>
+
+            <p>
+                En el marco del Sistema General de Regalías, esta producción fue creada por los grupos de investigación
+                Telecomunicaciones Aplicadas (GITA) y Didáctica y Nuevas Tecnologías (DyNT), haciendo uso de ChatGPT
+                (OpenAI, 2023. ChatGPT, versión 4.0 del 14 de marzo [modelo multimodal grande].
+                <a href="https://chat.openai.com/chat" target="_blank"
+                    rel="noopener noreferrer">https://chat.openai.com/chat</a>).
+            </p>
+
+            <img src="img/ico-creative-commons.svg" class="ico-cc" alt="">
+
+        </div>
+    </div>
+
+
+
+    <div id="results_page" style="display:none;">
+        <h2>Resumen de su avance en la lectura del documento</h2>
+        <h3>Páginas visitadas</h3>
+        <p>En verde, aquellas páginas que ya ha visitado.</p>
+        <div id="results_page_visited" class="container"></div>
+        <br class="clear" />
+        <h3>Actividades de aprendizaje</h3>
+        <div id="results_page_activities"></div>
+        <br class="clear" />
+        <!-- <h3>Estilos de aprendizaje</h3>
+        <div id="results_page_styles"></div>
+        <br class="clear" />
+        <br> -->
+    </div>
+
+    <div id="printent_content" style="display:none;">
+        <div class="content"></div>
+        <div class="button_container">
+            <button class="general button" onclick="window.print();">Imprimir</button>
+            <button id="printent_back" class="general button">Volver</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" id="MathJax-script" async src="js/mathjax3.js"></script>
+
+
+</body>
+
+</html>

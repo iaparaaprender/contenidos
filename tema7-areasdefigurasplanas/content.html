@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>IA para aprender</title>
+
+    <link href="components/jquery/css/custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="components/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_quiz.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_mark.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_wordpuzzle.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_crossword.css" rel="stylesheet" type="text/css">
+    <link href="components/pit/css/jpit_zoom.css" rel="stylesheet" type="text/css">
+    <link href="components/csscircle/circle.min.css" rel="stylesheet" type="text/css">
+
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="components/jquery-mobile/jquery.ui.touch-punch.min.js"></script>
+
+    <!--jQuery components -->
+    <script src="components/twentytwenty/js/jquery.event.move.js" type="text/javascript"></script>
+    <script src="components/twentytwenty/js/jquery.twentytwenty.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/twentytwenty/css/twentytwenty.css" type="text/css" media="screen" />
+
+    <script src="components/mediaelementjs/mediaelement-and-player.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/mediaelementjs/mediaelementplayer.css" type="text/css" />
+
+    <script src="components/learningstyles/lib.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="components/learningstyles/styles.css" type="text/css" />
+
+    <script src="components/maphilight/jquery.maphilight.min.js" type="text/javascript"></script>
+    <!--End jQuery components -->
+
+    <script src="components/interact/interact.min.js"></script>
+    <script src="components/pit/jpit_api.js"></script>
+    <script src="components/pit/utilities/jpit_utilities.js"></script>
+    <script src="components/pit/activity/jpit_activity.js"></script>
+    <script src="components/pit/resources/jpit_resource.js"></script>
+    <script src="components/pit/activity/quiz/jpit_activity_quiz.js"></script>
+    <script src="components/pit/activity/mark/jpit_activity_mark.js"></script>
+    <script src="components/pit/activity/wordpuzzle/jpit_activity_wordpuzzle.js"></script>
+    <script src="components/pit/activity/droppable/jpit_activity_droppable.js"></script>
+    <script src="components/pit/activity/crossword/jpit_activity_crossword.js"></script>
+    <script src="components/pit/activity/cloze/jpit_activity_cloze.js"></script>
+    <script src="components/pit/activity/form/jpit_activity_form.js"></script>
+    <script src="components/pit/activity/sortable/jpit_activity_sortable.js"></script>
+    <script src="components/pit/activity/check/jpit_activity_check.js"></script>
+    <script src="components/pit/resources/movi/jpit_resource_movi.js"></script>
+    <script src="components/pit/resources/zoom/jpit_resource_zoom.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/lang.es.js"></script>
+    <script src="js/jquery.tepuy.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/mobilelib.js"></script>
+    <script src="js/stories.js"></script>
+    <script src="components/scorm/SCORM_12_APIWrapper.js"> </script>
+    <script src="components/scorm/scorm_api.js"> </script>
+
+    <style type='text/css'>
+        body {
+            background-color: rgba(242, 242, 242, 0.7);
+        }
+
+        body.loading {
+            text-align: center;
+        }
+
+        body.loading:after {
+            content: "";
+            background: url(img/loading.gif) no-repeat bottom center;
+            width: 130px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            padding-bottom: 20px;
+        }
+
+        body.loading #body {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body class="loading" data-debug="true" data-model="scorm" data-display-mode="onlypages" data-approve-limit="70"
+    data-activities-percentaje="60" data-mobile-mode="512">
+    <div id="body" class="not_print">
+
+        <div id="not_scorm_msg" style="display: none;"></div>
+
+        <header>
+            <div class="sec-menu">
+                <img src="img/logo-ia-para-aprender.svg" alt="">
+                <div class="botones-sec-menu">
+                    <a href="#" data-global="results" data-position-at="top">
+                        <img src="img/ico-progreso.svg" alt="">
+                        Progreso
+                    </a>
+                    <a href="#" data-global="credits">
+                        <img src="img/ico-creditos.svg" alt="">
+                        Créditos
+                    </a>
+                    <a href="#" data-global="library">
+                        <img src="img/ico-bibliografia.svg" alt="">
+                        Bibliografía
+                    </a>
+                </div>
+                <nav label="Características globales" class="globals notmobile">
+                    <menu>
+                        <menuitem data-global-id="return">
+                        <i title="Maximizar" class="ion-arrow-expand maximize">
+                            <p class="onlymobile">
+                                Maximizar
+                            </p>
+                        </i>
+                        <i title="Minimizar" class="ion-arrow-shrink minimize">
+                            <p class="onlymobile">
+                                Minimizar
+                            </p>
+                        </i>
+                        </menuitem>
+                        <menuitem data-global-id="close_all">
+                        <i title="Salir del contenido educativo" class="ion-close-circled">
+                            <p class="onlymobile">
+                                Salir
+                            </p>
+                        </i>
+                        </menuitem>
+                    </menu>
+                </nav>
+            </div>
+            <!-- <h2 class="page-title"></h2> -->
+            <nav label="Principal" class="horizontal main" data-offset="true">
+                <menu>
+                    <menuitem label="Introducción" data-page="pag-introduccion">
+                    </menuitem>
+                    <menuitem label="Calculando" data-page="pag-calculando">
+                    </menuitem>
+                    <menuitem label="Aplicaciones" data-page="pag-aplicaciones">
+                    </menuitem>
+                    <menuitem label="Ejemplos" data-page="pag-ejemplos">
+                    </menuitem>
+                    <menuitem label="Resumen" data-page="pag-resumen">
+                    </menuitem>
+                    <menuitem label="Prueba" data-page="pag-prueba">
+                    </menuitem>
+                </menu>
+            </nav>
+            <nav label="Características globales" class="globals onlymobile">
+                <menu>
+                    <menuitem data-global-id="return">
+                    <i title="Maximizar" class="ion-arrow-expand maximize">
+                        <p class="onlymobile">
+                            Maximizar
+                        </p>
+                    </i>
+                    <i title="Minimizar" class="ion-arrow-shrink minimize">
+                        <p class="onlymobile">
+                            Minimizar
+                        </p>
+                    </i>
+                    </menuitem>
+                    <menuitem data-global-id="close_all">
+                    <i title="Salir del contenido educativo" class="ion-close-circled">
+                        <p class="onlymobile">
+                            Salir
+                        </p>
+                    </i>
+                    </menuitem>
+                </menu>
+            </nav>
+        </header>
+
+        <main style="display: none;">
+
+            <section id="pag-introduccion" ptitle="Introducción a las áreas de figuras planas">
+                <div data-title="Introducción a las áreas de figuras planas" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Introducción a las áreas de figuras planas
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5" data-src="content/introduccion-vi.jpg"
+                            title="Introducción a las áreas de figuras planas">
+                            <img src="content/introduccion-vi.jpg" class="w-100" style="visibility: hidden;" alt="">
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction" type="info">
+                            Haz clic sobre cada punta de la estrella para conocer en qué consiste el estudio del área de
+                            figuras planas, sus usos y contribuciones a la vida diaria.
+                        </div>
+
+                        <div class="escenario-intro">
+                            <img class="fondo" src="content/fondo-estrella.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalIntro1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalIntro2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalIntro3">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalIntro4">
+                            </button>
+                            <button class="boton boton5 wf-content-controler" data-content="#modalIntro5">
+                            </button>
+                            <div id="modalIntro1" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El estudio del área de figuras planas es una rama esencial de la geometría que se
+                                    enfoca en medir la extensión de superficies bidimensionales. Este campo de estudio
+                                    no solo es rico en teoría matemática, sino que también tiene aplicaciones prácticas
+                                    significativas.
+                                </p>
+                            </div>
+                            <div id="modalIntro2" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El cálculo de áreas nos permite cuantificar el espacio que ocupan diversas formas,
+                                    como cuadrados, rectángulos, triángulos, círculos, y otras figuras más complejas.
+                                    Este conocimiento es crucial en numerosos campos, desde la arquitectura y la
+                                    ingeniería hasta el diseño y la agricultura. En la vida cotidiana, calcular el área
+                                    es esencial para tareas como la compra de materiales de construcción o decoración,
+                                    la planificación de espacios habitables, o incluso el diseño de jardines y parques.
+                                </p>
+                            </div>
+                            <div id="modalIntro3" class="wf-content" data-property-width="80%">
+                                <p>
+                                    La belleza de la geometría plana radica en su simplicidad y en la elegancia de sus
+                                    fórmulas, las cuales nos permiten resolver problemas prácticos de manera eficiente.
+                                    Al comprender cómo se calculan las áreas, desarrollamos una mejor apreciación por la
+                                    relación entre las formas y sus dimensiones, una habilidad valiosa en muchas áreas
+                                    de estudio y profesiones.
+                                </p>
+                            </div>
+                            <div id="modalIntro4" class="wf-content" data-property-width="80%">
+                                <p>
+                                    Además, enseñar geometría plana fomenta habilidades importantes como el <b
+                                        style="color: #601DB7;">razonamiento
+                                        lógico, la resolución de problemas</b> y el <b
+                                        style="color: #601DB7;">pensamiento crítico.</b> Estas habilidades son
+                                    fundamentales no solo en las matemáticas, sino también en la vida diaria, donde a
+                                    menudo necesitamos aplicar un pensamiento estructurado para abordar y resolver
+                                    problemas complejos.
+                                </p>
+                            </div>
+                            <div id="modalIntro5" class="wf-content" data-property-width="80%">
+                                <p>
+                                    En resumen, el estudio de las áreas de figuras planas es un campo apasionante y
+                                    versátil que combina la teoría matemática con aplicaciones prácticas en nuestra vida
+                                    diaria. Es un campo de estudio que despierta curiosidad y estimula el pensamiento
+                                    analítico, y es esencial en la educación matemática.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/introduccion.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues">
+                            <img src="content/introduccion-vi.jpg" />
+                            <img src="content/introduccion-vi2.jpg" />
+                        </div>
+
+                        <p style="height: 60px;"></p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-calculando" ptitle="Calculando el área de figuras planas">
+                <div data-title="Calculando el área de figuras planas" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Calculando el área de figuras planas
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de video para visualizar el contenido.
+                        </div>
+
+                        <div class="videobox">
+                            <video controls>
+                                <source src="content/video/metodos.mp4" type="video/mp4">
+                                El reproductor de video no es soportado por el navegador
+                            </video>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-pensador">
+                            <img class="titulo" src="content/calculando/01.png" alt="">
+                            <img class="fondo" src="content/calculando/fondo.jpg" alt="">
+
+                            <button class="boton boton1 w-content-controler" data-content="#modalPensador1">
+                                <img class="w-100" src="content/calculando/2.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalPensador2">
+                                <img class="w-100" src="content/calculando/3.png" alt="">
+                            </button>
+
+                            <button class="boton boton3 w-content-controler" data-content="#modalPensador3">
+                                <img class="w-100" src="content/calculando/04.png" alt="">
+                            </button>
+
+                            <button class="boton boton4 w-content-controler" data-content="#modalPensador4">
+                                <img class="w-100" src="content/calculando/05.png" alt="">
+                            </button>
+
+                            <button class="boton boton5 w-content-controler" data-content="#modalPensador5">
+                                <img class="w-100" src="content/calculando/06.png" alt="">
+                            </button>
+
+                            <button class="boton boton6 w-content-controler" data-content="#modalPensador6">
+                                <img class="w-100" src="content/calculando/07.png" alt="">
+                            </button>
+
+                            <button class="boton boton7 w-content-controler" data-content="#modalPensador7">
+                                <img class="w-100" src="content/calculando/08.png" alt="">
+                            </button>
+
+                            <button class="boton boton8 w-content-controler" data-content="#modalPensador8">
+                                <img class="w-100" src="content/calculando/09.png" alt="">
+                            </button>
+
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Calculando el área de figuras planas
+                        </h3>
+
+                        <p>
+                            A continuación, encontrarás un audio y un texto escrito.
+                            Te proponemos escuchar el audio mientras lees, así podrás identificar los ejemplos y las
+                            expresiones matemáticas. Siéntete libre de pausar el audio cuando quieras detenerte en algún
+                            detalle de la lectura.
+                        </p>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/metodos.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <div class="contenido-vs">
+                            <h2>
+                                ¿Qué es un área?
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área es una medida que cuantifica el tamaño de la superficie de una
+                                    figura o un objeto en un plano bidimensional. Se expresa en unidades
+                                    cuadradas, como metros cuadrados, centímetros cuadrados, pulgadas cuadradas,
+                                    entre otros. El cálculo del área varía según la forma de la figura, y cada
+                                    tipo de figura tiene su propia fórmula para calcularla.
+                                </p>
+                            </div>
+
+                            <h2 class="mt-0">
+                                Área del triángulo
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un triángulo se puede calcular utilizando la fórmula:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/10.png" alt="">
+                                <p>
+                                    Esta fórmula nos dice que el área de un triángulo es igual a la mitad del
+                                    producto de su base por su altura. La "base" puede ser cualquier lado del
+                                    triángulo, y la "altura" es la longitud de la línea perpendicular desde la
+                                    base hasta el vértice opuesto.
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Imagina un triángulo con una base de 6 metros y una altura de 4 metros.
+                                    Aplicando la fórmula, el área del triángulo sería:
+                                </p>
+                                <img width="480px" class="img-centered" src="content/calculando/11.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del triángulo es de 12 metros cuadrados. Esta
+                                    fórmula es extremadamente útil y se aplica en muchas situaciones prácticas,
+                                    desde el cálculo de la cantidad de pintura necesaria para cubrir una pared
+                                    triangular hasta la determinación del área de un terreno en forma de
+                                    triángulo.
+                                </p>
+                            </div>
+
+                            <h2 class="mt-0">
+                                Área de un paralelogramo
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un paralelogramo se calcula multiplicando la longitud de la base
+                                    por la altura perpendicular a esa base. La fórmula para calcular el área de
+                                    un paralelogramo es:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/12.png" alt="">
+                                <p style="text-decoration: underline;">
+                                    A diferencia del rectángulo, la altura de un paralelogramo no es
+                                    necesariamente uno de sus lados, sino que es la distancia perpendicular
+                                    entre la base y el lado opuesto.
+                                </p>
+                                <p><b>Ejemplo</b></p>
+                                <img width="450px" class="img-centered" src="content/calculando/13.png" alt="">
+                                <p>
+                                    Supongamos que tienes un paralelogramo con una base de 10 metros y una
+                                    altura de 5 metros (la altura es la distancia perpendicular desde la base
+                                    hasta el lado opuesto). Utilizando la fórmula, el área del paralelogramo
+                                    sería:
+                                </p>
+                                <img width="220px" class="img-centered" src="content/calculando/14_1.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del paralelogramo es de 50 metros cuadrados. Esta
+                                    fórmula es fundamental en geometría y tiene aplicaciones prácticas en áreas
+                                    como la arquitectura, el diseño gráfico y la cartografía, donde es
+                                    importante calcular el espacio cubierto por superficies inclinadas o
+                                    irregulares.
+                                </p>
+                            </div>
+
+                            <h2 class="mt-0">
+                                Área de un rectángulo
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un rectángulo se calcula multiplicando su longitud (o base) por
+                                    su anchura (o altura). La fórmula para calcular el área de un rectángulo es:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/12.png" alt="">
+                                <p>
+                                    Esta fórmula es muy directa porque, en un rectángulo, todos los ángulos son
+                                    rectos (90 grados), y los lados opuestos son iguales y paralelos.
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Supongamos que tienes un rectángulo cuya longitud es de 8 metros y cuya
+                                    anchura es de 3 metros. Utilizando la fórmula, el área del rectángulo sería:
+                                </p>
+                                <img width="480px" class="img-centered" src="content/calculando/16.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del rectángulo es de 24 metros cuadrados. Este
+                                    cálculo es útil en numerosas situaciones prácticas, como determinar la
+                                    cantidad de pintura necesaria para cubrir una pared, la cantidad de alfombra
+                                    para un piso, o incluso la planificación de un espacio en un diseño
+                                    arquitectónico. La fórmula del área del rectángulo es fundamental en la
+                                    geometría y tiene aplicaciones en muchos campos diferentes.
+                                </p>
+                            </div>
+
+                            <h2>
+                                Área del cuadrado
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un cuadrado se calcula utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/17.png" alt="">
+                                <p>
+                                    Esta fórmula indica que el área de un cuadrado es igual al cuadrado de la
+                                    longitud de uno de sus lados. Dado que todos los lados de un cuadrado son
+                                    iguales, solo necesitas conocer la longitud de uno de ellos para calcular el
+                                    área.
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Imagina que tienes un cuadrado cuyo lado mide 5 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/18.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del cuadrado es de 25 metros cuadrados. Esta
+                                    fórmula es fundamental en la geometría y tiene aplicaciones prácticas en
+                                    muchas áreas, como la arquitectura, el diseño gráfico, la agricultura y la
+                                    planificación urbana. Calcular el área de un cuadrado es una tarea común en
+                                    muchas situaciones prácticas, desde la planificación del diseño de un jardín
+                                    hasta la disposición de los azulejos en un piso cuadrado.
+                                </p>
+                            </div>
+
+                            <h2>
+                                Área del rombo
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un rombo se puede calcular utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/19.png" alt="">
+                                <p>
+                                    Donde <i>d<sub>1</sub></i> y <i>d<sub>2</sub></i> son las longitudes de las
+                                    diagonales del rombo. Esta fórmula establece que el área de un rombo es
+                                    igual a la mitad del producto de sus diagonales
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Supongamos que tienes un rombo cuyas diagonales miden 8 metros y 6 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/20.png" alt="">
+                                <p>
+                                    Utilizando la fórmula, el área del rombo sería:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/21.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del rombo es de 24 metros cuadrados. Este cálculo
+                                    es útil en diversas aplicaciones prácticas, como en el diseño y la
+                                    decoración, donde los rombos pueden ser una forma geométrica común. Además,
+                                    entender cómo calcular el área de un rombo es importante en disciplinas como
+                                    el arte, el diseño gráfico y la arquitectura.
+                                </p>
+                            </div>
+
+                            <h2 class="mt-0">
+                                Área del trapecio
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un trapecio se calcula utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/22.png" alt="">
+                                <p>
+                                    Donde <i>b<sub>1</sub></i> y <i>b<sub>2</sub></i> son las longitudes de las
+                                    bases del trapecio (los dos lados
+                                    paralelos) y <i>h</i> es la altura del trapecio, que es la distancia
+                                    perpendicular
+                                    entre las dos bases.
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Imagina que tienes un trapecio con una base inferior (<i>b<sub>1</sub></i>)
+                                    de 8 metros, una
+                                    base superior (<i>b<sub>2</sub></i>) de 5 metros, y una altura <i>(h)</i> de
+                                    4 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/23.png" alt="">
+                                <p>
+                                    Aplicando la fórmula, el área del trapecio sería:
+                                </p>
+                                <img width="200px" class="img-centered" src="content/calculando/23_1.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del trapecio es de 26 metros cuadrados. Esta
+                                    fórmula es muy útil en varias aplicaciones prácticas, como en la
+                                    arquitectura y la ingeniería para calcular el espacio en diseños de techos y
+                                    puentes, así como en la agricultura y la geografía para medir áreas de
+                                    terrenos que no son perfectamente rectangulares.
+                                </p>
+
+                            </div>
+
+                            <h2>
+                                Área del círculo
+                            </h2>
+                            <div>
+                                <p class="mt-0">
+                                    El área de un círculo se calcula utilizando la fórmula:
+                                </p>
+                                <img width="100px" class="img-centered" src="content/calculando/24.png" alt="">
+                                <p>
+                                    Donde π (pi) es una constante matemática aproximadamente igual a 3.14159, y
+                                    <i>r</i> es el radio del círculo, es decir, la distancia desde el centro del
+                                    círculo hasta cualquier punto de su borde.
+                                </p>
+                                <p class="mb-0"><b>Ejemplo</b></p>
+                                <p class="mt-0">
+                                    Imagina que tienes un círculo con un radio de 3 metros.
+                                </p>
+                                <img width="200px" class="img-centered" src="content/calculando/25.png" alt="">
+                                <p>
+                                    Aplicando la fórmula, el área del círculo sería:
+                                </p>
+                                <img width="170px" class="img-centered" src="content/calculando/26.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del círculo es aproximadamente 28.274 metros
+                                    cuadrados. Esta fórmula es crucial en muchas áreas de la ciencia y la
+                                    ingeniería, especialmente en aquellas que involucran geometría y cálculos
+                                    espaciales, como la arquitectura, la planificación urbana, y la física.
+                                    Además, tiene aplicaciones prácticas en la vida cotidiana, como calcular el
+                                    área de objetos circulares, desde platos hasta jardines y campos deportivos.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <h3 class="titulo-pagina">
+                            Definición de probabilidad
+                        </h3>
+
+                        <p>
+                            Te invitamos a realizar un emocionante recorrido que potenciará tu aprendizaje. Para ello,
+                            sigue estos pasos:
+                        </p>
+
+                        <div class="bloque-instruccion">
+                            <ol>
+                                <li>
+                                    <p>
+                                        <b>Explora la simulación:</b> te invitamos a navegar por la siguiente
+                                        simulación. Tómate
+                                        tu tiempo para observar, interactuar y comprender los diferentes elementos
+                                        presentados.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_all.html?locale=es
+                                    </a>
+                                    <br><br>
+                                    <a href="https://phet.colorado.edu/sims/html/area-model-introduction/latest/area-model-introduction_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/area-model-introduction/latest/area-model-introduction_all.html?locale=es
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/BtcGZuqa" target="_blank">
+                                        https://www.geogebra.org/m/BtcGZuqa
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/dwbCGSs4" target="_blank">
+                                        https://www.geogebra.org/m/dwbCGSs4
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/K4KvpQG8" target="_blank">
+                                        https://www.geogebra.org/m/K4KvpQG8
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="bloque-instruccion">
+                            <ol start="2">
+                                <li>
+                                    <p>
+                                        <b>Interactivo educativo:</b> luego de explorar la simulación, ingresa al
+                                        siguiente interactivo y revisa todo el contenido. Aquí podrás profundizar en los
+                                        conceptos y adquirir un entendimiento más completo.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Interactivo -->
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-pensador">
+                            <img class="titulo" src="content/calculando/01.png" alt="">
+                            <img class="fondo" src="content/calculando/fondo.jpg" alt="">
+
+                            <button class="boton boton1 w-content-controler" data-content="#modalPensador1">
+                                <img class="w-100" src="content/calculando/2.png" alt="">
+                            </button>
+
+                            <button class="boton boton2 w-content-controler" data-content="#modalPensador2">
+                                <img class="w-100" src="content/calculando/3.png" alt="">
+                            </button>
+
+                            <button class="boton boton3 w-content-controler" data-content="#modalPensador3">
+                                <img class="w-100" src="content/calculando/04.png" alt="">
+                            </button>
+
+                            <button class="boton boton4 w-content-controler" data-content="#modalPensador4">
+                                <img class="w-100" src="content/calculando/05.png" alt="">
+                            </button>
+
+                            <button class="boton boton5 w-content-controler" data-content="#modalPensador5">
+                                <img class="w-100" src="content/calculando/06.png" alt="">
+                            </button>
+
+                            <button class="boton boton6 w-content-controler" data-content="#modalPensador6">
+                                <img class="w-100" src="content/calculando/07.png" alt="">
+                            </button>
+
+                            <button class="boton boton7 w-content-controler" data-content="#modalPensador7">
+                                <img class="w-100" src="content/calculando/08.png" alt="">
+                            </button>
+
+                            <button class="boton boton8 w-content-controler" data-content="#modalPensador8">
+                                <img class="w-100" src="content/calculando/09.png" alt="">
+                            </button>
+                        </div>
+                        <!-- FIN Interactivo -->
+
+                        <div class="bloque-instruccion">
+                            <ol start="3">
+                                <li>
+                                    <p>
+                                        <b>Aplicación práctica:</b> finalmente, regresa a la simulación y relaciona los
+                                        elementos aprendidos. Aplica tu nuevo conocimiento y observa cómo todo cobra
+                                        sentido
+                                        en un contexto práctico.
+                                    </p>
+                                    <a href="https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_all.html?locale=es
+                                    </a>
+                                    <br><br>
+                                    <a href="https://phet.colorado.edu/sims/html/area-model-introduction/latest/area-model-introduction_all.html?locale=es"
+                                        target="_blank">
+                                        https://phet.colorado.edu/sims/html/area-model-introduction/latest/area-model-introduction_all.html?locale=es
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/BtcGZuqa" target="_blank">
+                                        https://www.geogebra.org/m/BtcGZuqa
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/dwbCGSs4" target="_blank">
+                                        https://www.geogebra.org/m/dwbCGSs4
+                                    </a>
+                                    <br><br>
+                                    <a href="https://www.geogebra.org/m/K4KvpQG8" target="_blank">
+                                        https://www.geogebra.org/m/K4KvpQG8
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <p class="text-center mb-5">
+                            ¡Disfruta del recorrido y aprende de manera divertida e interactiva!
+                        </p>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div class="ventanas-modales">
+                        <div data-cssclass="modalPensador" id="modalPensador1" class="w-content">
+                            <h2 class="titulo-logica">
+                                ¿Qué es un área?
+                            </h2>
+                            <div>
+                                <p>
+                                    El área es una medida que cuantifica el tamaño de la superficie de una
+                                    figura o un objeto en un plano bidimensional. Se expresa en unidades
+                                    cuadradas, como metros cuadrados, centímetros cuadrados, pulgadas cuadradas,
+                                    entre otros. El cálculo del área varía según la forma de la figura, y cada
+                                    tipo de figura tiene su propia fórmula para calcularla.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador2" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área del triángulo
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un triángulo se puede calcular utilizando la fórmula:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/10.png" alt="">
+                                <p>
+                                    Esta fórmula nos dice que el área de un triángulo es igual a la mitad del
+                                    producto de su base por su altura. La "base" puede ser cualquier lado del
+                                    triángulo, y la "altura" es la longitud de la línea perpendicular desde la
+                                    base hasta el vértice opuesto.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Imagina un triángulo con una base de 6 metros y una altura de 4 metros.
+                                    Aplicando la fórmula, el área del triángulo sería:
+                                </p>
+                                <img width="480px" class="img-centered" src="content/calculando/11.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del triángulo es de 12 metros cuadrados. Esta
+                                    fórmula es extremadamente útil y se aplica en muchas situaciones prácticas,
+                                    desde el cálculo de la cantidad de pintura necesaria para cubrir una pared
+                                    triangular hasta la determinación del área de un terreno en forma de
+                                    triángulo.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador3" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área de un paralelogramo
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un paralelogramo se calcula multiplicando la longitud de la base
+                                    por la altura perpendicular a esa base. La fórmula para calcular el área de
+                                    un paralelogramo es:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/12.png" alt="">
+                                <p style="text-decoration: underline;">
+                                    A diferencia del rectángulo, la altura de un paralelogramo no es
+                                    necesariamente uno de sus lados, sino que es la distancia perpendicular
+                                    entre la base y el lado opuesto.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <img width="450px" class="img-centered" src="content/calculando/13.png" alt="">
+                                <p>
+                                    Supongamos que tienes un paralelogramo con una base de 10 metros y una
+                                    altura de 5 metros (la altura es la distancia perpendicular desde la base
+                                    hasta el lado opuesto). Utilizando la fórmula, el área del paralelogramo
+                                    sería:
+                                </p>
+                                <img width="220px" class="img-centered" src="content/calculando/14_1.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del paralelogramo es de 50 metros cuadrados. Esta
+                                    fórmula es fundamental en geometría y tiene aplicaciones prácticas en áreas
+                                    como la arquitectura, el diseño gráfico y la cartografía, donde es
+                                    importante calcular el espacio cubierto por superficies inclinadas o
+                                    irregulares.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador4" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área de un rectángulo
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un rectángulo se calcula multiplicando su longitud (o base) por
+                                    su anchura (o altura). La fórmula para calcular el área de un rectángulo es:
+                                </p>
+                                <img width="250px" class="img-centered" src="content/calculando/12.png" alt="">
+                                <p>
+                                    Esta fórmula es muy directa porque, en un rectángulo, todos los ángulos son
+                                    rectos (90 grados), y los lados opuestos son iguales y paralelos.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Supongamos que tienes un rectángulo cuya longitud es de 8 metros y cuya
+                                    anchura es de 3 metros. Utilizando la fórmula, el área del rectángulo sería:
+                                </p>
+                                <img width="480px" class="img-centered" src="content/calculando/16.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del rectángulo es de 24 metros cuadrados. Este
+                                    cálculo es útil en numerosas situaciones prácticas, como determinar la
+                                    cantidad de pintura necesaria para cubrir una pared, la cantidad de alfombra
+                                    para un piso, o incluso la planificación de un espacio en un diseño
+                                    arquitectónico. La fórmula del área del rectángulo es fundamental en la
+                                    geometría y tiene aplicaciones en muchos campos diferentes.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador5" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área del cuadrado
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un cuadrado se calcula utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/17.png" alt="">
+                                <p>
+                                    Esta fórmula indica que el área de un cuadrado es igual al cuadrado de la
+                                    longitud de uno de sus lados. Dado que todos los lados de un cuadrado son
+                                    iguales, solo necesitas conocer la longitud de uno de ellos para calcular el
+                                    área.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Imagina que tienes un cuadrado cuyo lado mide 5 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/18.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del cuadrado es de 25 metros cuadrados. Esta
+                                    fórmula es fundamental en la geometría y tiene aplicaciones prácticas en
+                                    muchas áreas, como la arquitectura, el diseño gráfico, la agricultura y la
+                                    planificación urbana. Calcular el área de un cuadrado es una tarea común en
+                                    muchas situaciones prácticas, desde la planificación del diseño de un jardín
+                                    hasta la disposición de los azulejos en un piso cuadrado.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador6" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área del rombo
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un rombo se puede calcular utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/19.png" alt="">
+                                <p>
+                                    Donde <i>d<sub>1</sub></i> y <i>d<sub>2</sub></i> son las longitudes de las
+                                    diagonales del rombo. Esta fórmula establece que el área de un rombo es
+                                    igual a la mitad del producto de sus diagonales
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Supongamos que tienes un rombo cuyas diagonales miden 8 metros y 6 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/20.png" alt="">
+                                <p>
+                                    Utilizando la fórmula, el área del rombo sería:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/21.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del rombo es de 24 metros cuadrados. Este cálculo
+                                    es útil en diversas aplicaciones prácticas, como en el diseño y la
+                                    decoración, donde los rombos pueden ser una forma geométrica común. Además,
+                                    entender cómo calcular el área de un rombo es importante en disciplinas como
+                                    el arte, el diseño gráfico y la arquitectura.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador7" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área del trapecio
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un trapecio se calcula utilizando la fórmula:
+                                </p>
+                                <img width="130px" class="img-centered" src="content/calculando/22.png" alt="">
+                                <p>
+                                    Donde <i>b<sub>1</sub></i> y <i>b<sub>2</sub></i> son las longitudes de las
+                                    bases del trapecio (los dos lados
+                                    paralelos) y <i>h</i> es la altura del trapecio, que es la distancia
+                                    perpendicular
+                                    entre las dos bases.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Imagina que tienes un trapecio con una base inferior (<i>b<sub>1</sub></i>)
+                                    de 8 metros, una
+                                    base superior (<i>b<sub>2</sub></i>) de 5 metros, y una altura <i>(h)</i> de
+                                    4 metros.
+                                </p>
+                                <img width="400px" class="img-centered" src="content/calculando/23.png" alt="">
+                                <p>
+                                    Aplicando la fórmula, el área del trapecio sería:
+                                </p>
+                                <img width="200px" class="img-centered" src="content/calculando/23_1.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del trapecio es de 26 metros cuadrados. Esta
+                                    fórmula es muy útil en varias aplicaciones prácticas, como en la
+                                    arquitectura y la ingeniería para calcular el espacio en diseños de techos y
+                                    puentes, así como en la agricultura y la geografía para medir áreas de
+                                    terrenos que no son perfectamente rectangulares.
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div data-cssclass="modalPensador" id="modalPensador8" class="w-content">
+                            <h2 class="titulo-logica">
+                                Área del círculo
+                            </h2>
+                            <div>
+                                <p>
+                                    El área de un círculo se calcula utilizando la fórmula:
+                                </p>
+                                <img width="100px" class="img-centered" src="content/calculando/24.png" alt="">
+                                <p>
+                                    Donde π (pi) es una constante matemática aproximadamente igual a 3.14159, y
+                                    <i>r</i> es el radio del círculo, es decir, la distancia desde el centro del
+                                    círculo hasta cualquier punto de su borde.
+                                </p>
+                                <p style="color: #601DB7;"><b>Ejemplo</b></p>
+                                <p>
+                                    Imagina que tienes un círculo con un radio de 3 metros.
+                                </p>
+                                <img width="200px" class="img-centered" src="content/calculando/25.png" alt="">
+                                <p>
+                                    Aplicando la fórmula, el área del círculo sería:
+                                </p>
+                                <img width="170px" class="img-centered" src="content/calculando/26.png" alt="">
+                                <p>
+                                    En este ejemplo, el área del círculo es aproximadamente 28.274 metros
+                                    cuadrados. Esta fórmula es crucial en muchas áreas de la ciencia y la
+                                    ingeniería, especialmente en aquellas que involucran geometría y cálculos
+                                    espaciales, como la arquitectura, la planificación urbana, y la física.
+                                    Además, tiene aplicaciones prácticas en la vida cotidiana, como calcular el
+                                    área de objetos circulares, desde platos hasta jardines y campos deportivos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-aplicaciones" ptitle="Aplicaciones de áreas de figuras planas">
+                <div data-title="Aplicaciones de áreas de figuras planas" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de áreas de figuras planas
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="botones-modales">
+                            <button class="w-content-controler" data-content="#aplicaciones1Modal">
+                                <img src="content/btn-arquitectura.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones2Modal">
+                                <img src="content/btn-diseno-interiores.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones3Modal">
+                                <img src="content/btn-construccion.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones4Modal">
+                                <img src="content/btn-planificacion-proyectos.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="botones-modales">
+                            <button class="w-content-controler" data-content="#aplicaciones5Modal">
+                                <img src="content/btn-agricultura.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones6Modal">
+                                <img src="content/btn-planificacion-territorial.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones7Modal">
+                                <img src="content/btn-fabricacion.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones8Modal">
+                                <img src="content/btn-diseno-industrial.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="botones-modales">
+                            <button class="w-content-controler" data-content="#aplicaciones9Modal">
+                                <img src="content/btn-geometria.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones10Modal">
+                                <img src="content/btn-diseno-grafico.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones11Modal">
+                                <img src="content/btn-investigacion-ambiental.png" alt="">
+                            </button>
+                            <button class="w-content-controler" data-content="#aplicaciones12Modal">
+                                <img src="content/btn-organizacion-eventos.png" alt="">
+                            </button>
+                        </div>
+
+                        <div class="ventanas-modales">
+                            <div id="aplicaciones1Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Arquitectura
+                                    </b>
+                                </p>
+                                <p>
+                                    En la arquitectura, el cálculo del área es crucial para el diseño de espacios, como
+                                    habitaciones, jardines y parques.
+                                </p>
+                            </div>
+                            <div id="aplicaciones2Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Diseño de interiores
+                                    </b>
+                                </p>
+                                <p>
+                                    En diseño de interiores, se utiliza para calcular la cantidad de materiales
+                                    necesarios, como pintura, pisos, o papel tapiz.
+                                </p>
+                            </div>
+                            <div id="aplicaciones3Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Construcción
+                                    </b>
+                                </p>
+                                <p>
+                                    Es fundamental en la estimación de materiales de construcción, como concreto,
+                                    asfalto o césped.
+                                </p>
+                            </div>
+                            <div id="aplicaciones4Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Planificación de proyectos
+                                    </b>
+                                </p>
+                                <p>
+                                    También se usa en la planificación de la disposición y el uso del espacio en
+                                    proyectos de construcción.
+                                </p>
+                            </div>
+                            <div id="aplicaciones5Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Agricultura
+                                    </b>
+                                </p>
+                                <p>
+                                    En agricultura, es importante para la gestión de cultivos, riego y uso eficiente de
+                                    la tierra.
+                                </p>
+                            </div>
+                            <div id="aplicaciones6Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Planificación territorial
+                                    </b>
+                                </p>
+                                <p>
+                                    En planificación territorial, ayuda a determinar el uso del suelo y en la
+                                    zonificación.
+                                </p>
+                            </div>
+                            <div id="aplicaciones7Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Fabricación
+                                    </b>
+                                </p>
+                                <p>
+                                    En la fabricación, se usa para calcular la cantidad de material necesario para crear
+                                    un producto.
+                                </p>
+                            </div>
+                            <div id="aplicaciones8Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Diseño industrial
+                                    </b>
+                                </p>
+                                <p>
+                                    En diseño industrial, es esencial para la creación de prototipos y el diseño de
+                                    productos.
+                                </p>
+                            </div>
+                            <div id="aplicaciones9Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Geometría
+                                    </b>
+                                </p>
+                                <p>
+                                    Es un concepto fundamental en la enseñanza de la geometría, desarrollando la
+                                    comprensión espacial y el razonamiento matemático.
+                                </p>
+                            </div>
+                            <div id="aplicaciones10Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Diseño gráfico
+                                    </b>
+                                </p>
+                                <p>
+                                    Los artistas y diseñadores gráficos utilizan el cálculo de áreas en la composición y
+                                    el diseño, equilibrando los elementos visuales en una obra.
+                                </p>
+                            </div>
+                            <div id="aplicaciones11Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Investigación ambiental y geográfica
+                                    </b>
+                                </p>
+                                <p>
+                                    Se utiliza en el estudio de áreas de tierra y agua para la investigación ambiental y
+                                    geográfica.
+                                </p>
+                            </div>
+                            <div id="aplicaciones12Modal" class="w-content" data-cssclass="modalAplicaciones">
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Organización de eventos
+                                    </b>
+                                </p>
+                                <p>
+                                    En la organización de eventos, se usa para la disposición de espacios, como sillas y
+                                    mesas, y para garantizar la comodidad y seguridad.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="mt-5 mb-5">
+                            En resumen, las áreas de figuras planas son esenciales en una amplia gama de actividades,
+                            desde la vida cotidiana hasta industrias y ciencias especializadas, ayudando a comprender y
+                            optimizar el uso del espacio.
+                        </p>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada uno de los botones para visualizar el contenido.
+                        </div>
+
+                        <div class="escenario-aplicaciones">
+
+                            <img class="w-100" src="content/aplicaciones-vi-fondo.jpg" alt="">
+
+                            <button class="boton1 w-content-controler" data-content="#aplicaciones1Modal">
+                                <img src="content/btn-arquitectura.png" alt="">
+                            </button>
+                            <button class="boton2 w-content-controler" data-content="#aplicaciones2Modal">
+                                <img src="content/btn-diseno-interiores.png" alt="">
+                            </button>
+                            <button class="boton3 w-content-controler" data-content="#aplicaciones3Modal">
+                                <img src="content/btn-construccion.png" alt="">
+                            </button>
+                            <button class="boton4 w-content-controler" data-content="#aplicaciones4Modal">
+                                <img src="content/btn-planificacion-proyectos.png" alt="">
+                            </button>
+
+                            <button class="boton5 w-content-controler" data-content="#aplicaciones5Modal">
+                                <img src="content/btn-agricultura.png" alt="">
+                            </button>
+                            <button class="boton6 w-content-controler" data-content="#aplicaciones6Modal">
+                                <img src="content/btn-planificacion-territorial.png" alt="">
+                            </button>
+                            <button class="boton7 w-content-controler" data-content="#aplicaciones7Modal">
+                                <img src="content/btn-fabricacion.png" alt="">
+                            </button>
+                            <button class="boton8 w-content-controler" data-content="#aplicaciones8Modal">
+                                <img src="content/btn-diseno-industrial.png" alt="">
+                            </button>
+
+                            <button class="boton9 w-content-controler" data-content="#aplicaciones9Modal">
+                                <img src="content/btn-geometria.png" alt="">
+                            </button>
+                            <button class="boton10 w-content-controler" data-content="#aplicaciones10Modal">
+                                <img src="content/btn-diseno-grafico.png" alt="">
+                            </button>
+                            <button class="boton11 w-content-controler" data-content="#aplicaciones11Modal">
+                                <img src="content/btn-investigacion-ambiental.png" alt="">
+                            </button>
+                            <button class="boton12 w-content-controler" data-content="#aplicaciones12Modal">
+                                <img src="content/btn-organizacion-eventos.png" alt="">
+                            </button>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de áreas de figuras planas
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/aplicaciones.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <h3 class="titulo-pagina">
+                            Aplicaciones de áreas de figuras planas
+                        </h3>
+
+                        <p class="text-center">
+                            Da vuelta a cada una de las tarjetas, escucha el audio y reconoce las aplicaciones del tema
+                            que estás estudiando.
+                        </p>
+
+                        <div class="contenedor-cards">
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/1-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c1.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/2-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c2.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/3-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c3.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/4-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c4.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/5-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c5.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/6-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c6.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/7-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c7.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/8.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/8-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c8.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/9.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/9-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c9.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/10.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/10-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c10.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/11.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/11-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c11.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="scene">
+                                <div class="card">
+                                    <div class="card__face card__face--front">
+                                        <img class="w-100 img-tarjeta" src="content/cards/12.png" alt="">
+                                        <img class="btn-voltear" src="content/cards/btn-voltear.png" alt="">
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <img class="w-100 img-tarjeta" src="content/cards/12-back.png" alt="">
+
+                                        <div class="w-100">
+                                            <audio controls class="w-100">
+                                                <source src="content/cards/c12.mp3" type="audio/mp3">
+                                                Su navegador no soporta el componente de audio
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <script>
+                            var cards = document.querySelectorAll('.contenedor-cards .card');
+
+                            [...cards].forEach((card) => {
+                                card.addEventListener('click', function () {
+                                    card.classList.toggle('voltear');
+                                    if (card.classList.length == 1) {
+                                        var audio = card.getElementsByTagName("audio")[0];
+                                        audio.pause();
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p style="height: 80px;"></p>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-ejemplos" ptitle="Veamos algunos ejemplos">
+                <div data-title="Veamos algunos ejemplos" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Veamos algunos ejemplos
+                    </h3>
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en cada sección.
+                        </div>
+
+                        <div class="accordion">
+                            <h3>Ejemplo 1</h3>
+                            <div>
+                                <div class="flex-img">
+                                    <img width="30%" src="content/cuadrado.png" alt="">
+                                    <p>
+                                        Calcula el área de un rectángulo cuya longitud es de 10 metros y cuya anchura es
+                                        de 6 metros.
+                                    </p>
+                                </div>
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    La fórmula para el área de un rectángulo es longitud * anchura (largo por ancho).
+                                    Por lo tanto:
+                                </p>
+
+                                <p class="text-center">
+                                    \(Área= 10 m * 6 m\)
+                                    <br>
+                                    \(Área= 60 m^2\)
+
+                                </p>
+                            </div>
+
+                            <h3>Ejemplo 2</h3>
+                            <div>
+                                <div class="flex-img">
+                                    <img width="15%" src="content/circulo.png" alt="">
+                                    <p>
+                                        Encuentra el área de un círculo cuyo radio es de 4 metros.
+                                    </p>
+                                </div>
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    La fórmula para el área de un círculo es \(\pi r^2\). Por lo tanto:
+                                </p>
+                                <p class="text-center">
+                                    \(Área= \pi (4 m)^2\) <br>
+                                    \(Área= 3.14159 * 16 m^2\) <br>
+                                    \(Área≈ 50.265 m^2\)
+                                </p>
+
+                            </div>
+
+                            <h3>Ejemplo 3</h3>
+                            <div>
+                                <div class="flex-img">
+                                    <img width="20%" src="content/triangulo.png" alt="">
+                                    <p>
+                                        Un triángulo tiene una base de 8 metros y una altura de 5 metros. ¿Cuál es su
+                                        área?
+                                    </p>
+                                </div>
+                                <p style="color: #601DB7;">
+                                    <b>
+                                        Solución
+                                    </b>
+                                </p>
+                                <p>
+                                    La fórmula para el área del triángulo es \(\frac{base * altura}{2}\).
+                                    Por lo tanto:
+                                </p>
+
+                                <p class="text-center">
+                                    \(Área=\frac{8m * 5m}{2}\) <br>
+                                    \(Área=\frac{40m^2}{2}\) <br>
+                                    \(Área= 20 m^2\)
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en los botones a, b y c para visualizar el contenido.
+                        </div>
+
+                        <div class="ctrl-pagination" data-layer-height="auto" data-numeric-pagination="true"
+                            data-type="a">
+                            <li>
+                                <h3 class="text-center" style="color: #601DB7;">Ejemplo 1</h3>
+                                <div>
+                                    <div class="flex-img">
+                                        <img width="30%" src="content/cuadrado.png" alt="">
+                                        <p>
+                                            Calcula el área de un rectángulo cuya longitud es de 10 metros y cuya
+                                            anchura es
+                                            de 6 metros.
+                                        </p>
+                                    </div>
+                                    <p style="color: #601DB7;">
+                                        <b>
+                                            Solución
+                                        </b>
+                                    </p>
+                                    <p>
+                                        La fórmula para el área de un rectángulo es longitud * anchura (largo por
+                                        ancho).
+                                        Por lo tanto:
+                                    </p>
+
+                                    <p class="text-center">
+                                        \(Área= 10 m * 6 m\)
+                                        <br>
+                                        <span class="respuesta">\(Área= 60 m^2\)</span>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <h3 class="text-center" style="color: #601DB7;">Ejemplo 2</h3>
+                                <div>
+                                    <div class="flex-img">
+                                        <img width="15%" src="content/circulo.png" alt="">
+                                        <p>
+                                            Encuentra el área de un círculo cuyo radio es de 4 metros.
+                                        </p>
+                                    </div>
+                                    <p style="color: #601DB7;">
+                                        <b>
+                                            Solución
+                                        </b>
+                                    </p>
+                                    <p>
+                                        La fórmula para el área de un círculo es \(\pi r^2\). Por lo tanto:
+                                    </p>
+                                    <p class="text-center">
+                                        \(Área= \pi (4 m)^2\) <br>
+                                        \(Área= 3.14159 * 16 m^2\) <br>
+                                        <span class="respuesta">\(Área≈ 50.265 m^2\)</span>
+                                    </p>
+
+                                </div>
+                            </li>
+                            <li>
+                                <h3 class="text-center" style="color: #601DB7;">Ejemplo 3</h3>
+                                <div>
+                                    <div class="flex-img">
+                                        <img width="20%" src="content/triangulo.png" alt="">
+                                        <p>
+                                            Un triángulo tiene una base de 8 metros y una altura de 5 metros. ¿Cuál es
+                                            su
+                                            área?
+                                        </p>
+                                    </div>
+                                    <p style="color: #601DB7;">
+                                        <b>
+                                            Solución
+                                        </b>
+                                    </p>
+                                    <p>
+                                        La fórmula para el área del triángulo es \(\frac{base * altura}{2}\).
+                                        Por lo tanto:
+                                    </p>
+
+                                    <p class="text-center">
+                                        \(Área=\frac{8m * 5m}{2}\) <br>
+                                        \(Área=\frac{40m^2}{2}\) <br>
+                                        <span class="respuesta">\(Área= 20 m^2\)</span>
+                                    </p>
+
+                                </div>
+                            </li>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+                        <h3 class="mb-4" style="color: black;">Ejemplo 1</h3>
+                        <div>
+                            <div class="flex-img verbal-sensorial">
+                                <img src="content/cuadrado-ico.png" alt="">
+                                <p>
+                                    Calcula el área de un rectángulo cuya longitud es de 10 metros y cuya anchura es
+                                    de 6 metros.
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                La fórmula para el área de un rectángulo es longitud * anchura (largo por ancho).
+                                Por lo tanto:
+                            </p>
+                            <p class="text-center">
+                                \(Área= 10 m * 6 m\)
+                                <br>
+                                \(Área= 60 m^2\)
+                            </p>
+                        </div>
+
+                        <img class="mt-4 mb-4" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-4" style="color: black;">Ejemplo 2</h3>
+                        <div>
+                            <div class="flex-img verbal-sensorial">
+                                <img src="content/circulo-ico.png" alt="">
+                                <p>
+                                    Encuentra el área de un círculo cuyo radio es de 4 metros.
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                La fórmula para el área de un círculo es \(\pi r^2\). Por lo tanto:
+                            </p>
+                            <p class="text-center">
+                                \(Área= \pi (4 m)^2\) <br>
+                                \(Área= 3.14159 * 16 m^2\) <br>
+                                \(Área≈ 50.265 m^2\)
+                            </p>
+                        </div>
+
+                        <img class="mt-4 mb-4" src="content/rayas-divisoras.png" alt="">
+
+                        <h3 class="mb-4" style="color: black;">Ejemplo 3</h3>
+                        <div>
+                            <div class="flex-img verbal-sensorial">
+                                <img src="content/triangulo-ico.png" alt="">
+                                <p>
+                                    Un triángulo tiene una base de 8 metros y una altura de 5 metros. ¿Cuál es su
+                                    área?
+                                </p>
+                            </div>
+                            <p>
+                                <b>
+                                    Solución
+                                </b>
+                                <br>
+                                La fórmula para el área del triángulo es \(\frac{base * altura}{2}\).
+                                Por lo tanto:
+                            </p>
+
+                            <p class="text-center">
+                                \(Área=\frac{8m * 5m}{2}\) <br>
+                                \(Área=\frac{40m^2}{2}\) <br>
+                                \(Área= 20 m^2\)
+                            </p>
+
+                            <img class="mt-4 mb-4" src="content/rayas-divisoras.png" alt="">
+
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div data-ls-cycle="active-sequential" id="arrastrar1" class="jpit-activities-droppable"
+                            data-verify-type="target" data-act-id="Ejemplos - Arrastrar soluciones">
+                            <p>
+                                Completa los espacios en blanco con las soluciones a los ejercicios que se encuentran a
+                                continuación:
+                            </p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-dinero.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Calcula el área de un rectángulo cuya longitud es de 10 metros y
+                                                    cuya anchura es de 6 metros.
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="1"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-dado.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Encuentra el área de un círculo cuyo radio es de 4 metros.
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="2"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="cuadro-preguntas">
+                                            <img width="80px" src="content/ico-carta.png" alt="">
+                                            <p>
+                                                <b style="color: #601DB7;">
+                                                    Un triángulo tiene una base de 8 metros y una altura de 5 metros.
+                                                    ¿Cuál es su área?
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </th>
+                                    <td class="conection"><span class="icon_horizontal_arrow"></span></td>
+                                    <td data-target-group="3"></td>
+                                </tr>
+                            </table>
+
+                            <h4 class="mb-3 mt-5 text-center">Opciones</h4>
+                            <div class="respuestas">
+                                <div data-group="1" class="item1">Solución 1</div>
+                                <div data-group="2" class="item2">Solución 2</div>
+                                <div data-group="3" class="item3">Solución 3</div>
+                            </div>
+                            <!-- <br class="clear" /> -->
+
+                            <div class="box_end"></div>
+                        </div>
+
+                        <div class="cajas-soluciones">
+                            <div>
+                                <h4 style="color: black;">Solución 1</h4>
+                                <p>
+                                    La fórmula para el área de un rectángulo es longitud * anchura (largo por ancho).
+                                    Por lo tanto:
+                                </p>
+                                <p class="text-center">
+                                    \(Área= 10 m * 6 m\)
+                                    <br>
+                                    \(Área= 60 m^2\)
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 2</h4>
+                                <p>
+                                    La fórmula para el área de un círculo es \(\pi r^2\). Por lo tanto:
+                                </p>
+                                <p class="text-center">
+                                    Área= \(\pi (4 m)^2\) <br>
+                                    Área= \(3.14159 * 16 m^2\) <br>
+                                    Área≈ \(50.265 m^2\)
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: black;">Solución 3</h4>
+                                <p>
+                                    La fórmula para el área del triángulo es \(\frac{base * altura}{2}\).
+                                    Por lo tanto:
+                                </p>
+
+                                <p class="text-center">
+                                    Área=\(\frac{8m * 5m}{2}\) <br>
+                                    Área=\(\frac{40m^2}{2}\) <br>
+                                    Área=\( 20 m^2\)
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="pag-resumen" ptitle="Resumen">
+                <div data-title="Resumen" class="subpage">
+
+                    <div data-ls-cycle="grassping">
+                        <!-- Visual/verbal -->
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en la imagen para ampliar y leer con mayor facilidad el contenido.
+                        </div>
+
+                        <div class="expand-image expand-introduccion mb-5" data-src="content/resumen-vb.jpg"
+                            title="Resumen a las áreas de figuras planas">
+                            <img src="content/resumen-vb.jpg" class="w-100" alt="">
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-intuitive">
+                        <!-- Visual / Intuitivo -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en los botones <span class="mas">+</span> de cada figura para obtener información.
+                        </div>
+
+                        <div class="escenario-resumen">
+                            <img class="fondo" src="content/fondo-figuras.jpg" alt="">
+
+                            <button class="boton boton1 wf-content-controler" data-content="#modalResumen1">
+                            </button>
+                            <button class="boton boton2 wf-content-controler" data-content="#modalResumen2">
+                            </button>
+                            <button class="boton boton3 wf-content-controler" data-content="#modalResumen3">
+                            </button>
+                            <button class="boton boton4 wf-content-controler" data-content="#modalResumen4">
+                            </button>
+                            <button class="boton boton5 wf-content-controler" data-content="#modalResumen5">
+                            </button>
+                            <button class="boton boton6 wf-content-controler" data-content="#modalResumen6">
+                            </button>
+                            <div id="modalResumen1" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El estudio de las áreas de figuras planas es un aspecto fundamental de la geometría,
+                                    esencial en múltiples aplicaciones prácticas y teóricas.
+                                </p>
+                            </div>
+                            <div id="modalResumen2" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El área, que mide el tamaño de una superficie bidimensional, se calcula mediante
+                                    fórmulas específicas para cada tipo de figura.
+                                </p>
+                            </div>
+                            <div id="modalResumen3" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El área de un rectángulo se obtiene multiplicando su longitud por su anchura,
+                                    mientras que, para un círculo, se utiliza el radio y la constante π (pi).
+                                </p>
+                            </div>
+                            <div id="modalResumen4" class="wf-content" data-property-width="80%">
+                                <p>
+                                    El área de un triángulo se halla mediante el producto de su base y altura, dividido
+                                    por dos.
+                                </p>
+                            </div>
+                            <div id="modalResumen5" class="wf-content" data-property-width="80%">
+                                <p>
+                                    Estos cálculos no son meramente teóricos; tienen aplicaciones prácticas en campos
+                                    como la arquitectura, la ingeniería, el diseño, y en tareas cotidianas como la
+                                    planificación del espacio y la decoración.
+                                </p>
+                            </div>
+                            <div id="modalResumen6" class="wf-content" data-property-width="80%">
+                                <p>
+                                    Comprender cómo calcular el área de figuras planas es crucial para el
+                                    aprovechamiento eficiente del espacio y para una mejor comprensión del mundo físico
+                                    que nos rodea.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="verbal-sensing">
+                        <!-- Verbal / Sensorial  -->
+
+                        <h3 class="titulo-pagina">
+                            Resumen
+                        </h3>
+
+                        <div class="instruction mb-3" type="info">
+                            Haz clic en el reproductor de audio para escuchar el contenido.
+                        </div>
+
+                        <div class="caja-audio">
+                            <audio controls>
+                                <source src="content/audio/resumen.mp3" type="audio/mp3">
+                                Su navegador no soporta el componente de audio
+                            </audio>
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                    <div data-ls-cycle="visual-sensing">
+                        <!-- Visual / Sensorial -->
+
+                        <div class="instruction mb-5 mx-auto" type="info" style="width: 70%;">
+                            En la siguiente infografía faltan algunas palabras. De acuerdo con tu lectura y
+                            conocimientos previos, piensa qué palabra es pertinente. Luego, al correr la imagen,
+                            verifica si las respuestas correctas coinciden con tus reflexiones.
+                        </div>
+
+                        <div class="after-before antes-despues2 mb-5">
+                            <img src="content/resumen-vb.jpg" />
+                            <img src="content/resumen-vb2.jpg" />
+                        </div>
+
+                        <p style="height: 60px;"></p>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="pag-prueba" ptitle="Prueba tu conocimiento">
+                <div data-title="Prueba tu conocimiento" class="subpage">
+
+                    <h3 class="titulo-pagina">
+                        Prueba tu conocimiento
+                    </h3>
+
+                    <p>
+                        Este cuestionario consta de 5 preguntas de selección múltiple con única respuesta. Haz clic
+                        sobre la respuesta que consideres correcta, verifica y avanza haciendo clic en las flechas.
+                    </p>
+
+                    <div class="ctrl-pagination" data-layer-height="auto" data-labelcurrent="true">
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 1"
+                                data-act-id="cuestionario-p1" data-shuffle="false">
+                                <!-- Question 1 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    1. Julia está colocando un tapete rectangular en su sala de estar.
+                                                    Si el
+                                                    tapete mide 4 metros de largo y 3 metros de ancho, ¿cuál es el área
+                                                    que
+                                                    cubre?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">12m<sup>2</sup></li>
+                                        <li>7m<sup>2</sup></li>
+                                        <li>10m<sup>2</sup></li>
+                                        <li>15m<sup>2</sup></li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <b>a.</b> El área del tapete, que es un rectángulo,
+                                            se calcula como 4m * 3m = 12m<sup>2</sup>.
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 2"
+                                data-act-id="cuestionario-p2" data-shuffle="false">
+                                <!-- Question 2 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    2. Un agricultor está planeando un nuevo círculo de cultivo con un
+                                                    radio de
+                                                    10 metros. ¿Cuál es el área total que necesita para el círculo?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">314m<sup>2</sup></li>
+                                        <li>200m<sup>2</sup></li>
+                                        <li>100m<sup>2</sup></li>
+                                        <li>400m<sup>2</sup></li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <b>a.</b> El área del círculo se calcula con \(\pi
+                                            r^2\),
+                                            así que \(\pi\ \ast\ (10\ {m)}^2\approx3.14159\ \ast\ 100\approx314\ m^2\).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 3"
+                                data-act-id="cuestionario-p3" data-shuffle="false">
+                                <!-- Question 3 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    3. Para construir un techo en forma de triángulo, un arquitecto mide
+                                                    que la
+                                                    base es de 12 metros y la altura perpendicular es de 8 metros. ¿Cuál
+                                                    es el
+                                                    área del techo?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">48m<sup>2</sup></li>
+                                        <li>96m<sup>2</sup></li>
+                                        <li>60m<sup>2</sup></li>
+                                        <li>72m<sup>2</sup></li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <b>a.</b> El área del triángulo es \(\ \frac{12\ m\
+                                            \ast\
+                                            8\ m}{2}=\frac{96\ m^2}{2}={48\ m}^2\).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 4"
+                                data-act-id="cuestionario-p4" data-shuffle="false">
+                                <!-- Question 4 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    4. Un diseñador urbano está planificando una plaza pública cuadrada
+                                                    de 20
+                                                    metros de lado. ¿Cuál es el área total de la plaza?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">400m<sup>2</sup></li>
+                                        <li>800m<sup>2</sup></li>
+                                        <li>200m<sup>2</sup></li>
+                                        <li>600m<sup>2</sup></li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <b>a.</b> El área de la plaza es cuadrada es
+                                            \(\left(20\
+                                            m\right)^2=400\ m^2\)
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="jpit-activities-quiz" data-act-title="Prueba - Pregunta 5"
+                                data-act-id="cuestionario-p5" data-shuffle="false">
+                                <!-- Question 5 -->
+                                <question type="simplechoice" data-shuffle="false" data-shuffle="false">
+                                    <description>
+                                        <p>
+                                            <span>
+                                                <b>
+                                                    5. Un diseñador gráfico está creando un logotipo con forma de rombo.
+                                                    Si las
+                                                    diagonales del rombo miden 9 y 6 metros, ¿cuál es el área del rombo?
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </description>
+                                    <ul>
+                                        <li data-response="true">27m<sup>2</sup></li>
+                                        <li>54m<sup>2</sup></li>
+                                        <li>36m<sup>2</sup></li>
+                                        <li>18m<sup>2</sup></li>
+                                    </ul>
+                                    <feedback>
+                                        <correct>
+                                            ¡Correcto!
+                                        </correct>
+                                        <wrong>
+                                            La respuesta correcta es <b>a.</b> El área del rombo se calcula como
+                                            \(\frac{9\
+                                            m\ast6\ m}{2}=\frac{54\ m^2}{2}=27{\ m}^2\).
+                                        </wrong>
+                                    </feedback>
+                                </question>
+                            </div>
+                        </li>
+                    </div>
+
+                    <p style="height: 100px;"></p>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="not_print">
+            <div class="contenedor-botones">
+
+                <div id="subpages_menu">
+                    <div class="button" previous-page>
+                        <span>&#8249;</span> Anterior
+                    </div>
+                    <div class="measuring-progress" data-type="horizontal"></div>
+                    <div id="page_number"></div>
+                    <div class="button" next-page>
+                        Siguiente <span>&#8250;</span>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!--Créditos-->
+    <div id="credits-page" data-global="credits" style="display:none;">
+        <h3>Créditos</h3>
+        <br>
+        <h4>Autoría</h4>
+        <cite>
+            Diana Cristina Oviedo Ramírez
+            <br>
+            Lorena María Quiroz Betancur
+            <br>
+            Facultad de Educación
+        </cite>
+
+        <h4>Asesoría pedagógica</h4>
+        <cite>
+            Manuela Mesa Flórez
+        </cite>
+
+        <h4>Guionización</h4>
+        <cite>
+            Tiany Gamarra Castillo
+        </cite>
+
+        <h4>Corrección de estilo</h4>
+        <cite>
+            Luisa Fernanda Londoño Castrillón
+        </cite>
+
+        <h4>
+            Diseño gráfico e ilustración
+        </h4>
+        <cite>
+            Esteban Martínez Pavas
+        </cite>
+
+        <h4>Gestión técnica y administrativa </h4>
+        <cite>
+            Ángela María Valderrama Muñoz
+            <br>
+            David Herney Bernal García
+        </cite>
+
+        <h4>Desarrollo Front-end</h4>
+        <cite>
+            Jhon Fredy Saldarriaga
+        </cite>
+
+        <br><br>
+
+        <h4>
+            Universidad de Antioquia
+            <br>
+            Vicerrectoría de Docencia
+            <br>
+            Ude@ Educación Virtual
+            <br>
+            2024
+        </h4>
+
+        <img class="logo-sgr" src="content/logo-sgr.svg" alt="">
+        <img class="logo-udea" src="content/logo-udea.svg" alt="">
+        <img class="logo-gobernacion" src="content/logo-gobernacion-antioquia.svg" alt="">
+
+
+    </div>
+    <!-- FIN Créditos -->
+
+
+    <!-- Bibliografía -->
+    <div id="library-page" style="display: none">
+        <div id="library_subpage">
+            <h2>Referencias bibliográficas</h2>
+
+            <p>
+                En el marco del Sistema General de Regalías, esta producción fue creada por los grupos de investigación
+                Telecomunicaciones Aplicadas (GITA) y Didáctica y Nuevas Tecnologías (DyNT), haciendo uso de ChatGPT
+                (OpenAI, 2023. ChatGPT, versión 4.0 del 14 de marzo [modelo multimodal grande].
+                <a href="https://chat.openai.com/chat" target="_blank"
+                    rel="noopener noreferrer">https://chat.openai.com/chat</a>).
+            </p>
+
+            <img src="img/ico-creative-commons.svg" alt="" class="ico-cc">
+
+        </div>
+    </div>
+
+    <div id="results_page" style="display:none;">
+        <h2>Resumen de su avance en la lectura del documento</h2>
+        <h3>Páginas visitadas</h3>
+        <p>En verde, aquellas páginas que ya ha visitado.</p>
+        <div id="results_page_visited" class="container"></div>
+        <br class="clear" />
+        <h3>Actividades de aprendizaje</h3>
+        <div id="results_page_activities"></div>
+        <br class="clear" />
+        <!-- <h3>Estilos de aprendizaje</h3>
+        <div id="results_page_styles"></div>
+        <br class="clear" />
+        <br> -->
+    </div>
+
+    <div id="printent_content" style="display:none;">
+        <div class="content"></div>
+        <div class="button_container">
+            <button class="general button" onclick="window.print();">Imprimir</button>
+            <button id="printent_back" class="general button">Volver</button>
+        </div>
+    </div>
+
+    <script id="MathJax-script" async src="js/mathjax3.js"></script>
+
+
+</body>
+
+</html>
