@@ -2644,10 +2644,8 @@ html.single nav.main {
 }
 
 .ui-widget-content.ui-front.ui-draggable.ui-resizable{
-    min-width: 450px;
+    min-width: 350px;
 }
-
-
 
 .escenario-ciclista .boton {
     position: absolute;
