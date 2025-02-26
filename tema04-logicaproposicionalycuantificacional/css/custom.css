@@ -1364,6 +1364,11 @@
 
 }
 
+.ui-widget-content.ui-front.ui-draggable.ui-resizable {
+    min-width: 450px;
+}
+
+
 .escenario-cerebro {
     position: relative;
     margin-bottom: 40px;
@@ -1464,6 +1469,10 @@
 .modalCasasGriegas.ui-dialog .ui-dialog-title:hover {
     background-color: #56b3cd92;
 
+}
+
+.ui-widget-content.ui-front.ui-draggable.ui-resizable {
+    min-width: 450px;
 }
 
 .escenario-casas-griegas .titulo {
@@ -1669,6 +1678,11 @@ h2.titulo-logica span {
     background-color: #56b3cd92;
 
 }
+
+.ui-widget-content.ui-front.ui-draggable.ui-resizable {
+    min-width: 450px;
+}
+
 
 .escenario-pensadores {
     position: relative;
@@ -1994,6 +2008,7 @@ span.titulo-morado {
 .ui-widget-content.ui-front.ui-draggable.ui-resizable {
     min-width: 450px;
 }
+
 
 /* Escenario Mujer griega - Resumen */
 .escenario-mujer-griega {

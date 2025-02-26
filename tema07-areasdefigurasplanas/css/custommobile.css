@@ -1655,8 +1655,10 @@ footer .contenedor-botones .measuring-progress .progress_text {
 }
 
 .ui-widget-content.ui-front.ui-draggable.ui-resizable {
-    min-width: 350px;
+    min-width: 450px;
 }
+
+
 
 .escenario-pensador {
     position: relative;

@@ -45,16 +45,6 @@
         },
 
         'get': function(callback, newoptions) {
-
-            
-            var response = {
-                'styles': null,
-                'cycles': cyclelearning
-            };
-
-            callback(response);
-            return;
-            
             var options = this.options = $.extend(this.options, newoptions);
             var response = null;
 

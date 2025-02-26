@@ -1401,9 +1401,19 @@
     overflow-x: hidden;
 }
 
-#escenarios_vi,
-#escenarios_vs {
-    position: relative;
+#pag-definicion .chalkboard_items>div {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+}
+
+#pag-definicion .horizontal-menu>.chalkboard_content .ctrl-pagination {
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: none;
+}
+
+#pag-definicion .horizontal-menu>.chalkboard_content {
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #pag-definicion .img-float {
