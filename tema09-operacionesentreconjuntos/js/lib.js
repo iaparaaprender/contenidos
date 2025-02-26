@@ -742,9 +742,17 @@ dhbgApp.standard.start = function() {
         var s_after = $this.attr('data-after-label') ? $this.attr('data-after-label') : dhbgApp.s('after');
 
         if (before_img.length > 0) {
-            before_img = before_img[0];
-            $this.css('width', before_img.width);
-            $this.css('height', before_img.height);
+            let base_img = before_img[0];
+
+            if (base_img.naturalWidth) {
+                $this.css('width', base_img.naturalWidth);
+                $this.css('height', base_img.naturalHeight);
+            } else {
+                before_img.on('load', function() {
+                    $this.css('width', before_img[0].width);
+                    $this.css('height', before_img[0].height);
+                });
+            }
 
             $this.addClass('twentytwenty-container');
             $this.twentytwenty({
